@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function CadastroCliente() {
-  return <h1>Cadastro de Clientes</h1>;
+  return <h2>Cadastro de Clientes</h2>;
 }

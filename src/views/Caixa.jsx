@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Caixa() {
-  return <h1>Caixa</h1>;
+  return <h2>Caixa</h2>;
 }
