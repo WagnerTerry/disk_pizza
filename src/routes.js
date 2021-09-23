@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 export default function Routes() {
   return (
     <Router>
-      <div id="app">
+      <div id="route">
         <Nav />
         <Switch>
           <Route path="/" exact component={Home} />
