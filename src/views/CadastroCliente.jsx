@@ -84,22 +84,24 @@ export default function CadastroCliente() {
 
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="nome">Nome: </label>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              {...register("nome", { required: true })}
-            />
-            {errors.nome && <p>Campo Obrigatório</p>}
+            <div>
+              <label htmlFor="nome">Nome: </label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                {...register("nome", { required: true })}
+              />
+              {errors.nome && <p>Campo Obrigatório</p>}
 
-            <label htmlFor="telefone">Telefone: </label>
-            <input
-              type="number"
-              id="telefone"
-              name="telefone"
-              {...register("telefone", { required: true })}
-            />
+              <label htmlFor="telefone">Telefone: </label>
+              <input
+                type="number"
+                id="telefone"
+                name="telefone"
+                {...register("telefone", { required: true })}
+              />
+            </div>
 
             <div>
               <label htmlFor="cep">Cep: </label>
