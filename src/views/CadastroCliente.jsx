@@ -117,8 +117,6 @@ export default function CadastroCliente() {
                 name="logradouro"
                 size="50"
                 {...register("logradouro")}
-                // value={setFieldValue.logradouro || ""}
-                // onChange={handleChange}
               />
             </div>
 
@@ -130,18 +128,14 @@ export default function CadastroCliente() {
                 name="bairro"
                 size="40"
                 {...register("bairro")}
-                // value={values.bairro || ""}
-                // onChange={handleChange}
               />
               <label htmlFor="cidade">Cidade: </label>
               <input
                 type="text"
-                id="cidade"
-                name="cidade"
+                id="localidade"
+                name="localidade"
                 size="40"
-                {...register("cidade")}
-                // value={values.cidade || ""}
-                // onChange={handleChange}
+                {...register("localidade")}
               />
             </div>
             <div>
