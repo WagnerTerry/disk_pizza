@@ -22,7 +22,16 @@ export default function CadastroCliente() {
   const onSubmit = (data) => console.log(data);
   // console.log(watch("nome"));
 
-  function onBlurCep(e, setFieldValue) {
+  const showData = (result) => {
+    for (const campo in result) {
+      // # como se fosse um getElementById
+      if (document.querySelector("#" + campo)) {
+        document.querySelector("#" + campo).value = result[campo];
+      }
+    }
+  };
+
+  function onBlurCep(e) {
     const { value } = e.target;
 
     const cep = value?.replace(/[^0-9]/g, "");
@@ -34,9 +43,7 @@ export default function CadastroCliente() {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((res) => res.json())
       .then((data) => {
-        setFieldValue("logradouro", data.logradouro);
-        setFieldValue("bairro", data.bairro);
-        setFieldValue("cidade", data.localidade);
+        showData(data);
       });
   }
 
@@ -77,10 +84,9 @@ export default function CadastroCliente() {
             <label htmlFor="nome">Nome: </label>
             <input
               type="text"
-              placeholder="Nome"
               id="nome"
               name="nome"
-              {...register("nome", { required: true, maxLength: 30 })}
+              {...register("nome", { required: true })}
             />
             {errors.nome && <p>Campo Obrigatório</p>}
 
@@ -99,14 +105,8 @@ export default function CadastroCliente() {
                 id="cep"
                 name="cep"
                 maxLength="9"
-                onBlur={onBlurCep}
-                // onChange={() => console.log(">>>", onBlurCep())}
-                // onBlur={(e) => this.onBlurCep(e, setFieldValue)}
-
                 {...register("cep")}
-                // value={values.cep || ""}
-                // onBlur={(e) => this.onBlurCep(e, setFieldValue)}
-                // onChange={handleChange}
+                onBlur={onBlurCep}
               />
             </div>
             <div>
@@ -136,7 +136,7 @@ export default function CadastroCliente() {
               <label htmlFor="cidade">Cidade: </label>
               <input
                 type="text"
-                id="localidade"
+                id="cidade"
                 name="cidade"
                 size="40"
                 {...register("cidade")}
