@@ -28,6 +28,9 @@ export default function CadastroCliente() {
       if (document.querySelector("#" + campo)) {
         document.querySelector("#" + campo).value = result[campo];
       }
+      document.getElementById("bairro").focus();
+      document.getElementById("localidade").focus();
+      document.getElementById("logradouro").focus();
     }
   };
 
