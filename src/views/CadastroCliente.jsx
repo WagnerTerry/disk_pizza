@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import "./CadastroCliente.scss";
+import APIService from "../services/api";
 
 export default function CadastroCliente() {
   const schema = yup.object().shape({
@@ -19,7 +20,14 @@ export default function CadastroCliente() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      await APIService.cadastrarCliente(data);
+    } catch (e) {
+      console.log("Ocorreu um erro ao salvar cliente", e);
+    }
+  };
   // console.log(watch("nome"));
 
   const showData = (result) => {
@@ -134,22 +142,22 @@ export default function CadastroCliente() {
                 size="40"
                 {...register("bairro")}
               />
-              <label htmlFor="cidade">Cidade: </label>
+              <label htmlFor="localidade">Cidade: </label>
               <input
                 type="text"
                 id="localidade"
                 name="localidade"
                 size="40"
-                {...register("localidade")}
+                {...register("cidade")}
               />
             </div>
             <div>
-              <label htmlFor="obs">Observações: </label>
+              <label htmlFor="observacoes">Observações: </label>
               <textarea
                 name="obs"
                 cols="50"
                 rows="3"
-                {...register("obs")}
+                {...register("observacoes")}
               ></textarea>
             </div>
             <input type="submit" />
