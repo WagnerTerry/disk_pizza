@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../services/api";
+import APIService from "../services/api";
 import Loading from "../components/loading/Loading";
 
 import "./Cardapio.scss";
@@ -13,14 +13,12 @@ export default function Cardapio() {
   // função auto executável
   useEffect(() => {
     const buscaPizza = async () => {
-      const getPizzas = await api.get("").then((response) => response);
-      const getGrupos = await api.get("/grupos").then((response) => response);
-      const getBebidas = await api
-        .get("/bebidas")
-        .then((response) => response.data);
+      const getPizzas = await APIService.getPizzas();
+      const getGrupos = await APIService.getGrupos();
+      const getBebidas = await APIService.getBebidas();
 
-      setPizzas(getPizzas.data.pizzas);
-      setGrupos(getGrupos.data.grupos);
+      setPizzas(getPizzas.pizzas);
+      setGrupos(getGrupos.grupos);
       setBebidas(getBebidas.bebidas);
       setLoading((oldState) => !oldState);
     };
