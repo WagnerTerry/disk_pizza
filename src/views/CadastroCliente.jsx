@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./CadastroCliente.scss";
 import APIService from "../services/api";
 
@@ -24,8 +27,10 @@ export default function CadastroCliente() {
     console.log(data);
     try {
       await APIService.cadastrarCliente(data);
+      toast.success("Produto salvo com sucesso");
     } catch (e) {
       console.log("Ocorreu um erro ao salvar cliente", e);
+      return toast.error("Erro ao salvar cliente");
     }
   };
   // console.log(watch("nome"));
@@ -63,6 +68,7 @@ export default function CadastroCliente() {
       <h2>Cadastro de Clientes</h2>
 
       <header>
+        <ToastContainer draggable={false} transition={Zoom} autoClose={8000} />
         <div className={"cod-cliente"}>
           <label htmlFor="cod-cliente">Código do Cliente: </label>
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />

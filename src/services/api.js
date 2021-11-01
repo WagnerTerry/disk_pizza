@@ -1,9 +1,5 @@
 import axios from "axios";
 
-axios.defaults.headers["Content-Type"] = "application/json;charset=utf-8";
-axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
-axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-
 const baseUrl = "http://localhost:3001";
 // const api = axios.create({
 //   baseURL: "https://disk-california.herokuapp.com/pizza_api",
