@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { ToastContainer, toast, Zoom } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 import "./CadastroCliente.scss";
 import APIService from "../services/api";
@@ -23,7 +22,7 @@ export default function CadastroCliente() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const save = async (data) => {
     console.log(data);
     try {
       await APIService.cadastrarCliente(data);
@@ -68,7 +67,6 @@ export default function CadastroCliente() {
       <h2>Cadastro de Clientes</h2>
 
       <header>
-        <ToastContainer draggable={false} transition={Zoom} autoClose={8000} />
         <div className={"cod-cliente"}>
           <label htmlFor="cod-cliente">Código do Cliente: </label>
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
@@ -97,7 +95,7 @@ export default function CadastroCliente() {
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
 
         <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(save)}>
             <div>
               <label htmlFor="nome">Nome: </label>
               <input
