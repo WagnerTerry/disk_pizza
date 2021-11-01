@@ -16,6 +16,7 @@ export default function CadastroCliente() {
   const {
     register,
     handleSubmit,
+    reset,
     // watch,
     formState: { errors },
   } = useForm({
@@ -27,6 +28,7 @@ export default function CadastroCliente() {
     try {
       await APIService.cadastrarCliente(data);
       toast.success("Produto salvo com sucesso");
+      reset();
     } catch (e) {
       console.log("Ocorreu um erro ao salvar cliente", e);
       return toast.error("Erro ao salvar cliente");
