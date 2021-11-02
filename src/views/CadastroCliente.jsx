@@ -27,7 +27,7 @@ export default function CadastroCliente() {
     console.log(data);
     try {
       await APIService.cadastrarCliente(data);
-      toast.success("Produto salvo com sucesso");
+      toast.success("Cliente cadastrado com sucesso");
       reset();
     } catch (e) {
       console.log("Ocorreu um erro ao salvar cliente", e);
@@ -64,20 +64,23 @@ export default function CadastroCliente() {
       });
   }
 
+  function resetForm() {
+    reset();
+  }
+
   return (
     <div id="cadastro-cliente">
       <h2>Cadastro de Clientes</h2>
 
       <header>
-        <div className={"cod-cliente"}>
+        {/* <div className={"cod-cliente"}>
           <label htmlFor="cod-cliente">Código do Cliente: </label>
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
-        </div>
+        </div> */}
         <div className={"button-options"}>
           {" "}
           <button>Buscar</button>
-          <button>Limpar</button>
-          <button>Salvar</button>
+          <button onClick={resetForm}>Limpar</button>
           <button>Alterar</button>
           <button>Apagar</button>
         </div>
@@ -166,7 +169,7 @@ export default function CadastroCliente() {
                 {...register("observacoes")}
               ></textarea>
             </div>
-            <input type="submit" />
+            <input type="submit" value="Salvar" />
           </form>
         </div>
       </main>
