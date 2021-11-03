@@ -25,7 +25,6 @@ export default function CadastroCliente() {
 
   async function save(data) {
     console.log(data);
-    console.log("erros", errors);
     try {
       await APIService.cadastrarCliente(data);
       toast.success("Cliente cadastrado com sucesso");
@@ -115,7 +114,7 @@ export default function CadastroCliente() {
               required
               {...register("nome", { required: true })}
             />
-            {/* {errors.nome && <p>Campo Obrigatório</p>} */}
+            {errors.nome && <p>Campo Obrigatório</p>}
 
             <label htmlFor="telefone">Telefone: </label>
             <input
