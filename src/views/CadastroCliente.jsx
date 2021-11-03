@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,6 +12,16 @@ export default function CadastroCliente() {
   const schema = yup.object().shape({
     nome: yup.string().min(1, "campo obrigatório").required(),
   });
+
+  const [clientes, setClientes] = useState([])
+
+  useEffect(() => {
+    const showCustomers = async () => {
+      let _clientes = await APIService.getClientes()
+      setClientes(_clientes)
+    }
+    showCustomers()
+  }, [])
 
   const {
     register,
@@ -68,6 +78,12 @@ export default function CadastroCliente() {
     reset();
   }
 
+  // async function showCustomers() {
+
+  //   console.log("teste", clientes)
+
+  // }
+
   return (
     <div id="cadastro-cliente">
       <div>
@@ -80,7 +96,7 @@ export default function CadastroCliente() {
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
         </div> */}
         <div className={"menu-options"}>
-          <div>Ver Clientes</div>
+          <div onClick={() => console.log(clientes)}>Ver Clientes</div>
           <div>Cadastrar Produto</div>
         </div>
       </header>
