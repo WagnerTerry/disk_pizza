@@ -27,9 +27,6 @@ export default function CadastroCliente() {
     console.log(data);
     console.log("erros", errors);
     try {
-      if (data === null) {
-        return toast.error("nao foi");
-      }
       await APIService.cadastrarCliente(data);
       toast.success("Cliente cadastrado com sucesso");
       reset();
@@ -74,13 +71,22 @@ export default function CadastroCliente() {
 
   return (
     <div id="cadastro-cliente">
-      <h2>Cadastro de Clientes</h2>
+      <div>
+        <h2>Cadastro de Clientes</h2>
+      </div>
 
       <header>
         {/* <div className={"cod-cliente"}>
           <label htmlFor="cod-cliente">Código do Cliente: </label>
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
         </div> */}
+        <div className={"menu-options"}>
+          <div>Ver Clientes</div>
+          <div>Cadastrar Produto</div>
+        </div>
+      </header>
+
+      <main>
         <div className={"button-options"}>
           {" "}
           <button>Buscar</button>
@@ -88,10 +94,6 @@ export default function CadastroCliente() {
           <button>Alterar</button>
           <button>Apagar</button>
         </div>
-        <div></div>
-      </header>
-
-      <main>
         {/* ----------   exemplo de useForm    ------
         handleSubmit "validará suas entradas antes de invocar" onSubmit "
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -103,85 +105,83 @@ export default function CadastroCliente() {
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
 
-        <div>
-          <form onSubmit={handleSubmit(save)}>
-            <div>
-              <label htmlFor="nome">Nome: </label>
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                required
-                {...register("nome", { required: true })}
-              />
-              {/* {errors.nome && <p>Campo Obrigatório</p>} */}
+        <form onSubmit={handleSubmit(save)}>
+          <div className="form-fields">
+            <label htmlFor="nome">Nome: </label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              required
+              {...register("nome", { required: true })}
+            />
+            {/* {errors.nome && <p>Campo Obrigatório</p>} */}
 
-              <label htmlFor="telefone">Telefone: </label>
-              <input
-                type="number"
-                id="telefone"
-                name="telefone"
-                required
-                {...register("telefone", { required: true })}
-              />
-            </div>
+            <label htmlFor="telefone">Telefone: </label>
+            <input
+              type="number"
+              id="telefone"
+              name="telefone"
+              required
+              {...register("telefone", { required: true })}
+            />
+          </div>
 
-            <div>
-              <label htmlFor="cep">Cep: </label>
-              <input
-                type="text"
-                id="cep"
-                name="cep"
-                maxLength="9"
-                {...register("cep")}
-                onBlur={onBlurCep}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="logradouro">Logradouro: </label>
-              <input
-                type="text"
-                id="logradouro"
-                name="logradouro"
-                size="50"
-                required
-                {...register("logradouro")}
-              />
-            </div>
+          <div>
+            <label htmlFor="cep">Cep: </label>
+            <input
+              type="text"
+              id="cep"
+              name="cep"
+              maxLength="9"
+              {...register("cep")}
+              onBlur={onBlurCep}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="logradouro">Logradouro: </label>
+            <input
+              type="text"
+              id="logradouro"
+              name="logradouro"
+              size="50"
+              required
+              {...register("logradouro")}
+            />
+          </div>
 
-            <div>
-              <label htmlFor="bairro">Bairro: </label>
-              <input
-                type="text"
-                id="bairro"
-                name="bairro"
-                size="40"
-                required
-                {...register("bairro")}
-              />
-              <label htmlFor="localidade">Cidade: </label>
-              <input
-                type="text"
-                id="localidade"
-                name="localidade"
-                size="40"
-                required
-                {...register("cidade")}
-              />
-            </div>
-            <div>
-              <label htmlFor="observacoes">Observações: </label>
-              <textarea
-                name="obs"
-                cols="50"
-                rows="3"
-                {...register("observacoes")}
-              ></textarea>
-            </div>
-            <input type="submit" value="Salvar" />
-          </form>
-        </div>
+          <div>
+            <label htmlFor="bairro">Bairro: </label>
+            <input
+              type="text"
+              id="bairro"
+              name="bairro"
+              size="40"
+              required
+              {...register("bairro")}
+            />
+            <label htmlFor="localidade">Cidade: </label>
+            <input
+              type="text"
+              id="localidade"
+              name="localidade"
+              size="40"
+              required
+              {...register("cidade")}
+            />
+          </div>
+          <div>
+            <label htmlFor="observacoes">Observações: </label>
+            <textarea
+              name="obs"
+              cols="50"
+              rows="3"
+              {...register("observacoes")}
+            ></textarea>
+          </div>
+          <input className="test" type="submit" value="Salvar" />
+        </form>
       </main>
     </div>
   );
