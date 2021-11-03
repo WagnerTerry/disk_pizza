@@ -23,9 +23,13 @@ export default function CadastroCliente() {
     resolver: yupResolver(schema),
   });
 
-  const save = async (data) => {
+  async function save(data) {
     console.log(data);
+    console.log("erros", errors);
     try {
+      if (data === null) {
+        return toast.error("nao foi");
+      }
       await APIService.cadastrarCliente(data);
       toast.success("Cliente cadastrado com sucesso");
       reset();
@@ -33,7 +37,7 @@ export default function CadastroCliente() {
       console.log("Ocorreu um erro ao salvar cliente", e);
       return toast.error("Erro ao salvar cliente");
     }
-  };
+  }
   // console.log(watch("nome"));
 
   const showData = (result) => {
@@ -107,15 +111,17 @@ export default function CadastroCliente() {
                 type="text"
                 id="nome"
                 name="nome"
+                required
                 {...register("nome", { required: true })}
               />
-              {errors.nome && <p>Campo Obrigatório</p>}
+              {/* {errors.nome && <p>Campo Obrigatório</p>} */}
 
               <label htmlFor="telefone">Telefone: </label>
               <input
                 type="number"
                 id="telefone"
                 name="telefone"
+                required
                 {...register("telefone", { required: true })}
               />
             </div>
@@ -129,6 +135,7 @@ export default function CadastroCliente() {
                 maxLength="9"
                 {...register("cep")}
                 onBlur={onBlurCep}
+                required
               />
             </div>
             <div>
@@ -138,6 +145,7 @@ export default function CadastroCliente() {
                 id="logradouro"
                 name="logradouro"
                 size="50"
+                required
                 {...register("logradouro")}
               />
             </div>
@@ -149,6 +157,7 @@ export default function CadastroCliente() {
                 id="bairro"
                 name="bairro"
                 size="40"
+                required
                 {...register("bairro")}
               />
               <label htmlFor="localidade">Cidade: </label>
@@ -157,6 +166,7 @@ export default function CadastroCliente() {
                 id="localidade"
                 name="localidade"
                 size="40"
+                required
                 {...register("cidade")}
               />
             </div>
