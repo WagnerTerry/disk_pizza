@@ -1,60 +1,62 @@
+import React from 'react';
+import Modal from 'react-modal';
 import './Modal.scss'
-const Modal = (props) => {
-    // Get the modal
-    var modal = document.getElementById("myModal");
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,0.4)';
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+const customStyles = {
+    content: {
+        top: '22%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        width: "90%",
+        height: '30vh'
+    },
+};
 
-    window.onload = function () {
-        //When the user clicks the button, open the modal 
-        btn.onclick = () => {
-            modal.style.display = "block";
-        }
-        //When the user clicks on < span > (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
+export default function MyModal(props) {
+    let subtitle;
+    const [modalIsOpen, setIsOpen] = React.useState(false);
 
+    function openModal() {
+        setIsOpen(true);
     }
 
-    //When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
+    function afterOpenModal() {
+        // references are now sync'd and can be accessed.
+        subtitle.style.color = "black"
+    }
+
+    function closeModal() {
+        setIsOpen(false);
     }
 
     return (
-        <>
-            <button id="myBtn">Open Modal</button>
-            {/* <button id="myBtn">{props.show}</button> */}
-
-            <div id="myModal" className="modal">
-
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <span className="close">&times;</span>
-                        <h2>{props.title}</h2>
-                    </div>
-                    <div className="modal-body">
-                        {props.children}
-                        {/* <p>Some text in the Modal Body</p>
-        <p>Some other text...</p> */}
-                    </div>
-                    <div className="modal-footer">
-                        <h3>{props.footer}</h3>
-                    </div>
+        <div>
+            <button onClick={openModal}>{props.show}</button>
+            <Modal
+                isOpen={modalIsOpen}
+                onAfterOpen={afterOpenModal}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+            >
+                <div className="modal-header">
+                    <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{props.title}</h2>
+                    <span onClick={closeModal}>X</span>
                 </div>
-
-            </div>
-
-
-        </>
-    )
+                <div>{props.children}</div>
+                {/* <form>
+                    <input />
+                    <button>tab navigation</button>
+                    <button>stays</button>
+                    <button>inside</button>
+                    <button>the modal</button>
+                </form> */}
+            </Modal>
+        </div>
+    );
 }
-
-export default Modal
