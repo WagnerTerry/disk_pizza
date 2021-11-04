@@ -4,10 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { toast } from "react-toastify";
-
 import "./CadastroCliente.scss";
 import APIService from "../services/api";
 
+import Modal from '../components/modal/Modal'
 export default function CadastroCliente() {
   const schema = yup.object().shape({
     nome: yup.string().min(1, "campo obrigatório").required(),
@@ -89,6 +89,7 @@ export default function CadastroCliente() {
       <div>
         <h2>Cadastro de Clientes</h2>
       </div>
+      <Modal />
 
       <header>
         {/* <div className={"cod-cliente"}>
