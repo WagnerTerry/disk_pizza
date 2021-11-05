@@ -37,11 +37,16 @@ $turquoise: #1abc9c;
     background-color: $blue;
   }
 
-  //BUTTON 2
   .second {
     border-radius: 3em;
     color: #fff;
     background-color: $green;
+  }
+
+  .third {
+    border-radius: 3em;
+    color: #fff;
+    background-color: $yellow;
   }
 }
 .modal-header {

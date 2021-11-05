@@ -23,6 +23,7 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      flex-wrap: wrap;
       font-weight: bold;
       text-decoration: underline;
       font-family: auto;
@@ -82,6 +83,15 @@
 
       .cod-cliente {
         margin-bottom: 10px;
+      }
+
+      .menu-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        div:first-child {
+          margin-right: 0;
+        }
       }
     }
 
