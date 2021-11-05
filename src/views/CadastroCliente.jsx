@@ -96,10 +96,10 @@ export default function CadastroCliente() {
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
         </div> */}
         <div className={"menu-options"}>
-          <Modal show={"Ver Clientes"} title={"Lista de Clientes"}>
+          <Modal className={'second'} show={"Ver Clientes"} title={"Lista de Clientes"}>
             ai deu bom
           </Modal>
-          <Modal show={"Cadastrar Produto"} title={"Cadastro de produto"}>
+          <Modal className={'first'} show={"Cadastrar Produto"} title={"Cadastro de produto"}>
             produtos
           </Modal>
           {/* <div onClick={() => console.log(clientes)}>Ver Clientes</div>

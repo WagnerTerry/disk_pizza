@@ -35,8 +35,8 @@ export default function MyModal(props) {
     }
 
     return (
-        <div>
-            <button onClick={openModal}>{props.show}</button>
+        <div id="modal">
+            <button className={props.className} onClick={openModal}>{props.show}</button>
             <Modal
                 isOpen={modalIsOpen}
                 onAfterOpen={afterOpenModal}
