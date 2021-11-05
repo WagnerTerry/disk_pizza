@@ -89,6 +89,14 @@ export default function CadastroCliente() {
       <div>
         <h2>Cadastro de Clientes</h2>
       </div>
+      {/* {clientes && console.log(clientes)} */}
+      {clientes.clientes.map((cliente) => {
+        return (
+          <div>
+            {console.log(">>>", cliente)}
+          </div>
+        )
+      })}
 
       <header>
         {/* <div className={"cod-cliente"}>
@@ -96,17 +104,23 @@ export default function CadastroCliente() {
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
         </div> */}
         <div className={"menu-options"}>
-          <Modal className={'second'} show={"Ver Clientes"} title={"Lista de Clientes"}>
-            ai deu bom
+          <Modal className={'first'} show={"Ver Clientes"} title={"Lista de Clientes"}>
+            <>
+              {/* {clientes && clientes.map((cliente) => {
+                return (
+                  <div>
+                    {console.log(">>>", cliente)}
+                  </div>
+                )
+              })} */}
+            </>
           </Modal>
           <Modal className={'third'} show={"Cadastrar Pizza"} title={"Cadastro de pizza"}>
             produtos
           </Modal>
-          <Modal className={'first'} show={"Cadastrar Grupo"} title={"Cadastro de produto"}>
+          <Modal className={'second'} show={"Cadastrar Grupo"} title={"Cadastro de produto"}>
             produtos
           </Modal>
-          {/* <div onClick={() => console.log(clientes)}>Ver Clientes</div>
-          <div>Cadastrar Produto</div> */}
         </div>
       </header>
 
