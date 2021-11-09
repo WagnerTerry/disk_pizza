@@ -13,12 +13,12 @@ export default function CadastroCliente() {
     nome: yup.string().min(1, "campo obrigatório").required(),
   });
 
-  const [clientes, setClientes] = useState([])
+  const [clients, setClients] = useState([])
 
   useEffect(() => {
     const showCustomers = async () => {
       let _clientes = await APIService.getClientes()
-      setClientes(_clientes)
+      setClients(_clientes)
     }
     showCustomers()
   }, [])
@@ -78,25 +78,12 @@ export default function CadastroCliente() {
     reset();
   }
 
-  // async function showCustomers() {
-
-  //   console.log("teste", clientes)
-
-  // }
-
   return (
     <div id="cadastro-cliente">
       <div>
         <h2>Cadastro de Clientes</h2>
       </div>
-      {/* {clientes && console.log(clientes)} */}
-      {clientes.clientes.map((cliente) => {
-        return (
-          <div>
-            {console.log(">>>", cliente)}
-          </div>
-        )
-      })}
+      {/* {clients.clientes && clients.clientes.map((cliente) => (cliente.nome))} */}
 
       <header>
         {/* <div className={"cod-cliente"}>
@@ -105,15 +92,55 @@ export default function CadastroCliente() {
         </div> */}
         <div className={"menu-options"}>
           <Modal className={'first'} show={"Ver Clientes"} title={"Lista de Clientes"}>
-            <>
-              {/* {clientes && clientes.map((cliente) => {
+            <table id="customers">
+              <tr>
+                <th>Código Cliente</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Cep</th>
+                <th>Logradouro</th>
+                <th>Bairro</th>
+                <th>Cidade</th>
+              </tr>
+              {clients.clientes && clients.clientes.map((cliente) => {
                 return (
-                  <div>
-                    {console.log(">>>", cliente)}
-                  </div>
+                  <tr>
+                    <td>{cliente.codigo_cliente}</td>
+                    <td>{cliente.nome}</td>
+                    <td>{cliente.telefone}</td>
+                    <td>{cliente.cep}</td>
+                    <td>{cliente.logradouro}</td>
+                    <td>{cliente.bairro}</td>
+                    <td>{cliente.cidade}</td>
+                  </tr>
                 )
-              })} */}
-            </>
+              })}
+            </table>
+            {/* {clients.clientes && clients.clientes.map((cliente) => {
+              return (
+                <>
+                  <table id="customers">
+                    <tr>
+                      <th>Código Cliente</th>
+                      <th>Nome</th>
+                      <th>Telefone</th>
+                      <th>Cep</th>
+                      <th>Logradouro</th>
+                      <th>Bairro</th>
+                      <th>Cidade</th>
+                    </tr>
+                    <td>{cliente.codigo_cliente}</td>
+                    <td>{cliente.nome}</td>
+                    <td>{cliente.telefone}</td>
+                    <td>{cliente.cep}</td>
+                    <td>{cliente.logradouro}</td>
+                    <td>{cliente.bairro}</td>
+                    <td>{cliente.cidade}</td>
+
+                </>
+              )
+            })} */}
+
           </Modal>
           <Modal className={'third'} show={"Cadastrar Pizza"} title={"Cadastro de pizza"}>
             produtos
@@ -122,7 +149,7 @@ export default function CadastroCliente() {
             produtos
           </Modal>
         </div>
-      </header>
+      </header >
 
       <main>
         <div className={"button-options"}>
@@ -221,6 +248,6 @@ export default function CadastroCliente() {
           <input className="test" type="submit" value="Salvar" />
         </form>
       </main>
-    </div>
+    </div >
   );
 }
