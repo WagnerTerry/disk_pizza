@@ -17,8 +17,8 @@ export default function CadastroCliente() {
 
   useEffect(() => {
     const showCustomers = async () => {
-      let _clientes = await APIService.getClientes()
-      setClients(_clientes)
+      const { clientes } = await APIService.getClientes()
+      setClients(clientes)
     }
     showCustomers()
   }, [])
@@ -37,6 +37,7 @@ export default function CadastroCliente() {
     console.log(data);
     try {
       await APIService.cadastrarCliente(data);
+      setClients(prevState => [...prevState, data])
       toast.success("Cliente cadastrado com sucesso");
       reset();
     } catch (e) {
@@ -78,6 +79,10 @@ export default function CadastroCliente() {
     reset();
   }
 
+  async function deleteClient() {
+    console.log("apagar")
+  }
+
   return (
     <div id="cadastro-cliente">
       <div>
@@ -93,53 +98,35 @@ export default function CadastroCliente() {
         <div className={"menu-options"}>
           <Modal className={'first'} show={"Ver Clientes"} title={"Lista de Clientes"}>
             <table id="customers">
-              <tr>
-                <th>Código Cliente</th>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Cep</th>
-                <th>Logradouro</th>
-                <th>Bairro</th>
-                <th>Cidade</th>
-              </tr>
-              {clients.clientes && clients.clientes.map((cliente) => {
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Telefone</th>
+                  <th>Cep</th>
+                  <th>Logradouro</th>
+                  <th>Bairro</th>
+                  <th>Cidade</th>
+                  <th>Excluir</th>
+                </tr>
+              </thead>
+              {clients && clients.map((cliente, index) => {
                 return (
-                  <tr>
-                    <td>{cliente.codigo_cliente}</td>
-                    <td>{cliente.nome}</td>
-                    <td>{cliente.telefone}</td>
-                    <td>{cliente.cep}</td>
-                    <td>{cliente.logradouro}</td>
-                    <td>{cliente.bairro}</td>
-                    <td>{cliente.cidade}</td>
-                  </tr>
+                  <tbody key={index}>
+                    <tr >
+                      <td>{cliente.nome}</td>
+                      <td>{cliente.telefone}</td>
+                      <td>{cliente.cep}</td>
+                      <td>{cliente.logradouro}</td>
+                      <td>{cliente.bairro}</td>
+                      <td>{cliente.cidade}</td>
+                      <td><button onClick={deleteClient}>Excluir</button></td>
+
+                    </tr>
+                  </tbody>
+
                 )
               })}
             </table>
-            {/* {clients.clientes && clients.clientes.map((cliente) => {
-              return (
-                <>
-                  <table id="customers">
-                    <tr>
-                      <th>Código Cliente</th>
-                      <th>Nome</th>
-                      <th>Telefone</th>
-                      <th>Cep</th>
-                      <th>Logradouro</th>
-                      <th>Bairro</th>
-                      <th>Cidade</th>
-                    </tr>
-                    <td>{cliente.codigo_cliente}</td>
-                    <td>{cliente.nome}</td>
-                    <td>{cliente.telefone}</td>
-                    <td>{cliente.cep}</td>
-                    <td>{cliente.logradouro}</td>
-                    <td>{cliente.bairro}</td>
-                    <td>{cliente.cidade}</td>
-
-                </>
-              )
-            })} */}
 
           </Modal>
           <Modal className={'third'} show={"Cadastrar Pizza"} title={"Cadastro de pizza"}>
