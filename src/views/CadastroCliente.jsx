@@ -81,6 +81,7 @@ export default function CadastroCliente() {
   async function deleteClient(id) {
     try {
       await APIService.excluirCliente(id)
+      setClients(clients.filter(cliente => cliente.codigo_cliente !== id))
       toast.success("Cliente excluido com sucesso");
     } catch (e) {
       console.log("erro ao excluir cliente", e)
