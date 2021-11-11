@@ -33,4 +33,8 @@ export default class APIService {
     const result = await axios.post(`${baseUrl}/clientes/cadastro`, dados);
     return result.data;
   };
+  static excluirCliente = async (id) => {
+    const result = await axios.delete(`${baseUrl}/clientes/${id}`);
+    return result.data;
+  };
 }

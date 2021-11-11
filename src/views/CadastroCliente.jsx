@@ -45,7 +45,6 @@ export default function CadastroCliente() {
       return toast.error("Erro ao salvar cliente");
     }
   }
-  // console.log(watch("nome"));
 
   const showData = (result) => {
     for (const campo in result) {
@@ -79,8 +78,15 @@ export default function CadastroCliente() {
     reset();
   }
 
-  async function deleteClient() {
-    console.log("apagar")
+  async function deleteClient(id) {
+    try {
+      await APIService.excluirCliente(id)
+      toast.success("Cliente excluido com sucesso");
+    } catch (e) {
+      console.log("erro ao excluir cliente", e)
+      return toast.error("Erro ao excluir cliente")
+
+    }
   }
 
   return (
@@ -88,7 +94,6 @@ export default function CadastroCliente() {
       <div>
         <h2>Cadastro de Clientes</h2>
       </div>
-      {/* {clients.clientes && clients.clientes.map((cliente) => (cliente.nome))} */}
 
       <header>
         {/* <div className={"cod-cliente"}>
@@ -119,11 +124,10 @@ export default function CadastroCliente() {
                       <td>{cliente.logradouro}</td>
                       <td>{cliente.bairro}</td>
                       <td>{cliente.cidade}</td>
-                      <td><button onClick={deleteClient}>Excluir</button></td>
+                      <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
 
                     </tr>
                   </tbody>
-
                 )
               })}
             </table>
