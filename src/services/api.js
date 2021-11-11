@@ -20,6 +20,11 @@ export default class APIService {
     return result.data;
   };
 
+  // static cadastrarGrupo = async (dados) => {
+  //   const result = await axios.post(`${baseUrl}/pizzas/grupos`, dados);
+  //   return result.data;
+  // };
+
   static getBebidas = async () => {
     const result = await axios.get(`${baseUrl}/pizzas/bebidas`);
     return result.data;
@@ -29,10 +34,17 @@ export default class APIService {
     const result = await axios.get(`${baseUrl}/clientes`);
     return result.data;
   };
+
   static cadastrarCliente = async (dados) => {
     const result = await axios.post(`${baseUrl}/clientes/cadastro`, dados);
     return result.data;
   };
+
+  static atualizarCliente = async (dados) => {
+    const result = await axios.put(`${baseUrl}/clientes`, dados);
+    return result.data;
+  };
+
   static excluirCliente = async (id) => {
     const result = await axios.delete(`${baseUrl}/clientes/${id}`);
     return result.data;

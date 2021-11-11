@@ -46,6 +46,19 @@ export default function CadastroCliente() {
     }
   }
 
+  async function saveGroup(data) {
+    console.log(data);
+    try {
+      await APIService.cadastrarGrupo(data);
+      toast.success("Grupo cadastrado com sucesso");
+
+    } catch (e) {
+      console.log("Ocorreu um erro ao cadastrar grupo", e);
+      return toast.error("Erro ao cadastrar grupo");
+
+    }
+  }
+
   const showData = (result) => {
     for (const campo in result) {
       // # como se fosse um getElementById
@@ -78,6 +91,10 @@ export default function CadastroCliente() {
     reset();
   }
 
+  // async function editClient(dados) {
+  //   console.log("put")
+  // }
+
   async function deleteClient(id) {
     try {
       await APIService.excluirCliente(id)
@@ -86,7 +103,6 @@ export default function CadastroCliente() {
     } catch (e) {
       console.log("erro ao excluir cliente", e)
       return toast.error("Erro ao excluir cliente")
-
     }
   }
 
@@ -119,6 +135,7 @@ export default function CadastroCliente() {
                 return (
                   <tbody key={index}>
                     <tr >
+                      {/* <td><input type="text" value={cliente.nome} /></td> */}
                       <td>{cliente.nome}</td>
                       <td>{cliente.telefone}</td>
                       <td>{cliente.cep}</td>
@@ -137,8 +154,64 @@ export default function CadastroCliente() {
           <Modal className={'third'} show={"Cadastrar Pizza"} title={"Cadastro de pizza"}>
             produtos
           </Modal>
-          <Modal className={'second'} show={"Cadastrar Grupo"} title={"Cadastro de produto"}>
-            produtos
+          <Modal className={'second'} show={"Cadastrar Grupo"} title={"Cadastro de grupos"}>
+            <form onSubmit={handleSubmit(saveGroup)}>
+              <div className="form-group">
+                <div>
+                  <label htmlFor="grupo">Nome_Grupo: </label>
+                  <input
+                    type="text"
+                    id="grupo"
+                    name="grupo"
+                    required
+                    {...register("grupo", { required: true })}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="pr_pequena">Preço Pequena: </label>
+                  <input
+                    type="number"
+                    id="pr_pequena"
+                    name="pr_pequena"
+                    required
+                    {...register("pr_pequena", { required: true })}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="pr_grande">Preço Grande: </label>
+                  <input
+                    type="number"
+                    id="pr_grande"
+                    name="pr_grande"
+                    required
+                    {...register("pr_grande", { required: true })}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="pr_familia">Preço Família: </label>
+                  <input
+                    type="number"
+                    id="pr_familia"
+                    name="pr_familia"
+                    required
+                    {...register("pr_familia", { required: true })}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="pr_gigante">Preço Gigante: </label>
+                  <input
+                    type="number"
+                    id="pr_gigante"
+                    name="pr_gigante"
+                    required
+                    {...register("pr_gigante", { required: true })}
+                  />
+                </div>
+              </div>
+              <div className="register-group">
+                <input type="submit" value="Cadastrar Grupo" />
+              </div>
+            </form>
           </Modal>
         </div>
       </header >
@@ -237,7 +310,7 @@ export default function CadastroCliente() {
               {...register("observacoes")}
             ></textarea>
           </div>
-          <input className="test" type="submit" value="Salvar" />
+          <input type="submit" value="Salvar" />
         </form>
       </main>
     </div >
