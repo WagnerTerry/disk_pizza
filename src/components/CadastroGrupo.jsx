@@ -6,6 +6,8 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import APIService from "../services/api";
 
+import './CadastroGrupo.scss'
+
 export default function CadastroGrupo() {
     const group_schema = yup.object().shape({
         nome_grupo: yup.string().min(1, "campo obrigatório").required(),
@@ -14,6 +16,7 @@ export default function CadastroGrupo() {
     const {
         register,
         handleSubmit,
+        reset,
     } = useForm({
         resolver: yupResolver(group_schema),
     });
@@ -29,79 +32,113 @@ export default function CadastroGrupo() {
     }, [])
 
     async function saveGroup(data) {
-        console.log(">>>", data);
+        console.log(data);
         try {
             await APIService.cadastrarGrupo(data);
+            setGroup(prevState => [...prevState, data])
             toast.success("Grupo cadastrado com sucesso");
+            reset()
 
         } catch (e) {
             console.log("Ocorreu um erro ao cadastrar grupo", e);
             return toast.error("Erro ao cadastrar grupo");
-
         }
     }
 
     return (
-        <form onSubmit={handleSubmit(saveGroup)}>
-            <div className="form-group">
-                <div>
-                    <label htmlFor="nome_grupo">Nome_Grupo: </label>
-                    <input
-                        type="text"
-                        id="nome_grupo"
-                        name="nome_grupo"
-                        required
-                        {...register("nome_grupo", { required: true })}
-                    />
+        <div>
+            <form onSubmit={handleSubmit(saveGroup)}>
+                <div className="form-group">
+                    <div>
+                        <label htmlFor="nome_grupo">Nome_Grupo: </label>
+                        <input
+                            type="text"
+                            id="nome_grupo"
+                            name="nome_grupo"
+                            required
+                            {...register("nome_grupo", { required: true })}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="preco_pequena">Preço Pequena: </label>
+                        <input
+                            type="number"
+                            step="any"
+                            id="preco_pequena"
+                            name="preco_pequena"
+                            required
+                            {...register("preco_pequena", { required: true })}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="preco_grande">Preço Grande: </label>
+                        <input
+                            type="number"
+                            step="any"
+                            id="preco_grande"
+                            name="preco_grande"
+                            required
+                            {...register("preco_grande", { required: true })}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="preco_familia">Preço Família: </label>
+                        <input
+                            type="number"
+                            step="any"
+                            id="preco_familia"
+                            name="preco_familia"
+                            required
+                            {...register("preco_familia", { required: true })}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="preco_gigante">Preço Gigante: </label>
+                        <input
+                            type="number"
+                            step="any"
+                            id="preco_gigante"
+                            name="preco_gigante"
+                            required
+                            {...register("preco_gigante", { required: true })}
+                        />
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="preco_pequena">Preço Pequena: </label>
-                    <input
-                        type="number"
-                        step="any"
-                        id="preco_pequena"
-                        name="preco_pequena"
-                        required
-                        {...register("preco_pequena", { required: true })}
-                    />
+                <div className="register-group">
+                    <input type="submit" value="Cadastrar Grupo" />
                 </div>
-                <div>
-                    <label htmlFor="preco_grande">Preço Grande: </label>
-                    <input
-                        type="number"
-                        step="any"
-                        id="preco_grande"
-                        name="preco_grande"
-                        required
-                        {...register("preco_grande", { required: true })}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="preco_familia">Preço Família: </label>
-                    <input
-                        type="number"
-                        step="any"
-                        id="preco_familia"
-                        name="preco_familia"
-                        required
-                        {...register("preco_familia", { required: true })}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="preco_gigante">Preço Gigante: </label>
-                    <input
-                        type="number"
-                        step="any"
-                        id="preco_gigante"
-                        name="preco_gigante"
-                        required
-                        {...register("preco_gigante", { required: true })}
-                    />
-                </div>
+            </form>
+
+            <div className="list_group">
+            <table id="groups">
+              <thead>
+                <tr>
+                  <th>Nome_Grupo</th>
+                  <th>Preço Pequena</th>
+                  <th>Preço Grande</th>
+                  <th>Preço Família</th>
+                  <th>Preço Gigante</th>
+                  <th>Excluir</th>
+
+                </tr>
+              </thead>
+              {group && group.map((grupo, index) => {
+                return (
+                  <tbody key={index}>
+                    <tr >
+                      <td>{grupo.nome_grupo}</td>
+                      <td>{grupo.preco_pequena}</td>
+                      <td>{grupo.preco_grande}</td>
+                      <td>{grupo.preco_gigante}</td>
+                      <td>{grupo.preco_familia}</td>
+                      <td><button type="button" onClick={() => console.log('excluir')}>Excluir</button></td>
+
+                    </tr>
+                  </tbody>
+                )
+              })}
+            </table>
             </div>
-            <div className="register-group">
-                <input type="submit" value="Cadastrar Grupo" />
-            </div>
-        </form>
+        </div>
     )
 }
