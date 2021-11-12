@@ -20,10 +20,10 @@ export default class APIService {
     return result.data;
   };
 
-  // static cadastrarGrupo = async (dados) => {
-  //   const result = await axios.post(`${baseUrl}/pizzas/grupos`, dados);
-  //   return result.data;
-  // };
+  static cadastrarGrupo = async (dados) => {
+    const result = await axios.post(`${baseUrl}/pizzas/grupos`, dados);
+    return result.data;
+  };
 
   static getBebidas = async () => {
     const result = await axios.get(`${baseUrl}/pizzas/bebidas`);

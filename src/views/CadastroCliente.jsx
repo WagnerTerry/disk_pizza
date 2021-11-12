@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import "./CadastroCliente.scss";
 import APIService from "../services/api";
 
+import CadastroGrupo from '../components/CadastroGrupo'
+
 export default function CadastroCliente() {
   const schema = yup.object().shape({
     nome: yup.string().min(1, "campo obrigatório").required(),
@@ -46,18 +48,18 @@ export default function CadastroCliente() {
     }
   }
 
-  async function saveGroup(data) {
-    console.log(data);
-    try {
-      await APIService.cadastrarGrupo(data);
-      toast.success("Grupo cadastrado com sucesso");
+  // async function saveGroup(data) {
+  //   console.log(data);
+  //   try {
+  //     await APIService.cadastrarGrupo(data);
+  //     toast.success("Grupo cadastrado com sucesso");
 
-    } catch (e) {
-      console.log("Ocorreu um erro ao cadastrar grupo", e);
-      return toast.error("Erro ao cadastrar grupo");
+  //   } catch (e) {
+  //     console.log("Ocorreu um erro ao cadastrar grupo", e);
+  //     return toast.error("Erro ao cadastrar grupo");
 
-    }
-  }
+  //   }
+  // }
 
   const showData = (result) => {
     for (const campo in result) {
@@ -155,63 +157,7 @@ export default function CadastroCliente() {
             produtos
           </Modal>
           <Modal className={'second'} show={"Cadastrar Grupo"} title={"Cadastro de grupos"}>
-            <form onSubmit={handleSubmit(saveGroup)}>
-              <div className="form-group">
-                <div>
-                  <label htmlFor="grupo">Nome_Grupo: </label>
-                  <input
-                    type="text"
-                    id="grupo"
-                    name="grupo"
-                    required
-                    {...register("grupo", { required: true })}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pr_pequena">Preço Pequena: </label>
-                  <input
-                    type="number"
-                    id="pr_pequena"
-                    name="pr_pequena"
-                    required
-                    {...register("pr_pequena", { required: true })}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pr_grande">Preço Grande: </label>
-                  <input
-                    type="number"
-                    id="pr_grande"
-                    name="pr_grande"
-                    required
-                    {...register("pr_grande", { required: true })}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pr_familia">Preço Família: </label>
-                  <input
-                    type="number"
-                    id="pr_familia"
-                    name="pr_familia"
-                    required
-                    {...register("pr_familia", { required: true })}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pr_gigante">Preço Gigante: </label>
-                  <input
-                    type="number"
-                    id="pr_gigante"
-                    name="pr_gigante"
-                    required
-                    {...register("pr_gigante", { required: true })}
-                  />
-                </div>
-              </div>
-              <div className="register-group">
-                <input type="submit" value="Cadastrar Grupo" />
-              </div>
-            </form>
+            <CadastroGrupo />
           </Modal>
         </div>
       </header >
