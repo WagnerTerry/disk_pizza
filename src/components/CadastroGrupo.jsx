@@ -45,6 +45,18 @@ export default function CadastroGrupo() {
         }
     }
 
+    async function deleteGroup(id){
+        try{
+            await APIService.excluirGrupo(id);
+            setGroup(group.filter(grupo => grupo.codigo_grupo !== id))
+            toast.success("Grupo excluido com sucesso");
+
+        } catch(e){
+            console.log("Ocorreu um erro ao cadastrar grupo", e)
+            return toast.error("Erro ao excluir grupo");
+        }
+    }
+
     return (
         <div>
             <form onSubmit={handleSubmit(saveGroup)}>
@@ -131,7 +143,7 @@ export default function CadastroGrupo() {
                       <td>{grupo.preco_grande}</td>
                       <td>{grupo.preco_gigante}</td>
                       <td>{grupo.preco_familia}</td>
-                      <td><button type="button" onClick={() => console.log('excluir')}>Excluir</button></td>
+                      <td><button type="button" onClick={() => deleteGroup(grupo.codigo_grupo)}>Excluir</button></td>
 
                     </tr>
                   </tbody>

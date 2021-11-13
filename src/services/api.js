@@ -25,6 +25,11 @@ export default class APIService {
     return result.data;
   };
 
+  static excluirGrupo = async (id) => {
+    const result = await axios.delete(`${baseUrl}/pizzas/grupos`, id);
+    return result.data;
+  };
+
   static getBebidas = async () => {
     const result = await axios.get(`${baseUrl}/pizzas/bebidas`);
     return result.data;
