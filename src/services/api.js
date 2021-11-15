@@ -26,7 +26,7 @@ export default class APIService {
   };
 
   static excluirGrupo = async (id) => {
-    const result = await axios.delete(`${baseUrl}/pizzas/grupos`, id);
+    const result = await axios.delete(`${baseUrl}/pizzas/grupos/${id}`);
     return result.data;
   };
 
