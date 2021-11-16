@@ -1,0 +1,135 @@
+#cadastro {
+  // * {
+  //   margin: 0;
+  //   padding: 0;
+  // }
+  padding: 0 20px;
+
+  input,
+  button {
+    border-radius: 5px;
+  }
+
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .menu-options {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
+      font-weight: bold;
+      text-decoration: underline;
+      font-family: auto;
+      cursor: pointer;
+      div:first-child {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  main {
+    margin-top: 24px;
+
+    .button-options {
+      button {
+        margin-right: 20px;
+        margin-bottom: 16px;
+        font-size: 16px;
+        width: 110px;
+        cursor: pointer;
+      }
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    input {
+      height: 30px;
+      padding-left: 10px;
+      margin: 10px 0;
+      margin-right: 40px;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    textarea {
+      margin-top: 10px;
+    }
+
+    button {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+@media (max-width: 530px) {
+  #cadastro {
+    header {
+      flex-direction: column;
+
+      .cod-cliente {
+        margin-bottom: 10px;
+      }
+
+      .menu-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        div:first-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    main {
+      margin-top: 8px;
+
+      .button-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        button {
+          margin-top: 10px;
+          margin-bottom: 4px;
+        }
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: initial;
+      }
+
+      input {
+        height: 30px;
+        padding-left: 0;
+        margin: 0;
+        margin-right: 0;
+      }
+
+      label {
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+
+      textarea {
+        margin-top: 10px;
+        margin-bottom: 16px;
+      }
+    }
+  }
+}

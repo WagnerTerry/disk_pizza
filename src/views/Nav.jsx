@@ -10,7 +10,7 @@ function Nav() {
         <span>Disk Pizza Califórnia</span>
       </Link>
       <ul className="nav-links">
-        <Link className="navStyle" to="/cadastrocliente">
+        <Link className="navStyle" to="/cadastro">
           <li>Cadastro</li>
         </Link>
         <Link className="navStyle" to="/caixa">

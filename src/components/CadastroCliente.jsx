@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Modal from '../components/modal/Modal'
+import Modal from './modal/Modal'
 
 import { toast } from "react-toastify";
 import "./CadastroCliente.scss";
 import APIService from "../services/api";
 
-import CadastroGrupo from '../components/CadastroGrupo'
 
 export default function CadastroCliente() {
   const schema = yup.object().shape({
@@ -52,19 +51,6 @@ export default function CadastroCliente() {
       return toast.error("Erro ao salvar cliente");
     }
   }
-
-  // async function saveGroup(data) {
-  //   console.log(data);
-  //   try {
-  //     await APIService.cadastrarGrupo(data);
-  //     toast.success("Grupo cadastrado com sucesso");
-
-  //   } catch (e) {
-  //     console.log("Ocorreu um erro ao cadastrar grupo", e);
-  //     return toast.error("Erro ao cadastrar grupo");
-
-  //   }
-  // }
 
   const showData = (result) => {
     for (const campo in result) {
@@ -115,17 +101,9 @@ export default function CadastroCliente() {
 
   return (
     <div id="cadastro-cliente">
-      <div>
-        <h2>Cadastro de Clientes</h2>
-      </div>
-
       <header>
-        {/* <div className={"cod-cliente"}>
-          <label htmlFor="cod-cliente">Código do Cliente: </label>
-          <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
-        </div> */}
         <div className={"menu-options"}>
-          <Modal className={'first'} show={"Ver Clientes"} title={"Lista de Clientes"}>
+          <Modal className={'first'} show={"Ver Clientes"} title={"Cadastro de Clientes"}>
             <table id="customers">
               <thead>
                 <tr>
@@ -160,9 +138,6 @@ export default function CadastroCliente() {
           </Modal>
           <Modal className={'third'} show={"Cadastrar Pizza"} title={"Cadastro de pizza"}>
             produtos
-          </Modal>
-          <Modal className={'second'} show={"Cadastrar Grupo"} title={"Cadastro de grupos"}>
-            <CadastroGrupo />
           </Modal>
         </div>
       </header >
@@ -261,7 +236,9 @@ export default function CadastroCliente() {
               {...register("observacoes")}
             ></textarea>
           </div>
-          <input type="submit" value="Salvar" />
+          <div>
+            <input type="submit" value="Salvar" />
+          </div>
         </form>
       </main>
     </div >
