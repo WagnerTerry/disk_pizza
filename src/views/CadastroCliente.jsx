@@ -36,8 +36,13 @@ export default function CadastroCliente() {
   });
 
   async function save(data) {
-    console.log(data);
     try {
+      const nome_maiusculo = data.nome.toUpperCase()
+      const nome_duplicado = clients.filter((cliente) => cliente.nome.toUpperCase() === nome_maiusculo)
+      if (nome_duplicado.length > 0) {
+        return toast.error("Já existe um cliente com esse nome, por favor coloque um sobrenome para diferenciar");
+      }
+      console.log(data);
       await APIService.cadastrarCliente(data);
       setClients(prevState => [...prevState, data])
       toast.success("Cliente cadastrado com sucesso");
