@@ -34,6 +34,12 @@ export default function CadastroGrupo() {
     async function saveGroup(data) {
         console.log(data);
         try {
+            const nome_grupo_maiusculo = data.nome_grupo.toUpperCase()
+            const grupo_duplicado = group.filter((grupo) => grupo.nome_grupo.toUpperCase() === nome_grupo_maiusculo)
+            if (grupo_duplicado.length > 0) {
+                return toast.error("Existe um grupo com esse nome");
+
+            }
             await APIService.cadastrarGrupo(data);
             setGroup(prevState => [...prevState, data])
             toast.success("Grupo cadastrado com sucesso");
@@ -45,13 +51,13 @@ export default function CadastroGrupo() {
         }
     }
 
-    async function deleteGroup(id){
-        try{
+    async function deleteGroup(id) {
+        try {
             await APIService.excluirGrupo(id);
             setGroup(group.filter(grupo => grupo.codigo_grupo !== id))
             toast.success("Grupo excluido com sucesso");
 
-        } catch(e){
+        } catch (e) {
             console.log("Ocorreu um erro ao cadastrar grupo", e)
             return toast.error("Erro ao excluir grupo");
         }
@@ -122,34 +128,34 @@ export default function CadastroGrupo() {
             </form>
 
             <div className="list_group">
-            <table id="groups">
-              <thead>
-                <tr>
-                  <th>Nome_Grupo</th>
-                  <th>Preço Pequena</th>
-                  <th>Preço Grande</th>
-                  <th>Preço Família</th>
-                  <th>Preço Gigante</th>
-                  <th>Excluir</th>
+                <table id="groups">
+                    <thead>
+                        <tr>
+                            <th>Nome_Grupo</th>
+                            <th>Preço Pequena</th>
+                            <th>Preço Grande</th>
+                            <th>Preço Família</th>
+                            <th>Preço Gigante</th>
+                            <th>Excluir</th>
 
-                </tr>
-              </thead>
-              {group && group.map((grupo, index) => {
-                return (
-                  <tbody key={index}>
-                    <tr >
-                      <td>{grupo.nome_grupo}</td>
-                      <td>{grupo.preco_pequena}</td>
-                      <td>{grupo.preco_grande}</td>
-                      <td>{grupo.preco_gigante}</td>
-                      <td>{grupo.preco_familia}</td>
-                      <td><button type="button" onClick={() => deleteGroup(grupo.codigo_grupo)}>Excluir</button></td>
+                        </tr>
+                    </thead>
+                    {group && group.map((grupo, index) => {
+                        return (
+                            <tbody key={index}>
+                                <tr >
+                                    <td>{grupo.nome_grupo}</td>
+                                    <td>{grupo.preco_pequena}</td>
+                                    <td>{grupo.preco_grande}</td>
+                                    <td>{grupo.preco_gigante}</td>
+                                    <td>{grupo.preco_familia}</td>
+                                    <td><button type="button" onClick={() => deleteGroup(grupo.codigo_grupo)}>Excluir</button></td>
 
-                    </tr>
-                  </tbody>
-                )
-              })}
-            </table>
+                                </tr>
+                            </tbody>
+                        )
+                    })}
+                </table>
             </div>
         </div>
     )
