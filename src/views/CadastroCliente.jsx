@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "./CadastroCliente.scss";
 import APIService from "../services/api";
 
+import CadastroPizza from '../components/CadastroPizza'
 import CadastroGrupo from '../components/CadastroGrupo'
 
 export default function CadastroCliente() {
@@ -52,19 +53,6 @@ export default function CadastroCliente() {
       return toast.error("Erro ao salvar cliente");
     }
   }
-
-  // async function saveGroup(data) {
-  //   console.log(data);
-  //   try {
-  //     await APIService.cadastrarGrupo(data);
-  //     toast.success("Grupo cadastrado com sucesso");
-
-  //   } catch (e) {
-  //     console.log("Ocorreu um erro ao cadastrar grupo", e);
-  //     return toast.error("Erro ao cadastrar grupo");
-
-  //   }
-  // }
 
   const showData = (result) => {
     for (const campo in result) {
@@ -159,7 +147,7 @@ export default function CadastroCliente() {
 
           </Modal>
           <Modal className={'third'} show={"Cadastrar Pizza"} title={"Cadastro de pizza"}>
-            produtos
+            <CadastroPizza />
           </Modal>
           <Modal className={'second'} show={"Cadastrar Grupo"} title={"Cadastro de grupos"}>
             <CadastroGrupo />
