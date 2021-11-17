@@ -72,7 +72,7 @@ export default function CadastroPizza() {
                         </select>
                     </div>
                     <div>
-                        <label htmlFor="nome_pizza">Grupo: </label>
+                        <label htmlFor="nome_pizza">Grupo:  </label>
                         <select
                             id="nome_pizza"
                             name="nome_pizza"
