@@ -22,11 +22,16 @@ export default function CadastroPizza() {
     });
 
     const [pizzas, setPizzas] = useState([])
+    const [group, setGroup] = useState([])
+
 
     useEffect(() => {
         const showGroup = async () => {
             const { pizzas } = await APIService.getPizzas()
+            const { grupos } = await APIService.getGrupos()
             setPizzas(pizzas)
+            setGroup(grupos)
+
         }
         showGroup()
     }, [])
@@ -72,16 +77,16 @@ export default function CadastroPizza() {
                         </select>
                     </div>
                     <div>
-                        <label htmlFor="nome_pizza">Grupo:  </label>
+                        <label htmlFor="codigo_grupo">Grupo:  </label>
                         <select
-                            id="nome_pizza"
-                            name="nome_pizza"
+                            id="codigo_grupo"
+                            name="codigo_grupo"
                             onChange={e => e.target.value}
                             required
-                            {...register("nome_pizza", { required: true })}
+                            {...register("codigo_grupo", { required: true })}
                         >
-                            {pizzas.map((pizza, index) => (
-                                <option key={index} value={pizza.codigo_grupo}>{pizza.nome_grupo}</option>
+                            {group && group.map((grupo, index) => (
+                                <option key={index} value={grupo.codigo_grupo}>{grupo.nome_grupo}</option>
                             ))}
                         </select>
                     </div>
