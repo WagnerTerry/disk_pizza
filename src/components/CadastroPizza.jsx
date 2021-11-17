@@ -72,6 +72,7 @@ export default function CadastroPizza() {
                             required
                             {...register("ativo", { required: true })}
                         >
+                            <option value="" selected disabled>Selecione</option>
                             <option value="sim">Sim</option>
                             <option value="nao">Não</option>
                         </select>
@@ -81,12 +82,16 @@ export default function CadastroPizza() {
                         <select
                             id="codigo_grupo"
                             name="codigo_grupo"
-                            onChange={e => e.target.value}
-                            required
                             {...register("codigo_grupo", { required: true })}
+
                         >
-                            {group && group.map((grupo, index) => (
-                                <option key={index} value={grupo.codigo_grupo}>{grupo.nome_grupo}</option>
+                            <option value="" selected disabled>
+                                Selecione
+                            </option>
+                            {group && group.map((grupo, idx) => (
+                                <>
+                                    <option key={idx} value={grupo.codigo_grupo}>{grupo.nome_grupo}</option>
+                                </>
                             ))}
                         </select>
                     </div>
@@ -109,7 +114,7 @@ export default function CadastroPizza() {
                             <tbody key={index}>
                                 <tr >
                                     <td>{pizza.ativo}</td>
-                                    <td>{pizza.nome}</td>
+                                    <td>{pizza.nome_pizza}</td>
                                     <td>{pizza.nome_grupo}</td>
                                     <td><button type="button" onClick={() => console.log("a")}>Excluir</button></td>
                                 </tr>
