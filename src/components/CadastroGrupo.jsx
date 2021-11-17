@@ -32,7 +32,6 @@ export default function CadastroGrupo() {
     }, [])
 
     async function saveGroup(data) {
-        console.log(data);
         try {
             const nome_grupo_maiusculo = data.nome_grupo.toUpperCase()
             const grupo_duplicado = group.filter((grupo) => grupo.nome_grupo.toUpperCase() === nome_grupo_maiusculo)
@@ -43,6 +42,7 @@ export default function CadastroGrupo() {
             await APIService.cadastrarGrupo(data);
             setGroup(prevState => [...prevState, data])
             toast.success("Grupo cadastrado com sucesso");
+            console.log(data);
             reset()
 
         } catch (e) {
@@ -150,7 +150,6 @@ export default function CadastroGrupo() {
                                     <td>{grupo.preco_gigante}</td>
                                     <td>{grupo.preco_familia}</td>
                                     <td><button type="button" onClick={() => deleteGroup(grupo.codigo_grupo)}>Excluir</button></td>
-
                                 </tr>
                             </tbody>
                         )

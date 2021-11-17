@@ -21,22 +21,33 @@ export default function CadastroPizza() {
         resolver: yupResolver(pizza_schema),
     });
 
-    const [pizza, setPizza] = useState([])
-    const [group, setGroup] = useState([])
-
-
+    const [pizzas, setPizzas] = useState([])
 
     useEffect(() => {
         const showGroup = async () => {
-            const { grupos } = await APIService.getGrupos()
-            setGroup(grupos)
+            const { pizzas } = await APIService.getPizzas()
+            setPizzas(pizzas)
         }
         showGroup()
     }, [])
 
+    async function savePizza(data) {
+        try {
+            await APIService.inserirPizza(data)
+            setPizzas(prevState => [...prevState, data])
+            toast.success("Pizza cadastrada com sucesso");
+            console.log(data);
+            reset()
+
+        } catch (e) {
+            console.log("Ocorreu um erro ao cadastrar pizza", e);
+            return toast.error("Erro ao cadastrar pizza");
+        }
+    }
+
     return (
         <div id="pizza">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(savePizza)}>
                 <div className="form-pizza">
                     <div>
                         <label htmlFor="nome_pizza">Nome_Pizza: </label>
@@ -57,27 +68,51 @@ export default function CadastroPizza() {
                             {...register("ativo", { required: true })}
                         >
                             <option value="sim">Sim</option>
-                            <option value="sim">Não</option>
+                            <option value="nao">Não</option>
                         </select>
                     </div>
                     <div>
-                        <label htmlFor="grupo_pizza">Grupo: </label>
-                        {console.log("oi", group)}
+                        <label htmlFor="nome_pizza">Grupo: </label>
                         <select
-                            id="grupo_pizza"
-                            name="grupo_pizza"
+                            id="nome_pizza"
+                            name="nome_pizza"
                             onChange={e => e.target.value}
                             required
-                            {...register("grupo_pizza", { required: true })}
+                            {...register("nome_pizza", { required: true })}
                         >
-                            {group.map((grupo, index) => (
-                                <option key={index} value={grupo.codigo_grupo}>{grupo.nome_grupo}</option>
+                            {pizzas.map((pizza, index) => (
+                                <option key={index} value={pizza.codigo_grupo}>{pizza.nome_grupo}</option>
                             ))}
                         </select>
                     </div>
                 </div>
                 <input type="submit" value="Salvar" />
             </form>
+
+            <div className="pizza_list">
+                <table id="table_pizza">
+                    <thead>
+                        <tr>
+                            <th>Ativo</th>
+                            <th>Nome_Pizza</th>
+                            <th>Grupo</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    {pizzas.map((pizza, index) => {
+                        return (
+                            <tbody key={index}>
+                                <tr >
+                                    <td>{pizza.ativo}</td>
+                                    <td>{pizza.nome}</td>
+                                    <td>{pizza.nome_grupo}</td>
+                                    <td><button type="button" onClick={() => console.log("a")}>Excluir</button></td>
+                                </tr>
+                            </tbody>
+                        )
+                    })}
+                </table>
+            </div>
         </div>
     )
 }

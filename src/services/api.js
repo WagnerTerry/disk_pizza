@@ -15,6 +15,11 @@ export default class APIService {
     return result.data;
   };
 
+  static inserirPizza = async (data) => {
+    const result = await axios.post(`${baseUrl}/pizzas`, data);
+    return result.data;
+  };
+
   static getGrupos = async () => {
     const result = await axios.get(`${baseUrl}/pizzas/grupos`);
     return result.data;
