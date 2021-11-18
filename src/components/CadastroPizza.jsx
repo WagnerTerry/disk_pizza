@@ -53,7 +53,7 @@ export default function CadastroPizza() {
     async function deletePizza(id) {
         try {
             await APIService.excluirPizza(id)
-            setPizzas(pizzas.filter(pizza => pizza.codigo_grupo !== id))
+            setPizzas(pizzas.filter(pizza => pizza.codigo_pizza !== id))
             toast.success("Pizza excluída com sucesso");
 
         } catch (e) {
