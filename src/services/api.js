@@ -20,6 +20,11 @@ export default class APIService {
     return result.data;
   };
 
+  static excluirPizza = async (id) => {
+    const result = await axios.delete(`${baseUrl}/pizzas/${id}`);
+    return result.data;
+  };
+
   static getGrupos = async () => {
     const result = await axios.get(`${baseUrl}/pizzas/grupos`);
     return result.data;

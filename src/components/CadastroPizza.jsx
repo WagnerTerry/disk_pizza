@@ -50,6 +50,18 @@ export default function CadastroPizza() {
         }
     }
 
+    async function deletePizza(id) {
+        try {
+            await APIService.excluirPizza(id)
+            setPizzas(pizzas.filter(pizza => pizza.codigo_grupo !== id))
+            toast.success("Pizza excluída com sucesso");
+
+        } catch (e) {
+            console.log("Ocorreu um erro ao excluir pizza", e);
+            return toast.error("Erro ao excluir pizza");
+        }
+    }
+
     return (
         <div id="pizza">
             <form onSubmit={handleSubmit(savePizza)}>
@@ -72,7 +84,7 @@ export default function CadastroPizza() {
                             required
                             {...register("ativo", { required: true })}
                         >
-                            <option value="" selected disabled>Selecione</option>
+                            <option value="" disabled>Selecione</option>
                             <option value="sim">Sim</option>
                             <option value="nao">Não</option>
                         </select>
@@ -85,12 +97,12 @@ export default function CadastroPizza() {
                             {...register("codigo_grupo", { required: true })}
 
                         >
-                            <option value="" selected disabled>
+                            <option value="" disabled>
                                 Selecione
                             </option>
-                            {group && group.map((grupo, idx) => (
+                            {group && group.map((grupo) => (
                                 <>
-                                    <option key={idx} value={grupo.codigo_grupo}>{grupo.nome_grupo}</option>
+                                    <option key={grupo.codigo_pizza} value={grupo.codigo_grupo}>{grupo.nome_grupo}</option>
                                 </>
                             ))}
                         </select>
@@ -109,14 +121,14 @@ export default function CadastroPizza() {
                             <th>Excluir</th>
                         </tr>
                     </thead>
-                    {pizzas.map((pizza, index) => {
+                    {pizzas && pizzas.map((pizza, index) => {
                         return (
                             <tbody key={index}>
-                                <tr >
+                                <tr>
                                     <td>{pizza.ativo}</td>
                                     <td>{pizza.nome_pizza}</td>
                                     <td>{pizza.nome_grupo}</td>
-                                    <td><button type="button" onClick={() => console.log("a")}>Excluir</button></td>
+                                    <td><button type="button" onClick={() => deletePizza(pizza.codigo_pizza)}>Excluir</button></td>
                                 </tr>
                             </tbody>
                         )
