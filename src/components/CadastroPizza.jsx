@@ -100,10 +100,8 @@ export default function CadastroPizza() {
                             <option value="" disabled>
                                 Selecione
                             </option>
-                            {group && group.map((grupo) => (
-                                <>
-                                    <option key={grupo.codigo_pizza} value={grupo.codigo_grupo}>{grupo.nome_grupo}</option>
-                                </>
+                            {group && group.map((grupo, idx) => (
+                                <option key={idx} value={grupo.codigo_grupo}>{grupo.nome_grupo}</option>
                             ))}
                         </select>
                     </div>
@@ -121,9 +119,9 @@ export default function CadastroPizza() {
                             <th>Excluir</th>
                         </tr>
                     </thead>
-                    {pizzas && pizzas.map((pizza, index) => {
+                    {pizzas && pizzas.map((pizza) => {
                         return (
-                            <tbody key={index}>
+                            <tbody key={pizza.codigo_pizza}>
                                 <tr>
                                     <td>{pizza.ativo}</td>
                                     <td>{pizza.nome_pizza}</td>
