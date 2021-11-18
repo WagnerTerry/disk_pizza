@@ -81,6 +81,7 @@ export default function CadastroPizza() {
                         <select
                             id="ativo"
                             name="ativo"
+                            defaultValue=""
                             required
                             {...register("ativo", { required: true })}
                         >
@@ -94,6 +95,8 @@ export default function CadastroPizza() {
                         <select
                             id="codigo_grupo"
                             name="codigo_grupo"
+                            defaultValue=""
+                            required
                             {...register("codigo_grupo", { required: true })}
 
                         >
@@ -119,9 +122,9 @@ export default function CadastroPizza() {
                             <th>Excluir</th>
                         </tr>
                     </thead>
-                    {pizzas && pizzas.map((pizza) => {
+                    {pizzas && pizzas.map((pizza, index) => {
                         return (
-                            <tbody key={pizza.codigo_pizza}>
+                            <tbody key={index}>
                                 <tr>
                                     <td>{pizza.ativo}</td>
                                     <td>{pizza.nome_pizza}</td>
