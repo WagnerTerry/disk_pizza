@@ -1,5 +1,10 @@
 import React from "react";
+import './Caixa.scss'
 
 export default function Caixa() {
-  return <h2>Caixa</h2>;
+  return (
+    <div id="caixa">
+      <h2>Caixa</h2>
+    </div>
+  )
 }
