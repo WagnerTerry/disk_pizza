@@ -14,13 +14,15 @@ function App() {
   return (
     <>
       <Router>
-        <NavBar />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/cadastrocliente" component={CadastroCliente} />
-          <Route path="/caixa" component={Caixa} />
-          <Route path="/cardapio" component={Cardapio} />
-        </Switch>
+        <div className="aside">
+          <NavBar />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/cadastrocliente" component={CadastroCliente} />
+            <Route path="/caixa" component={Caixa} />
+            <Route path="/cardapio" component={Cardapio} />
+          </Switch>
+        </div>
       </Router>
       <ToastContainer />
     </>
