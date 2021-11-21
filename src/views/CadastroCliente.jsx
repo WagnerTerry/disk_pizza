@@ -30,7 +30,6 @@ export default function CadastroCliente() {
     register,
     handleSubmit,
     reset,
-    // watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
