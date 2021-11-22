@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import APIService from "../services/api";
 import Loading from "../components/loading/Loading";
+import Nav from '../components/Nav'
+
 
 import "./Cardapio.scss";
 
@@ -27,6 +29,7 @@ export default function Cardapio() {
 
   return (
     <div id={"cardapio"}>
+      <Nav />
       {loading ? (
         <div className="loading">
           <Loading size={30}></Loading>

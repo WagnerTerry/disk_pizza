@@ -5,7 +5,6 @@ import * as yup from "yup";
 
 import { toast } from "react-toastify";
 import APIService from "../services/api";
-import Nav from '../components/Nav'
 
 import './CadastroPizza.scss'
 
@@ -65,7 +64,7 @@ export default function CadastroPizza() {
 
     return (
         <div id="pizza">
-            <Nav name="Cadastro" path="cadastro" name2="Caixa" path2="caixa" name3="Cardapio" path3="cardapio" />
+            {/* <Nav name="Cadastro" path="cadastro" name2="Caixa" path2="caixa" name3="Cardapio" path3="cardapio" /> */}
 
             <div>
                 <h2>Cadastro de Pizzas</h2>

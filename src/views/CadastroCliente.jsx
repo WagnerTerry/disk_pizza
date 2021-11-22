@@ -104,7 +104,8 @@ export default function CadastroCliente() {
 
   return (
     <div id="cadastro-cliente">
-      <Nav name="Cadastrar Cliente" path="cadastrocliente" name2="Cadastrar Pizza" path2="cadastropizza" name3="Cadastrar Grupo" path3="cadastrogrupo" />
+      <Nav />
+      {/* <Nav name="Cadastrar Cliente" path="cadastrocliente" name2="Cadastrar Pizza" path2="cadastropizza" name3="Cadastrar Grupo" path3="cadastrogrupo" /> */}
 
       <div>
         <h2>Cadastro de Clientes</h2>
@@ -117,7 +118,7 @@ export default function CadastroCliente() {
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
         </div> */}
         <div className={"menu-options"}>
-          <Modal className={'first'} show={"Ver Clientes"} title={"Lista de Clientes"}>
+          <Modal className={'first'} show={"Lista de Clientes"} title={"Lista de Clientes"}>
             <table id="customers">
               <thead>
                 <tr>
