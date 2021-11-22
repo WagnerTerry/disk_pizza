@@ -2,14 +2,14 @@ import React from "react";
 import "../App.scss";
 import { Link } from "react-router-dom";
 
-function Nav() {
+function Nav(props) {
   return (
     <nav>
       <br />
-      <Link className="navLogo" to="/">
-        <span>Disk Pizza Califórnia</span>
+      <Link className="navLogo" to={props.path}>
+        <span>{props.name}</span>
       </Link>
-      <ul className="nav-links">
+      {/* <ul className="nav-links">
         <Link className="navStyle" to="/cadastrocliente">
           <li>Cadastro</li>
         </Link>
@@ -19,7 +19,7 @@ function Nav() {
         <Link className="navStyle" to="/cardapio">
           <li>Cardapio</li>
         </Link>
-      </ul>
+      </ul> */}
     </nav>
   );
 }

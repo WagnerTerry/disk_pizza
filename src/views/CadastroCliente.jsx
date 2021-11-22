@@ -10,6 +10,7 @@ import APIService from "../services/api";
 
 import CadastroPizza from '../components/CadastroPizza'
 import CadastroGrupo from '../components/CadastroGrupo'
+import Nav from '../components/Nav'
 
 export default function CadastroCliente() {
   const schema = yup.object().shape({
@@ -106,6 +107,7 @@ export default function CadastroCliente() {
       <div>
         <h2>Cadastro de Clientes</h2>
       </div>
+      <Nav name="nome" path="caixa" />
 
       <header>
         {/* <div className={"cod-cliente"}>
