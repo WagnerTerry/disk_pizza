@@ -3,26 +3,30 @@
   width: 100%;
   text-align: center;
 
-  h1 {
-    background-color: blue;
-  }
+  .cardapio-class {
+    padding: 0px 80px;
 
-  strong {
-    font-size: 22px;
-    text-decoration: underline;
-    background-color: silver;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-  }
+    h1 {
+      background-color: blue;
+    }
 
-  .loading {
-    display: flex;
-    justify-content: center;
-    // align-items: center;
-    height: 100%;
-    margin-top: 40px;
+    strong {
+      font-size: 22px;
+      text-decoration: underline;
+      background-color: silver;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+    }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      // align-items: center;
+      height: 100%;
+      margin-top: 40px;
+    }
   }
 }
 
