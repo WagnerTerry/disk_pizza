@@ -1,0 +1,29 @@
+#component_nav {
+  display: block;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(73, 79, 82);
+  color: white;
+
+  .nav-links {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+  }
+
+  .navStyle {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .navLogo {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+  }
+}

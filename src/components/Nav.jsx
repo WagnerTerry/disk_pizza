@@ -1,25 +1,25 @@
 import React from "react";
-import "../App.scss";
+import "./Nav.scss";
 import { Link } from "react-router-dom";
 
 function Nav(props) {
   return (
-    <nav>
+    <nav id="component_nav">
       <br />
-      <Link className="navLogo" to={props.path}>
-        <span>{props.name}</span>
+      <Link className="navLogo" to='/'>
+        <span>Disk Pizza Califórnia</span>
       </Link>
-      {/* <ul className="nav-links">
-        <Link className="navStyle" to="/cadastrocliente">
-          <li>Cadastro</li>
+      <ul className="nav-links">
+        <Link className="navStyle" to={props.path}>
+          <li>{props.name}</li>
         </Link>
-        <Link className="navStyle" to="/caixa">
-          <li>Caixa</li>
+        <Link className="navStyle" to={props.path2}>
+          <li>{props.name2}</li>
         </Link>
-        <Link className="navStyle" to="/cardapio">
-          <li>Cardapio</li>
+        <Link className="navStyle" to={props.path3}>
+          <li>{props.name3}</li>
         </Link>
-      </ul> */}
+      </ul>
     </nav>
   );
 }
