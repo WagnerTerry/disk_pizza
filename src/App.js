@@ -18,7 +18,7 @@ function App() {
           <NavBar />
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/cadastrocliente" component={CadastroCliente} />
+            <Route path="/cadastro" component={CadastroCliente} />
             <Route path="/caixa" component={Caixa} />
             <Route path="/cardapio" component={Cardapio} />
           </Switch>

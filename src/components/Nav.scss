@@ -1,24 +1,22 @@
 #component_nav {
   display: block;
-  justify-content: space-around;
-  align-items: center;
   min-height: 10vh;
   background: rgb(73, 79, 82);
   color: white;
+  text-align: center;
 
   .nav-links {
-    width: 90%;
+    width: 95%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     list-style: none;
   }
 
   .navStyle {
     color: white;
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 16px;
+    margin-right: 40px;
   }
 
   .navLogo {

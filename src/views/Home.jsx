@@ -6,7 +6,7 @@ import Logo from "../assets/logo.png";
 function Home() {
   return (
     <div id="home">
-      <Nav name="Cadastro" path="caixa" name2="caixa" path2="caixa" name3="Cardapio" path3="cardapio" />
+      <Nav name="Cadastro" path="cadastro" name2="Caixa" path2="caixa" name3="Cardapio" path3="cardapio" />
 
       <div className="home-logo">
         <h1>DISK PIZZA CALIFÓRNIA</h1>
