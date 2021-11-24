@@ -83,9 +83,9 @@ export default function CadastroCliente() {
       });
   }
 
-  function resetForm() {
-    reset();
-  }
+  // function resetForm() {
+  //   reset();
+  // }
 
   // async function editClient(dados) {
   //   console.log("put")
@@ -118,37 +118,84 @@ export default function CadastroCliente() {
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
         </div> */}
         <div className={"menu-options"}>
-          <Modal className={'first'} show={"Lista de Clientes"} title={"Lista de Clientes"}>
-            <table id="customers">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Telefone</th>
-                  <th>Cep</th>
-                  <th>Logradouro</th>
-                  <th>Bairro</th>
-                  <th>Cidade</th>
-                  <th>Excluir</th>
-                </tr>
-              </thead>
-              {clients && clients.map((cliente, index) => {
-                return (
-                  <tbody key={index}>
-                    <tr >
-                      {/* <td><input type="text" value={cliente.nome} /></td> */}
-                      <td>{cliente.nome}</td>
-                      <td>{cliente.telefone}</td>
-                      <td>{cliente.cep}</td>
-                      <td>{cliente.logradouro}</td>
-                      <td>{cliente.bairro}</td>
-                      <td>{cliente.cidade}</td>
-                      <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
+          <Modal className={'first'} show={"Cadastrar Cliente"} title={"Cadastro de Clientes"}>
+            <form onSubmit={handleSubmit(save)}>
+              <div className="form-fields">
+                <label htmlFor="nome">Nome: </label>
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  required
+                  {...register("nome", { required: true })}
+                />
+                {errors.nome && <p>Campo Obrigatório</p>}
 
-                    </tr>
-                  </tbody>
-                )
-              })}
-            </table>
+                <label htmlFor="telefone">Telefone: </label>
+                <input
+                  type="number"
+                  id="telefone"
+                  name="telefone"
+                  required
+                  {...register("telefone", { required: true })}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="cep">Cep: </label>
+                <input
+                  type="text"
+                  id="cep"
+                  name="cep"
+                  maxLength="9"
+                  {...register("cep")}
+                  onBlur={onBlurCep}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="logradouro">Logradouro: </label>
+                <input
+                  type="text"
+                  id="logradouro"
+                  name="logradouro"
+                  size="50"
+                  required
+                  {...register("logradouro")}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="bairro">Bairro: </label>
+                <input
+                  type="text"
+                  id="bairro"
+                  name="bairro"
+                  size="40"
+                  required
+                  {...register("bairro")}
+                />
+                <label htmlFor="localidade">Cidade: </label>
+                <input
+                  type="text"
+                  id="localidade"
+                  name="localidade"
+                  size="40"
+                  required
+                  {...register("cidade")}
+                />
+              </div>
+              <div>
+                <label htmlFor="observacoes">Observações: </label>
+                <textarea
+                  name="obs"
+                  cols="50"
+                  rows="3"
+                  {...register("observacoes")}
+                ></textarea>
+              </div>
+              <input type="submit" value="Salvar" />
+            </form>
 
           </Modal>
           <Modal className={'third'} show={"Cadastrar Pizza"} title={"Cadastro de pizza"}>
@@ -161,13 +208,14 @@ export default function CadastroCliente() {
       </header >
 
       <main>
-        <div className={"button-options"}>
+        {/* <div className={"button-options"}>
           {" "}
           <button>Buscar</button>
           <button onClick={resetForm}>Limpar</button>
           <button>Alterar</button>
           <button>Apagar</button>
-        </div>
+        </div> */}
+
         {/* ----------   exemplo de useForm    ------
         handleSubmit "validará suas entradas antes de invocar" onSubmit "
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -179,83 +227,35 @@ export default function CadastroCliente() {
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
 
-        <form onSubmit={handleSubmit(save)}>
-          <div className="form-fields">
-            <label htmlFor="nome">Nome: </label>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              required
-              {...register("nome", { required: true })}
-            />
-            {errors.nome && <p>Campo Obrigatório</p>}
-
-            <label htmlFor="telefone">Telefone: </label>
-            <input
-              type="number"
-              id="telefone"
-              name="telefone"
-              required
-              {...register("telefone", { required: true })}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="cep">Cep: </label>
-            <input
-              type="text"
-              id="cep"
-              name="cep"
-              maxLength="9"
-              {...register("cep")}
-              onBlur={onBlurCep}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="logradouro">Logradouro: </label>
-            <input
-              type="text"
-              id="logradouro"
-              name="logradouro"
-              size="50"
-              required
-              {...register("logradouro")}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="bairro">Bairro: </label>
-            <input
-              type="text"
-              id="bairro"
-              name="bairro"
-              size="40"
-              required
-              {...register("bairro")}
-            />
-            <label htmlFor="localidade">Cidade: </label>
-            <input
-              type="text"
-              id="localidade"
-              name="localidade"
-              size="40"
-              required
-              {...register("cidade")}
-            />
-          </div>
-          <div>
-            <label htmlFor="observacoes">Observações: </label>
-            <textarea
-              name="obs"
-              cols="50"
-              rows="3"
-              {...register("observacoes")}
-            ></textarea>
-          </div>
-          <input type="submit" value="Salvar" />
-        </form>
+        <table id="customers">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Cep</th>
+              <th>Logradouro</th>
+              <th>Bairro</th>
+              <th>Cidade</th>
+              <th>Excluir</th>
+            </tr>
+          </thead>
+          {clients && clients.map((cliente, index) => {
+            return (
+              <tbody key={index}>
+                <tr >
+                  {/* <td><input type="text" value={cliente.nome} /></td> */}
+                  <td>{cliente.nome}</td>
+                  <td>{cliente.telefone}</td>
+                  <td>{cliente.cep}</td>
+                  <td>{cliente.logradouro}</td>
+                  <td>{cliente.bairro}</td>
+                  <td>{cliente.cidade}</td>
+                  <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
+                </tr>
+              </tbody>
+            )
+          })}
+        </table>
       </main>
     </div >
   );
