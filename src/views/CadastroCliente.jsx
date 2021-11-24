@@ -227,7 +227,7 @@ export default function CadastroCliente() {
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
 
-        <table id="customers">
+        <table className="customers">
           <thead>
             <tr>
               <th>Nome</th>
