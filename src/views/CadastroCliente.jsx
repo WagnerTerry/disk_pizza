@@ -119,7 +119,7 @@ export default function CadastroCliente() {
         </div> */}
         <div className={"menu-options"}>
           <Modal className={'first'} show={"Cadastrar Cliente"} title={"Cadastro de Clientes"}>
-            <form onSubmit={handleSubmit(save)}>
+            <form id={"form-customer"} onSubmit={handleSubmit(save)}>
               <div className="form-fields">
                 <label htmlFor="nome">Nome: </label>
                 <input

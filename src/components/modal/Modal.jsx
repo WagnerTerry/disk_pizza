@@ -48,7 +48,7 @@ export default function MyModal(props) {
                     <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{props.title}</h2>
                     <span onClick={closeModal}>X</span>
                 </div>
-                <div>{props.children}</div>
+                <div id={props.id}>{props.children}</div>
                 {/* <form>
                     <input />
                     <button>tab navigation</button>
