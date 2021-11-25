@@ -227,38 +227,43 @@ export default function CadastroCliente() {
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
 
-        <div className="table-scroll">
-          <table className="customers">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Cep</th>
-                <th>Logradouro</th>
-                <th>Bairro</th>
-                <th>Cidade</th>
-                <th>Excluir</th>
-              </tr>
-            </thead>
-            {clients && clients.map((cliente, index) => {
-              return (
-                <tbody key={index}>
-                  <tr >
-                    {/* <td><input type="text" value={cliente.nome} /></td> */}
-                    <td>{cliente.nome}</td>
-                    <td>{cliente.telefone}</td>
-                    <td>{cliente.cep}</td>
-                    <td>{cliente.logradouro}</td>
-                    <td>{cliente.bairro}</td>
-                    <td>{cliente.cidade}</td>
-                    <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
-                  </tr>
-                </tbody>
-              )
-            })}
-          </table>
-        </div>
+        {clients && clients.length > 0 ?
+
+          <div className="table-scroll">
+            <table className="customers">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Telefone</th>
+                  <th>Cep</th>
+                  <th>Logradouro</th>
+                  <th>Bairro</th>
+                  <th>Cidade</th>
+                  <th>Excluir</th>
+                </tr>
+              </thead>
+              {clients && clients.map((cliente, index) => {
+                return (
+                  <tbody key={index}>
+                    <tr >
+                      {/* <td><input type="text" value={cliente.nome} /></td> */}
+                      <td>{cliente.nome}</td>
+                      <td>{cliente.telefone}</td>
+                      <td>{cliente.cep}</td>
+                      <td>{cliente.logradouro}</td>
+                      <td>{cliente.bairro}</td>
+                      <td>{cliente.cidade}</td>
+                      <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
+                    </tr>
+                  </tbody>
+                )
+              })}
+            </table>
+          </div>
+          :
+          <h3>Nenhum cliente cadastrado ou erro ao conectar com o banco.</h3>
+        }
       </main>
-    </div >
+    </div>
   );
 }
