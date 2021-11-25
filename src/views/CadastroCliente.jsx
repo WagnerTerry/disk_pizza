@@ -227,35 +227,37 @@ export default function CadastroCliente() {
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
 
-        <table className="customers">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Telefone</th>
-              <th>Cep</th>
-              <th>Logradouro</th>
-              <th>Bairro</th>
-              <th>Cidade</th>
-              <th>Excluir</th>
-            </tr>
-          </thead>
-          {clients && clients.map((cliente, index) => {
-            return (
-              <tbody key={index}>
-                <tr >
-                  {/* <td><input type="text" value={cliente.nome} /></td> */}
-                  <td>{cliente.nome}</td>
-                  <td>{cliente.telefone}</td>
-                  <td>{cliente.cep}</td>
-                  <td>{cliente.logradouro}</td>
-                  <td>{cliente.bairro}</td>
-                  <td>{cliente.cidade}</td>
-                  <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
-                </tr>
-              </tbody>
-            )
-          })}
-        </table>
+        <div className="table-scroll">
+          <table className="customers">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Cep</th>
+                <th>Logradouro</th>
+                <th>Bairro</th>
+                <th>Cidade</th>
+                <th>Excluir</th>
+              </tr>
+            </thead>
+            {clients && clients.map((cliente, index) => {
+              return (
+                <tbody key={index}>
+                  <tr >
+                    {/* <td><input type="text" value={cliente.nome} /></td> */}
+                    <td>{cliente.nome}</td>
+                    <td>{cliente.telefone}</td>
+                    <td>{cliente.cep}</td>
+                    <td>{cliente.logradouro}</td>
+                    <td>{cliente.bairro}</td>
+                    <td>{cliente.cidade}</td>
+                    <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
+                  </tr>
+                </tbody>
+              )
+            })}
+          </table>
+        </div>
       </main>
     </div >
   );
