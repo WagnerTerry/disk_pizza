@@ -11,6 +11,7 @@ import APIService from "../services/api";
 import CadastroPizza from '../components/CadastroPizza'
 import CadastroGrupo from '../components/CadastroGrupo'
 import Nav from '../components/Nav'
+import Loading from "../components/loading/Loading";
 
 export default function CadastroCliente() {
   const schema = yup.object().shape({
@@ -18,11 +19,13 @@ export default function CadastroCliente() {
   });
 
   const [clients, setClients] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const showCustomers = async () => {
       const { clientes } = await APIService.getClientes()
       setClients(clientes)
+      setLoading(oldState => !oldState)
     }
     showCustomers()
   }, [])
@@ -83,10 +86,6 @@ export default function CadastroCliente() {
       });
   }
 
-  // function resetForm() {
-  //   reset();
-  // }
-
   // async function editClient(dados) {
   //   console.log("put")
   // }
@@ -111,12 +110,22 @@ export default function CadastroCliente() {
         <h2>Cadastro de Clientes</h2>
       </div>
 
-
       <header>
         {/* <div className={"cod-cliente"}>
           <label htmlFor="cod-cliente">Código do Cliente: </label>
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
         </div> */}
+
+        {/* ----------   exemplo de useForm    ------
+        handleSubmit "validará suas entradas antes de invocar" onSubmit "
+        <form onSubmit={handleSubmit(onSubmit)}>
+          registre sua entrada no gancho invocando a função "registrar"
+          <input placeholder={"nome"} {...register("nome")} />
+
+          incluem validação com regras de validação HTML exigidas ou outras regras padrão
+          <input {...register("exampleRequired", { required: true })} />
+          erros retornarão quando a validação de campo falhar
+          {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
         <div className={"menu-options"}>
           <Modal className={'first'} show={"Cadastrar Cliente"} title={"Cadastro de Clientes"}>
             <form id={"form-customer"} onSubmit={handleSubmit(save)}>
@@ -208,61 +217,51 @@ export default function CadastroCliente() {
       </header >
 
       <main>
-        {/* <div className={"button-options"}>
-          {" "}
-          <button>Buscar</button>
-          <button onClick={resetForm}>Limpar</button>
-          <button>Alterar</button>
-          <button>Apagar</button>
-        </div> */}
-
-        {/* ----------   exemplo de useForm    ------
-        handleSubmit "validará suas entradas antes de invocar" onSubmit "
-        <form onSubmit={handleSubmit(onSubmit)}>
-          registre sua entrada no gancho invocando a função "registrar"
-          <input placeholder={"nome"} {...register("nome")} />
-
-          incluem validação com regras de validação HTML exigidas ou outras regras padrão
-          <input {...register("exampleRequired", { required: true })} />
-          erros retornarão quando a validação de campo falhar
-          {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
-
-        {clients && clients.length > 0 ?
-
-          <div className="table-scroll">
-            <table className="customers">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Telefone</th>
-                  <th>Cep</th>
-                  <th>Logradouro</th>
-                  <th>Bairro</th>
-                  <th>Cidade</th>
-                  <th>Excluir</th>
-                </tr>
-              </thead>
-              {clients && clients.map((cliente, index) => {
-                return (
-                  <tbody key={index}>
-                    <tr >
-                      {/* <td><input type="text" value={cliente.nome} /></td> */}
-                      <td>{cliente.nome}</td>
-                      <td>{cliente.telefone}</td>
-                      <td>{cliente.cep}</td>
-                      <td>{cliente.logradouro}</td>
-                      <td>{cliente.bairro}</td>
-                      <td>{cliente.cidade}</td>
-                      <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
-                    </tr>
-                  </tbody>
-                )
-              })}
-            </table>
+        {loading ? (
+          <div className="loading">
+            <Loading size={30}></Loading>
           </div>
-          :
-          <h3>Nenhum cliente cadastrado ou erro ao conectar com o banco.</h3>
-        }
+        ) : (
+          <>
+            {clients && clients.length > 0 ?
+              <div className="table-scroll">
+                <table className="customers">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Telefone</th>
+                      <th>Cep</th>
+                      <th>Logradouro</th>
+                      <th>Bairro</th>
+                      <th>Cidade</th>
+                      <th>Excluir</th>
+                    </tr>
+                  </thead>
+                  {clients && clients.map((cliente, index) => {
+                    return (
+                      <tbody key={index}>
+                        <tr >
+                          {/* <td><input type="text" value={cliente.nome} /></td> */}
+                          <td>{cliente.nome}</td>
+                          <td>{cliente.telefone}</td>
+                          <td>{cliente.cep}</td>
+                          <td>{cliente.logradouro}</td>
+                          <td>{cliente.bairro}</td>
+                          <td>{cliente.cidade}</td>
+                          <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
+                        </tr>
+                      </tbody>
+                    )
+                  })}
+                </table>
+              </div>
+              :
+              <>
+                <h3>Nenhum cliente cadastrado ou erro ao conectar com o banco.</h3>
+              </>
+            }
+          </>
+        )}
       </main>
     </div>
   );

@@ -10,13 +10,13 @@ function Nav(props) {
         <span>Disk Pizza Califórnia</span>
       </Link>
       <ul className="nav-links">
-        <Link className="navStyle" to={props.path}>
+        <Link className="navStyle" to={props.path ? props.path : "/#"}>
           <li>{props.name}</li>
         </Link>
-        <Link className="navStyle" to={props.path2}>
+        <Link className="navStyle" to={props.path2 ? props.path2 : "/#"}>
           <li>{props.name2}</li>
         </Link>
-        <Link className="navStyle" to={props.path3}>
+        <Link className="navStyle" to={props.path2 ? props.path3 : "/#"}>
           <li>{props.name3}</li>
         </Link>
       </ul>
