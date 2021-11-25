@@ -23,9 +23,9 @@ export default function CadastroCliente() {
 
   useEffect(() => {
     const showCustomers = async () => {
+      setLoading(oldState => !oldState)
       const { clientes } = await APIService.getClientes()
       setClients(clientes)
-      setLoading(oldState => !oldState)
     }
     showCustomers()
   }, [])
@@ -234,21 +234,22 @@ export default function CadastroCliente() {
                       <th>Logradouro</th>
                       <th>Bairro</th>
                       <th>Cidade</th>
-                      <th>Excluir</th>
+                      <th>Ações</th>
                     </tr>
                   </thead>
                   {clients && clients.map((cliente, index) => {
                     return (
                       <tbody key={index}>
-                        <tr >
-                          {/* <td><input type="text" value={cliente.nome} /></td> */}
+                        <tr>
                           <td>{cliente.nome}</td>
                           <td>{cliente.telefone}</td>
                           <td>{cliente.cep}</td>
                           <td>{cliente.logradouro}</td>
                           <td>{cliente.bairro}</td>
                           <td>{cliente.cidade}</td>
-                          <td><button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
+                          <td>
+                            <button type="button" onClick={() => console.log("editar")}>Editar</button>
+                            <button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
                         </tr>
                       </tbody>
                     )

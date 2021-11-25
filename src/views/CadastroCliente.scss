@@ -78,6 +78,10 @@
       height: 30px;
     }
 
+    button:nth-child(1) {
+      margin-right: 8px;
+    }
+
     .table-scroll {
       height: 400px;
       overflow-y: auto;
@@ -92,7 +96,7 @@
         width: 100%;
 
         thead th {
-          position: sticky;
+          // position: sticky;
           top: -1px;
         }
       }
