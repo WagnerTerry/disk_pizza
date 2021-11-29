@@ -6,8 +6,6 @@ import { MdAssignment } from "react-icons/md";
 import { MdAttachMoney } from "react-icons/md";
 import { MdRestaurantMenu } from "react-icons/md";
 
-
-
 export const SidebarData = [
     {
         title: 'Home',
