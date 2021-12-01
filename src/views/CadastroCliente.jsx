@@ -248,7 +248,7 @@ export default function CadastroCliente() {
                           <td>{cliente.bairro}</td>
                           <td>{cliente.cidade}</td>
                           <td>
-                            <button type="button" onClick={() => console.log("editar")}>Editar</button>
+                            {/* <button type="button" onClick={() => console.log("editar")}>Editar</button> */}
                             <button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
                         </tr>
                       </tbody>
