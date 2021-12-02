@@ -52,18 +52,22 @@ body {
       color: white;
     }
   }
+}
 
-  @media (max-width: 400px) {
-    .home {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      h1 {
-        font-size: 20px;
-        margin-top: 40px;
-      }
+@media (max-width: 400px) {
+  .home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h1 {
+      font-size: 20px;
+      margin-top: 40px;
     }
+  }
+
+  .aside {
+    display: block;
 
     #route {
       .buttons {

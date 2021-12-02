@@ -6,7 +6,9 @@ import Logo from "../assets/logo.png";
 function Home() {
   return (
     <div id="home">
-      <Nav />
+      <div className="component-nav">
+        <Nav />
+      </div>
       {/* <Nav name="Cadastro" path="cadastro" name2="Caixa" path2="caixa" name3="Cardapio" path3="cardapio" /> */}
 
       <div className="home-logo">
