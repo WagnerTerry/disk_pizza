@@ -29,7 +29,9 @@ export default function Cardapio() {
 
   return (
     <div id={"cardapio"}>
-      <Nav />
+      <div className="component-nav">
+        <Nav />
+      </div>
       <div className="cardapio-class">
         {loading ? (
           <div className="loading">

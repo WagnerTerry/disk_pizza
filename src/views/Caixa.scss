@@ -3,3 +3,9 @@
   // padding: 0px 80px;
   width: 100%;
 }
+
+@media (max-width: 400px) {
+  .component-nav {
+    display: none;
+  }
+}

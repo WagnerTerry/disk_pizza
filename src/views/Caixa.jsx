@@ -6,7 +6,9 @@ import './Caixa.scss'
 export default function Caixa() {
   return (
     <div id="caixa">
-      <Nav />
+      <div className="component-nav">
+        <Nav />
+      </div>
       <h2>Caixa</h2>
     </div>
   )

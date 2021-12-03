@@ -103,7 +103,9 @@ export default function CadastroCliente() {
 
   return (
     <div id="cadastro-cliente">
-      <Nav />
+    <div className="component-nav">
+        <Nav />
+      </div>
       {/* <Nav name="Cadastrar Cliente" path="cadastrocliente" name2="Cadastrar Pizza" path2="cadastropizza" name3="Cadastrar Grupo" path3="cadastrogrupo" /> */}
 
       <div>
