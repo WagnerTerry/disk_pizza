@@ -1,0 +1,23 @@
+@import "../../../src/variables.scss";
+
+#component-button {
+  width: 20vw;
+  height: 32px;
+  border-radius: 20px;
+  border: 1px solid white;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.blue {
+  background-color: $blue;
+}
+
+.green {
+  background-color: $green;
+}
+
+.turquoise {
+  background-color: $turquoise;
+}
