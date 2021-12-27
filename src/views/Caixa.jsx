@@ -6,29 +6,28 @@ import './Caixa.scss'
 
 export default function Caixa() {
 
-  const [values, setValues] = useState([{ name: "", email: "" }])
+  const [formValues, setFormValues] = useState([{ name: "", email: "" }])
 
   let handleChange = (i, e) => {
-    let newFormValues = [...values]
-    newFormValues[i][e.target.value] = e.target.value
-    setValues(newFormValues)
+    let newFormValues = [...formValues];
+    newFormValues[i][e.target.name] = e.target.value;
+    setFormValues(newFormValues);
   }
 
   let addFormFields = () => {
-    setValues([...values, { name: "", email: "" }])
+    setFormValues([...formValues, { name: "", email: "" }])
   }
 
   let removeFormFields = (i) => {
-    let newFormValues = [...values]
-    newFormValues.splice(i, 1)
-    setValues(newFormValues)
+    let newFormValues = [...formValues];
+    newFormValues.splice(i, 1);
+    setFormValues(newFormValues)
   }
 
-  let handleSubmit = (e) => {
-    e.preventDefault()
-    alert(JSON.stringify(values))
+  let handleSubmit = (event) => {
+    event.preventDefault();
+    alert(JSON.stringify(formValues));
   }
-
   return (
     <div id="caixa">
       <div className="component-nav">
@@ -40,7 +39,7 @@ export default function Caixa() {
 
         {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor total */}
 
-        {values.map((element, index) => (
+        {formValues.map((element, index) => (
           <div className="form-inline" key={index}>
             <label>Name</label>
             <input type="text" name="name" value={element.name || ""} onChange={(e) => handleChange(index, e)} />
