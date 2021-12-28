@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../components/button/Button";
 import Nav from '../components/Nav'
 import { useForm } from "react-hook-form";
@@ -21,6 +21,20 @@ export default function Caixa() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    // var date = new Date();
+    // var day = date.getDate();
+    // var month = date.getMonth() + 1;
+    // var year = date.getFullYear();
+
+    // if (month < 10) month = "0" + month;
+    // if (day < 10) day = "0" + day;
+
+    // var today = year + "-" + month + "-" + day;
+
+    // document.getElementById("startdateId").value = today;
+  }, [])
 
   const [formValues, setFormValues] = useState([{ pedido: "", data: "", hora: "", cliente: "", bairro: "", entregador: "", situacao: "", valor_total: "" }])
 
@@ -78,7 +92,7 @@ export default function Caixa() {
                     <tbody key={index}>
                       <tr>
                         <td><input type="text" name="pedido" size={7} value={element.pedido || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="data" size={8} value={element.data || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="date" name="data" size={8} value={element.data || ""} onChange={(e) => handleChange(index, e)} style={{ "width": "137px" }} /></td>
                         <td><input type="text" name="hora" size={5} value={element.hora || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="cliente" value={element.cliente || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="pizza" value={element.pizza || ""} onChange={(e) => handleChange(index, e)} /></td>
