@@ -65,6 +65,7 @@ export default function Caixa() {
                     <th>Data</th>
                     <th>Hora</th>
                     <th>Cliente</th>
+                    <th>Pizza</th>
                     <th>Bairro</th>
                     <th>Entregador</th>
                     <th>Situação</th>
@@ -76,12 +77,13 @@ export default function Caixa() {
 
                     <tbody key={index}>
                       <tr>
-                        <td><input type="text" name="pedido" value={element.pedido || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="pedido" size={7} value={element.pedido || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="data" size={8} value={element.data || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="hora" size={5} value={element.hora || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="cliente" value={element.cliente || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="pizza" value={element.pizza || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="bairro" value={element.bairro || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="entregador" value={element.entregador || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="entregador" size={8} value={element.entregador || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="situacao" size={6} value={element.situacao || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="valor_total" size={7} value={element.valor_total || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
@@ -92,7 +94,7 @@ export default function Caixa() {
                 })}
               </table>
             </form>
-            <button className="button submit" type="submit" onClick={handleSubmit}>Salvar</button>
+            <button className="close_cash" type="submit" onClick={handleSubmit}>Salvar</button>
           </>
           : ""}
       </div>
