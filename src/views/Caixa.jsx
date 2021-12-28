@@ -77,13 +77,13 @@ export default function Caixa() {
                     <tbody key={index}>
                       <tr>
                         <td><input type="text" name="pedido" value={element.pedido || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="data" value={element.data || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="hora" value={element.hora || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="data" size={8} value={element.data || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="hora" size={5} value={element.hora || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="cliente" value={element.cliente || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="bairro" value={element.bairro || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="entregador" value={element.entregador || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="situacao" value={element.situacao || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="valor_total" value={element.valor_total || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="situacao" size={6} value={element.situacao || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="valor_total" size={7} value={element.valor_total || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td>
                       </tr>
