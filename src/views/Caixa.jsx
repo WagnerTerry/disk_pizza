@@ -57,8 +57,8 @@ export default function Caixa() {
         {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor total */}
         <form onSubmit={handleSubmit}>
           {formValues.map((element, index) => (
-            <div className="form-inline" key={index}>
-              <label>Name</label>
+            <div className="cash-form" key={index}>
+              <label>Pedido</label>
               <input type="text" name="name" value={element.name || ""} onChange={(e) => handleChange(index, e)} />
               <label>Email</label>
               <input type="text" name="email" value={element.email || ""} onChange={e => handleChange(index, e)} />
