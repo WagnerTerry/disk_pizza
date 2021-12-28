@@ -22,7 +22,7 @@ export default function Caixa() {
     resolver: yupResolver(schema),
   });
 
-  const [formValues, setFormValues] = useState([{ name: "", email: "" }])
+  const [formValues, setFormValues] = useState([{ pedido: "", data: "", hora: "", cliente: "", bairro: "", entregador: "", situacao: "", valor_total: "" }])
 
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
@@ -31,7 +31,7 @@ export default function Caixa() {
   }
 
   let addFormFields = () => {
-    setFormValues([...formValues, { name: "", email: "" }])
+    setFormValues([...formValues, { pedido: "", data: "", hora: "", cliente: "", bairro: "", entregador: "", situacao: "", valor_total: "" }])
   }
 
   let removeFormFields = (i) => {
@@ -52,26 +52,49 @@ export default function Caixa() {
       <h2>Caixa</h2>
 
       <div className="cash-flow">
-        <Button onClick={() => addFormFields()} color="turquoise">Abrir Caixa</Button>
+        <Button onClick={() => addFormFields()} color="turquoise">Novo registro</Button>
 
         {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor total */}
-        <form onSubmit={handleSubmit}>
-          {formValues.map((element, index) => (
-            <div className="cash-form" key={index}>
-              <label>Pedido</label>
-              <input type="text" name="name" value={element.name || ""} onChange={(e) => handleChange(index, e)} />
-              <label>Email</label>
-              <input type="text" name="email" value={element.email || ""} onChange={e => handleChange(index, e)} />
+        {formValues.length > 0 ?
+          <>
+            <form onSubmit={handleSubmit}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Pedido</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Cliente</th>
+                    <th>Bairro</th>
+                    <th>Entregador</th>
+                    <th>Situação</th>
+                    <th>Valor Total</th>
+                  </tr>
+                </thead>
+                {formValues.map((element, index) => {
+                  return (
 
-              <button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
-
-            </div>
-          ))}
-          <div className="button-section">
-            <button className="button submit" type="submit" onClick={handleSubmit}>Submit</button>
-          </div>
-        </form>
-
+                    <tbody key={index}>
+                      <tr>
+                        <td><input type="text" name="pedido" value={element.pedido || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="data" value={element.data || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="hora" value={element.hora || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="cliente" value={element.cliente || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="bairro" value={element.bairro || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="entregador" value={element.entregador || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="situacao" value={element.situacao || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="valor_total" value={element.valor_total || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  )
+                })}
+              </table>
+            </form>
+            <button className="button submit" type="submit" onClick={handleSubmit}>Salvar</button>
+          </>
+          : ""}
       </div>
     </div>
   )
