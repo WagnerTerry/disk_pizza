@@ -60,7 +60,8 @@ export default function Caixa() {
   // }
 
   function cashSave(data) {
-    console.log("aaa", data)
+    setFormValues(prevState => [...prevState, data])
+    console.log("aaa", formValues)
   }
   return (
     <div id="caixa">
