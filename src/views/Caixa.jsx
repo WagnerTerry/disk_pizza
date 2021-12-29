@@ -93,12 +93,25 @@ export default function Caixa() {
                       <tr>
                         <td><input type="text" name="pedido" size={7} value={element.pedido || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="date" name="data" size={8} value={element.data || ""} onChange={(e) => handleChange(index, e)} style={{ "width": "137px" }} /></td>
-                        <td><input type="text" name="hora" size={5} value={element.hora || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="time" name="hora" size={5} value={element.hora || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="cliente" value={element.cliente || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="pizza" value={element.pizza || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="bairro" value={element.bairro || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="entregador" size={8} value={element.entregador || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="situacao" size={6} value={element.situacao || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td>
+                          <select
+                            id="situacao"
+                            name="situacao"
+                            defaultValue=""
+                            required
+                          //onChange={(e) => handleChange(index, e)}
+                          //{...register("situacao", { required: true })}
+                          >
+                            <option value="" disabled>Selecione</option>
+                            <option value="pago">PAGO</option>
+                            <option value="pendente">PENDENTE</option>
+                          </select>
+                        </td>
                         <td><input type="text" name="valor_total" size={7} value={element.valor_total || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td>
