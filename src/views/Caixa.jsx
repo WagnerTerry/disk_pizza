@@ -9,13 +9,13 @@ import './Caixa.scss'
 
 export default function Caixa() {
   const schema = yup.object().shape({
-    name: yup.string().min(1, "campo obrigatório").required(),
+    pedido: yup.string().min(1, "campo obrigatório").required(),
   });
 
   const {
     register,
-    //handleSubmit,
-    reset,
+    handleSubmit,
+    //reset,
     // watch,
     formState: { errors },
   } = useForm({
@@ -54,9 +54,13 @@ export default function Caixa() {
     setFormValues(newFormValues)
   }
 
-  let handleSubmit = (event) => {
-    event.preventDefault();
-    alert(JSON.stringify(formValues));
+  // let handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   alert(JSON.stringify(formValues));
+  // }
+
+  function cashSave(data) {
+    console.log("aaa", data)
   }
   return (
     <div id="caixa">
@@ -71,7 +75,7 @@ export default function Caixa() {
         {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor total */}
         {formValues.length > 0 ?
           <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(cashSave)}>
               <table>
                 <thead>
                   <tr>
@@ -91,21 +95,21 @@ export default function Caixa() {
 
                     <tbody key={index}>
                       <tr>
-                        <td><input type="text" name="pedido" size={7} value={element.pedido || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="date" name="data" size={8} value={element.data || ""} onChange={(e) => handleChange(index, e)} style={{ "width": "137px" }} /></td>
+                        <td><input type="text" id="pedido" name="pedido" size={7} onChange={(e) => handleChange(index, e)}  {...register("pedido", { required: true })} />  {errors.pedido && <p>Campo Obrigatório</p>}</td>
+                        <td><input type="date" id="data" name="data" size={8} onChange={(e) => handleChange(index, e)}  {...register("data", { required: true })} style={{ "width": "137px" }} /></td>
                         <td><input type="time" name="hora" size={5} value={element.hora || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="cliente" value={element.cliente || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="pizza" value={element.pizza || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><input type="text" name="bairro" value={element.bairro || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="entregador" size={8} value={element.entregador || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" id="entregador" name="entregador" size={8} onChange={(e) => handleChange(index, e)} {...register("entregador", { required: true })} /></td>
                         <td>
                           <select
                             id="situacao"
                             name="situacao"
                             defaultValue=""
                             required
-                          //onChange={(e) => handleChange(index, e)}
-                          //{...register("situacao", { required: true })}
+                            onChange={(e) => handleChange(index, e)}
+                            {...register("situacao", { required: true })}
                           >
                             <option value="" disabled>Selecione</option>
                             <option value="pago">PAGO</option>
@@ -120,8 +124,8 @@ export default function Caixa() {
                   )
                 })}
               </table>
+              <input className="close_cash" type="submit" value="Salvar" />
             </form>
-            <button className="close_cash" type="submit" onClick={handleSubmit}>Salvar</button>
           </>
           : ""}
       </div>
