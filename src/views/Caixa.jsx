@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import './Caixa.scss'
+import APIService from "../services/api";
 
 export default function Caixa() {
   const schema = yup.object().shape({
@@ -22,7 +23,14 @@ export default function Caixa() {
     resolver: yupResolver(schema),
   });
 
+  const [caixa, setCaixa] = useState([])
+
   useEffect(() => {
+    const showCashFlow = async () => {
+      const { fluxo_caixa } = await APIService.exibirCaixa()
+      setCaixa(fluxo_caixa)
+    }
+    showCashFlow()
     // var date = new Date();
     // var day = date.getDate();
     // var month = date.getMonth() + 1;
@@ -69,6 +77,7 @@ export default function Caixa() {
         <Nav />
       </div>
       <h2>Caixa</h2>
+      {console.log("aaa", caixa)}
 
       <div className="cash-flow">
         <Button onClick={() => addFormFields()} color="turquoise">Novo registro</Button>

@@ -64,4 +64,9 @@ export default class APIService {
     const result = await axios.delete(`${baseUrl}/clientes/${id}`);
     return result.data;
   };
+
+  static exibirCaixa = async () => {
+    const result = await axios.get(`${baseUrl}/caixa`);
+    return result.data;
+  };
 }
