@@ -7,6 +7,7 @@ import * as yup from "yup";
 
 import './Caixa.scss'
 import APIService from "../services/api";
+import { toast } from "react-toastify";
 
 export default function Caixa() {
   const schema = yup.object().shape({
@@ -24,11 +25,13 @@ export default function Caixa() {
   });
 
   const [caixa, setCaixa] = useState([])
+  const [qtPedido, setQtPedido] = useState("")
 
   useEffect(() => {
     const showCashFlow = async () => {
-      const { fluxo_caixa } = await APIService.exibirCaixa()
+      const { fluxo_caixa, quantidade_pedido } = await APIService.exibirCaixa()
       setCaixa(fluxo_caixa)
+      setQtPedido(quantidade_pedido)
     }
     showCashFlow()
     // var date = new Date();
@@ -44,7 +47,7 @@ export default function Caixa() {
     // document.getElementById("startdateId").value = today;
   }, [])
 
-  const [formValues, setFormValues] = useState([{ pedido: "", data: "", hora: "", cliente: "", bairro: "", entregador: "", situacao: "", valor_total: "" }])
+  const [formValues, setFormValues] = useState([{ pedido: "", data: "", hora: "", cliente: "", bairro: "", entregador: "", situacao: "", valor: "" }])
 
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
@@ -53,7 +56,7 @@ export default function Caixa() {
   }
 
   let addFormFields = () => {
-    setFormValues([...formValues, { pedido: "", data: "", hora: "", cliente: "", bairro: "", entregador: "", situacao: "", valor_total: "" }])
+    setFormValues([...formValues, { pedido: "", data: "", hora: "", cliente: "", bairro: "", entregador: "", situacao: "", valor: "" }])
   }
 
   let removeFormFields = (i) => {
@@ -67,9 +70,18 @@ export default function Caixa() {
   //   alert(JSON.stringify(formValues));
   // }
 
-  function cashSave(data) {
-    setFormValues(prevState => [...prevState, data])
-    console.log("aaa", formValues)
+  async function cashSave(data) {
+    try {
+      await APIService.salvarCaixa(data)
+      setFormValues(prevState => [...prevState, data])
+      toast.success("caixa salvo com sucesso")
+      console.log("caixa", data)
+      //console.log("aaa", formValues)
+
+    } catch (e) {
+      console.log("Ocorreu ao salvar caixa", e)
+      toast.error("Erro ao salvar caixa")
+    }
   }
   return (
     <div id="caixa">
@@ -77,12 +89,13 @@ export default function Caixa() {
         <Nav />
       </div>
       <h2>Caixa</h2>
+      <h3>Número de pedidos: {qtPedido}</h3>
       {console.log("aaa", caixa)}
 
       <div className="cash-flow">
         <Button onClick={() => addFormFields()} color="turquoise">Novo registro</Button>
 
-        {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor total */}
+        {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor */}
         {formValues.length > 0 ?
           <>
             <form onSubmit={handleSubmit(cashSave)}>
@@ -97,7 +110,7 @@ export default function Caixa() {
                     <th>Bairro</th>
                     <th>Entregador</th>
                     <th>Situação</th>
-                    <th>Valor Total</th>
+                    <th>Valor</th>
                   </tr>
                 </thead>
                 {formValues.map((element, index) => {
@@ -126,7 +139,7 @@ export default function Caixa() {
                             <option value="pendente">PENDENTE</option>
                           </select>
                         </td>
-                        <td><input type="text" name="valor_total" size={7} value={element.valor_total || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="text" name="valor" size={7} value={element.valor || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td>
                       </tr>

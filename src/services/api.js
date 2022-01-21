@@ -69,4 +69,9 @@ export default class APIService {
     const result = await axios.get(`${baseUrl}/caixa`);
     return result.data;
   };
+
+  static salvarCaixa = async (dados) => {
+    const result = await axios.post(`${baseUrl}/caixa}`, dados);
+    return result.data;
+  };
 }
