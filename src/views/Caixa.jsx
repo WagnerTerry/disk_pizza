@@ -47,7 +47,7 @@ export default function Caixa() {
     // document.getElementById("startdateId").value = today;
   }, [])
 
-  const [formValues, setFormValues] = useState([{ pedido: "", data: "", hora: "", cliente: "", bairro: "", entregador: "", situacao: "", valor: "" }])
+  const [formValues, setFormValues] = useState([{ pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", situacao: "", valor: "" }])
 
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
@@ -56,7 +56,7 @@ export default function Caixa() {
   }
 
   let addFormFields = () => {
-    setFormValues([...formValues, { pedido: "", data: "", hora: "", cliente: "", bairro: "", entregador: "", situacao: "", valor: "" }])
+    setFormValues([...formValues, { pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", situacao: "", valor: "" }])
   }
 
   let removeFormFields = (i) => {
@@ -72,11 +72,12 @@ export default function Caixa() {
 
   async function cashSave(data) {
     try {
-      await APIService.salvarCaixa(data)
-      setFormValues(prevState => [...prevState, data])
-      toast.success("caixa salvo com sucesso")
-      console.log("caixa", data)
+      // await APIService.salvarCaixa(data)
+      // setFormValues(prevState => [...prevState, data])
+      // toast.success("caixa salvo com sucesso")
+      // console.log("caixa", data)
       //console.log("aaa", formValues)
+      console.log("bbb", data)
 
     } catch (e) {
       console.log("Ocorreu ao salvar caixa", e)
@@ -119,11 +120,11 @@ export default function Caixa() {
                     <tbody key={index}>
                       <tr>
                         <td><input type="text" id="pedido" name="pedido" size={7} onChange={(e) => handleChange(index, e)}  {...register("pedido", { required: true })} />  {errors.pedido && <p>Campo Obrigatório</p>}</td>
-                        <td><input type="date" id="data" name="data" size={8} onChange={(e) => handleChange(index, e)}  {...register("data", { required: true })} style={{ "width": "137px" }} /></td>
-                        <td><input type="time" name="hora" size={5} value={element.hora || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="cliente" value={element.cliente || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="pizza" value={element.pizza || ""} onChange={(e) => handleChange(index, e)} /></td>
-                        <td><input type="text" name="bairro" value={element.bairro || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="date" id="datas" name="datas" size={8} onChange={(e) => handleChange(index, e)}  {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
+                        <td><input type="time" name="hora" size={5} value={element.hora || ""} onChange={(e) => handleChange(index, e)} {...register("hora", { required: true })} /></td>
+                        <td><input type="text" name="nome_cliente" value={element.nome_cliente || ""} onChange={(e) => handleChange(index, e)} {...register("nome_cliente", { required: true })} /></td>
+                        <td><input type="text" name="nome_pizza" value={element.nome_pizza || ""} onChange={(e) => handleChange(index, e)} {...register("nome_pizza", { required: true })} /></td>
+                        <td><input type="text" name="bairro" value={element.bairro || ""} onChange={(e) => handleChange(index, e)} {...register("bairro", { required: true })} /></td>
                         <td><input type="text" id="entregador" name="entregador" size={8} onChange={(e) => handleChange(index, e)} {...register("entregador", { required: true })} /></td>
                         <td>
                           <select
@@ -139,7 +140,7 @@ export default function Caixa() {
                             <option value="pendente">PENDENTE</option>
                           </select>
                         </td>
-                        <td><input type="text" name="valor" size={7} value={element.valor || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="number" step="0.010" name="valor" size={7} value={element.valor || ""} onChange={(e) => handleChange(index, e)} /></td>
                         <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td>
                       </tr>
