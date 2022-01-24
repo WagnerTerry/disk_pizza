@@ -74,7 +74,7 @@ export default function Caixa() {
     try {
       await APIService.salvarCaixa(data)
       setFormValues(prevState => [...prevState, data])
-      toast.success("caixa salvo com sucesso")
+      toast.success("registro salvo com sucesso")
       console.log("caixa", data)
       // console.log("aaa", formValues)
       console.log("bbb", data)
