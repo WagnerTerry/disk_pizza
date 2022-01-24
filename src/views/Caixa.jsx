@@ -72,11 +72,11 @@ export default function Caixa() {
 
   async function cashSave(data) {
     try {
-      // await APIService.salvarCaixa(data)
-      // setFormValues(prevState => [...prevState, data])
-      // toast.success("caixa salvo com sucesso")
-      // console.log("caixa", data)
-      //console.log("aaa", formValues)
+      await APIService.salvarCaixa(data)
+      setFormValues(prevState => [...prevState, data])
+      toast.success("caixa salvo com sucesso")
+      console.log("caixa", data)
+      // console.log("aaa", formValues)
       console.log("bbb", data)
 
     } catch (e) {
@@ -121,10 +121,11 @@ export default function Caixa() {
                       <tr>
                         <td><input type="text" id="pedido" name="pedido" size={7} onChange={(e) => handleChange(index, e)}  {...register("pedido", { required: true })} />  {errors.pedido && <p>Campo Obrigatório</p>}</td>
                         <td><input type="date" id="datas" name="datas" size={8} onChange={(e) => handleChange(index, e)}  {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
-                        <td><input type="time" name="hora" size={5} value={element.hora || ""} onChange={(e) => handleChange(index, e)} {...register("hora", { required: true })} /></td>
-                        <td><input type="text" name="nome_cliente" value={element.nome_cliente || ""} onChange={(e) => handleChange(index, e)} {...register("nome_cliente", { required: true })} /></td>
-                        <td><input type="text" name="nome_pizza" value={element.nome_pizza || ""} onChange={(e) => handleChange(index, e)} {...register("nome_pizza", { required: true })} /></td>
-                        <td><input type="text" name="bairro" value={element.bairro || ""} onChange={(e) => handleChange(index, e)} {...register("bairro", { required: true })} /></td>
+                        <td><input type="time" name="hora" size={5} onChange={(e) => handleChange(index, e)} {...register("hora", { required: true })} /></td>
+                        <td><input type="text" name="nome_cliente" onChange={(e) => handleChange(index, e)} {...register("nome_cliente", { required: true })} /></td>
+                        {/* <td><input type="text" name="nome_cliente" value={element.nome_cliente || ""} onChange={(e) => handleChange(index, e)} {...register("nome_cliente", { required: true })} /></td> */}
+                        <td><input type="text" name="nome_pizza" onChange={(e) => handleChange(index, e)} {...register("nome_pizza", { required: true })} /></td>
+                        <td><input type="text" name="bairro" onChange={(e) => handleChange(index, e)} {...register("bairro", { required: true })} /></td>
                         <td><input type="text" id="entregador" name="entregador" size={8} onChange={(e) => handleChange(index, e)} {...register("entregador", { required: true })} /></td>
                         <td>
                           <select
@@ -136,11 +137,11 @@ export default function Caixa() {
                             {...register("situacao", { required: true })}
                           >
                             <option value="" disabled>Selecione</option>
-                            <option value="pago">PAGO</option>
-                            <option value="pendente">PENDENTE</option>
+                            <option value="PAGO">PAGO</option>
+                            <option value="PENDENTE">PENDENTE</option>
                           </select>
                         </td>
-                        <td><input type="number" step="0.010" name="valor" size={7} value={element.valor || ""} onChange={(e) => handleChange(index, e)} /></td>
+                        <td><input type="number" step="0.010" name="valor" size={7} onChange={(e) => handleChange(index, e)} {...register("valor", { required: true })} /></td>
                         <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td>
                       </tr>
