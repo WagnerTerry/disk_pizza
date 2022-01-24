@@ -80,7 +80,7 @@ export default function Caixa() {
       console.log("bbb", data)
 
     } catch (e) {
-      console.log("Ocorreu ao salvar caixa", e)
+      console.log("Ocorreu um erro ao registrar caixa", e)
       toast.error("Erro ao salvar caixa")
     }
   }
@@ -141,7 +141,7 @@ export default function Caixa() {
                             <option value="PENDENTE">PENDENTE</option>
                           </select>
                         </td>
-                        <td><input type="number" step="0.010" name="valor" min={0} max={8} onChange={(e) => handleChange(index, e)} {...register("valor", { required: true })} /></td>
+                        <td><input type="number" step="0.010" name="valor" min={0} max={10000} onChange={(e) => handleChange(index, e)} {...register("valor", { required: true })} /></td>
                         <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td>
                       </tr>
