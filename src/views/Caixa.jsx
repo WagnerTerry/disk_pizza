@@ -84,6 +84,18 @@ export default function Caixa() {
       toast.error("Erro ao salvar caixa")
     }
   }
+
+  async function deletarRegistro(id) {
+    try {
+      await APIService.excluirRegistro(id)
+      setCaixa(caixa.filter(cx => cx.codigo_pedido !== id))
+      toast.success("Registrado removido")
+    } catch (e) {
+      console.log("erro ao excluir registro", e)
+      toast.error("Erro ao remover registro")
+    }
+  }
+
   return (
     <div id="caixa">
       <div className="component-nav">
@@ -91,7 +103,7 @@ export default function Caixa() {
       </div>
       <h2>Caixa</h2>
       <h3>Número de pedidos: {qtPedido}</h3>
-      {console.log("aaa", caixa)}
+      {console.log("caixa", caixa)}
 
       <div className="cash-flow">
         <Button onClick={() => addFormFields()} color="turquoise">Novo registro</Button>
@@ -139,7 +151,7 @@ export default function Caixa() {
                               </select>
                             </td>
                             <td><input type="number" step="0.010" value={cx.valor} disabled min={0} max={1000} /></td>
-                            <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
+                            <td><button type="button" className="button-remove" onClick={() => deletarRegistro(cx.codigo_pedido)}>Remover</button>
                             </td>
                           </tr>
                         )

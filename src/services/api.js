@@ -74,4 +74,9 @@ export default class APIService {
     const result = await axios.post(`${baseUrl}/caixa`, dados);
     return result.data;
   };
+
+  static excluirRegistro = async (id) => {
+    const result = await axios.delete(`${baseUrl}/caixa/${id}`);
+    return result.data;
+  };
 }
