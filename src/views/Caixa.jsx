@@ -74,6 +74,7 @@ export default function Caixa() {
     try {
       await APIService.salvarCaixa(data)
       setFormValues(prevState => [...prevState, data])
+      setQtPedido(prevState => prevState + 1)
       toast.success("registro salvo com sucesso")
       console.log("caixa", data)
       // console.log("aaa", formValues)
@@ -89,6 +90,7 @@ export default function Caixa() {
     try {
       await APIService.excluirRegistro(id)
       setCaixa(caixa.filter(cx => cx.codigo_pedido !== id))
+      setQtPedido(prevState => prevState - 1)
       toast.success("Registrado removido")
     } catch (e) {
       console.log("erro ao excluir registro", e)
