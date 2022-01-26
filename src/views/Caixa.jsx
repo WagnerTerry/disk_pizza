@@ -56,7 +56,7 @@ export default function Caixa() {
   }
 
   let addFormFields = () => {
-    setFormValues([...formValues, { pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", situacao: "", valor: "" }])
+    setCaixa([...caixa, { pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", situacao: "", valor: "" }])
   }
 
   let removeFormFields = (i) => {
