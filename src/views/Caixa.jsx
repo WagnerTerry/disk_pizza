@@ -17,7 +17,7 @@ export default function Caixa() {
   const {
     register,
     handleSubmit,
-    //reset,
+    reset,
     // watch,
     formState: { errors },
   } = useForm({
@@ -76,6 +76,7 @@ export default function Caixa() {
       setCaixa(prevState => [...prevState, data])
       setQtPedido(prevState => prevState + 1)
       toast.success("Registro salvo com sucesso")
+      reset()
       console.log("caixa", data)
 
     } catch (e) {
