@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 export default function Caixa() {
   const schema = yup.object().shape({
-    pedido: yup.string().min(1, "campo obrigatório").required(),
+    numero_pedido: yup.string().min(1, "campo obrigatório").required(),
   });
 
   const {
@@ -47,7 +47,7 @@ export default function Caixa() {
     // document.getElementById("startdateId").value = today;
   }, [])
 
-  const [formValues, setFormValues] = useState([{ pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", situacao: "", valor: "" }])
+  const [formValues, setFormValues] = useState([{ numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
 
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
@@ -56,7 +56,7 @@ export default function Caixa() {
   }
 
   let addFormFields = () => {
-    setCaixa([...caixa, { pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", situacao: "", valor: "" }])
+    setCaixa([...caixa, { numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
   }
 
   let removeFormFields = (i) => {
@@ -77,11 +77,10 @@ export default function Caixa() {
       setQtPedido(prevState => prevState + 1)
       toast.success("Registro salvo com sucesso")
       console.log("caixa", data)
-      console.log("bbb", data)
 
     } catch (e) {
       console.log("Ocorreu um erro ao registrar caixa", e)
-      toast.error("Erro ao salvar caixa")
+      toast.error("Erro ao registrar caixa")
     }
   }
 
@@ -116,14 +115,14 @@ export default function Caixa() {
               <table>
                 <thead>
                   <tr>
-                    <th>Pedido</th>
+                    <th>Nº Pedido</th>
                     <th>Data</th>
                     <th>Hora</th>
                     <th>Cliente</th>
                     <th>Pizza</th>
                     <th>Bairro</th>
                     <th>Entregador</th>
-                    <th>Situação</th>
+                    <th>Pagamento</th>
                     <th>Valor</th>
                   </tr>
                 </thead>
@@ -134,7 +133,7 @@ export default function Caixa() {
                       {caixa.map((cx) => {
                         return (
                           <tr>
-                            <td><input type="text" value={cx.codigo_pedido} disabled size={7} /></td>
+                            <td><input type="text" value={cx.numero_pedido} disabled size={7} /></td>
                             <td><input type="date" value={cx.datas} size={8} disabled style={{ "width": "137px" }} /></td>
                             <td><input type="time" value={cx.hora} size={5} disabled /></td>
                             <td><input type="text" value={cx.nome_cliente} disabled /></td>
@@ -143,12 +142,13 @@ export default function Caixa() {
                             <td><input type="text" value={cx.entregador} disabled size={8} /></td>
                             <td>
                               <select
-                                defaultValue={cx.situacao}
+                                defaultValue={cx.pagamento}
                                 disabled
                               >
-                                <option value={cx.situacao} >{cx.situacao}</option>
-                                <option value="PAGO">PAGO</option>
-                                <option value="PENDENTE">PENDENTE</option>
+                                <option value={cx.pagamento} >{cx.pagamento}</option>
+                                <option value="DINHEIRO">DINHEIRO</option>
+                                <option value="CARTAO">CARTAO</option>
+                                <option value="IFOOD">IFOOD</option>
                               </select>
                             </td>
                             <td><input type="number" step="0.010" value={cx.valor} disabled min={0} max={1000} /></td>
@@ -158,7 +158,7 @@ export default function Caixa() {
                         )
                       })}
                       <tr>
-                        <td><input type="text" id="pedido" name="pedido" size={7} onChange={(e) => handleChange(index, e)}  {...register("pedido", { required: true })} />  {errors.pedido && <p>Campo Obrigatório</p>}</td>
+                        <td><input type="text" id="numero_pedido" name="numero_pedido" size={7} onChange={(e) => handleChange(index, e)}  {...register("numero_pedido", { required: true })} />  {errors.numero_pedido && <p>Campo Obrigatório</p>}</td>
                         <td><input type="date" id="datas" name="datas" size={8} onChange={(e) => handleChange(index, e)}  {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
                         <td><input type="time" name="hora" size={5} onChange={(e) => handleChange(index, e)} {...register("hora", { required: true })} /></td>
                         <td><input type="text" name="nome_cliente" onChange={(e) => handleChange(index, e)} {...register("nome_cliente", { required: true })} /></td>
@@ -167,16 +167,17 @@ export default function Caixa() {
                         <td><input type="text" id="entregador" name="entregador" size={8} onChange={(e) => handleChange(index, e)} {...register("entregador", { required: true })} /></td>
                         <td>
                           <select
-                            id="situacao"
-                            name="situacao"
+                            id="pagamento"
+                            name="pagamento"
                             defaultValue=""
                             required
                             onChange={(e) => handleChange(index, e)}
-                            {...register("situacao", { required: true })}
+                            {...register("pagamento", { required: true })}
                           >
                             <option value="" disabled>Selecione</option>
-                            <option value="PAGO">PAGO</option>
-                            <option value="PENDENTE">PENDENTE</option>
+                              <option value="DINHEIRO">DINHEIRO</option>
+                              <option value="CARTAO">CARTAO</option>
+                              <option value="IFOOD">IFOOD</option>
                           </select>
                         </td>
                         <td><input type="number" step="0.010" name="valor" min={0} max={1000} onChange={(e) => handleChange(index, e)} {...register("valor", { required: true })} /></td>
