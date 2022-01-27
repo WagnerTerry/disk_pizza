@@ -154,9 +154,9 @@ export default function Caixa() {
                       {/*   <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td> */}
                       </tr>
-                      {caixa.map((cx) => {
+                      {caixa.map((cx, index) => {
                         return (
-                          <tr key={cx.codigo_pedido}>
+                          <tr key={`cx${index}`}>
                             <td><input type="text" value={cx.numero_pedido} disabled size={7} /></td>
                             <td><input type="date" value={cx.datas} size={8} disabled style={{ "width": "137px" }} /></td>
                             <td><input type="time" value={cx.hora} size={5} disabled /></td>
