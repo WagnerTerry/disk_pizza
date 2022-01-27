@@ -73,11 +73,10 @@ export default function Caixa() {
   async function cashSave(data) {
     try {
       await APIService.salvarCaixa(data)
-      setFormValues(prevState => [...prevState, data])
+      setCaixa(prevState => [...prevState, data])
       setQtPedido(prevState => prevState + 1)
-      toast.success("registro salvo com sucesso")
+      toast.success("Registro salvo com sucesso")
       console.log("caixa", data)
-      // console.log("aaa", formValues)
       console.log("bbb", data)
 
     } catch (e) {
@@ -91,7 +90,7 @@ export default function Caixa() {
       await APIService.excluirRegistro(id)
       setCaixa(caixa.filter(cx => cx.codigo_pedido !== id))
       setQtPedido(prevState => prevState - 1)
-      toast.success("Registrado removido")
+      toast.success("Registro removido")
     } catch (e) {
       console.log("erro ao excluir registro", e)
       toast.error("Erro ao remover registro")
