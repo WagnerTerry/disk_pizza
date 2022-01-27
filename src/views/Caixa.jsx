@@ -47,13 +47,13 @@ export default function Caixa() {
     // document.getElementById("startdateId").value = today;
   }, [])
 
-  const [formValues, setFormValues] = useState([{ numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
+  //const [formValues, setFormValues] = useState([{ numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
 
-  let handleChange = (i, e) => {
+ /*  let handleChange = (i, e) => {
     let newFormValues = [...formValues];
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
-  }
+  } */
 
   let addFormFields = () => {
     setCaixa([...caixa, { numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
@@ -110,7 +110,7 @@ export default function Caixa() {
         <Button onClick={() => addFormFields()} color="turquoise">Novo registro</Button>
 
         {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor */}
-        {formValues.length > 0 ?
+        {caixa.length > 0 ?
           <>
             <form onSubmit={handleSubmit(cashSave)}>
               <table>
@@ -127,26 +127,21 @@ export default function Caixa() {
                     <th>Valor</th>
                   </tr>
                 </thead>
-                {formValues.map((element, index) => {
-                  return (
-
-                    <tbody key={index}>
-                      
+                    <tbody>
                       <tr>
-                        <td><input type="text" id="numero_pedido" name="numero_pedido" size={7} onChange={(e) => handleChange(index, e)}  {...register("numero_pedido", { required: true })} />  {errors.numero_pedido && <p>Campo Obrigatório</p>}</td>
-                        <td><input type="date" id="datas" name="datas" size={8} onChange={(e) => handleChange(index, e)}  {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
-                        <td><input type="time" name="hora" size={5} onChange={(e) => handleChange(index, e)} {...register("hora", { required: true })} /></td>
-                        <td><input type="text" name="nome_cliente" onChange={(e) => handleChange(index, e)} {...register("nome_cliente", { required: true })} /></td>
-                        <td><input type="text" name="nome_pizza" onChange={(e) => handleChange(index, e)} {...register("nome_pizza", { required: true })} /></td>
-                        <td><input type="text" name="bairro" onChange={(e) => handleChange(index, e)} {...register("bairro", { required: true })} /></td>
-                        <td><input type="text" id="entregador" name="entregador" size={8} onChange={(e) => handleChange(index, e)} {...register("entregador", { required: true })} /></td>
+                        <td><input type="text" id="numero_pedido" name="numero_pedido" size={7}   {...register("numero_pedido", { required: true })} />  {errors.numero_pedido && <p>Campo Obrigatório</p>}</td>
+                        <td><input type="date" id="datas" name="datas" size={8}  {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
+                        <td><input type="time" name="hora" size={5} {...register("hora", { required: true })} /></td>
+                        <td><input type="text" name="nome_cliente" {...register("nome_cliente", { required: true })} /></td>
+                        <td><input type="text" name="nome_pizza" {...register("nome_pizza", { required: true })} /></td>
+                        <td><input type="text" name="bairro" {...register("bairro", { required: true })} /></td>
+                        <td><input type="text" id="entregador" name="entregador" size={8} {...register("entregador", { required: true })} /></td>
                         <td>
                           <select
                             id="pagamento"
                             name="pagamento"
                             defaultValue=""
                             required
-                            onChange={(e) => handleChange(index, e)}
                             {...register("pagamento", { required: true })}
                           >
                             <option value="" disabled>Selecione</option>
@@ -155,13 +150,13 @@ export default function Caixa() {
                               <option value="IFOOD">IFOOD</option>
                           </select>
                         </td>
-                        <td><input type="number" step="0.010" name="valor" min={0} max={1000} onChange={(e) => handleChange(index, e)} {...register("valor", { required: true })} /></td>
+                        <td><input type="number" step="0.010" name="valor" min={0} max={1000} {...register("valor", { required: true })} /></td>
                       {/*   <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td> */}
                       </tr>
                       {caixa.map((cx) => {
                         return (
-                          <tr>
+                          <tr key={cx.codigo_pedido}>
                             <td><input type="text" value={cx.numero_pedido} disabled size={7} /></td>
                             <td><input type="date" value={cx.datas} size={8} disabled style={{ "width": "137px" }} /></td>
                             <td><input type="time" value={cx.hora} size={5} disabled /></td>
@@ -187,8 +182,6 @@ export default function Caixa() {
                         )
                       })}
                     </tbody>
-                  )
-                })}
               </table>
               <input className="close_cash" type="submit" value="Salvar" />
             </form>
