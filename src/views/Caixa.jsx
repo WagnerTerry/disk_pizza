@@ -113,6 +113,7 @@ export default function Caixa() {
         {caixa.length > 0 ?
           <>
             <form onSubmit={handleSubmit(cashSave)}>
+              <div className="box-form">
               <table>
                 <thead>
                   <tr>
@@ -183,6 +184,7 @@ export default function Caixa() {
                       })}
                     </tbody>
               </table>
+              </div>
               <input className="close_cash" type="submit" value="Salvar" />
             </form>
           </>
