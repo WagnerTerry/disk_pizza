@@ -47,10 +47,10 @@ export default function CadastroCliente() {
       if (nome_duplicado.length > 0) {
         return toast.error("Já existe um cliente com esse nome, por favor coloque um sobrenome para diferenciar");
       }
-      console.log(data);
       await APIService.cadastrarCliente(data);
       setClients(prevState => [...prevState, data])
       toast.success("Cliente cadastrado com sucesso");
+      console.log(data);
       reset();
     } catch (e) {
       console.log("Ocorreu um erro ao salvar cliente", e);

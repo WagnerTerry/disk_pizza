@@ -49,21 +49,21 @@ export default function Caixa() {
 
   //const [formValues, setFormValues] = useState([{ numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
 
- /*  let handleChange = (i, e) => {
-    let newFormValues = [...formValues];
-    newFormValues[i][e.target.name] = e.target.value;
-    setFormValues(newFormValues);
-  } */
+  /*  let handleChange = (i, e) => {
+     let newFormValues = [...formValues];
+     newFormValues[i][e.target.name] = e.target.value;
+     setFormValues(newFormValues);
+   } */
 
   let addFormFields = () => {
     setCaixa([...caixa, { numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
   }
 
- /*  let removeFormFields = (i) => {
-    let newFormValues = [...formValues];
-    newFormValues.splice(i, 1);
-    setFormValues(newFormValues)
-  } */
+  /*  let removeFormFields = (i) => {
+     let newFormValues = [...formValues];
+     newFormValues.splice(i, 1);
+     setFormValues(newFormValues)
+   } */
 
   // let handleSubmit = (event) => {
   //   event.preventDefault();
@@ -72,6 +72,11 @@ export default function Caixa() {
 
   async function cashSave(data) {
     try {
+      const pedido = data.numero_pedido
+      const pedido_duplicado = caixa.filter((cx) => cx.numero_pedido === +pedido)
+      if(pedido_duplicado.length > 0){
+        return toast.error("Pedido duplicado, os pedidos devem ser únicos")
+      }
       await APIService.salvarCaixa(data)
       setCaixa(prevState => [...prevState, data])
       setQtPedido(prevState => prevState + 1)
@@ -104,91 +109,86 @@ export default function Caixa() {
       </div>
       <h2>Caixa</h2>
       <h3>Número de pedidos: {qtPedido}</h3>
-      {console.log("caixa", caixa)}
 
       <div className="cash-flow">
         <Button onClick={() => addFormFields()} color="turquoise">Novo registro</Button>
 
         {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor */}
-        {caixa.length > 0 ?
-          <>
-            <form onSubmit={handleSubmit(cashSave)}>
-              <div className="box-form">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Nº Pedido</th>
-                    <th>Data</th>
-                    <th>Hora</th>
-                    <th>Cliente</th>
-                    <th>Pizza</th>
-                    <th>Bairro</th>
-                    <th>Entregador</th>
-                    <th>Pagamento</th>
-                    <th>Valor</th>
-                  </tr>
-                </thead>
-                    <tbody>
-                      <tr>
-                        <td><input type="text" id="numero_pedido" name="numero_pedido" size={7}   {...register("numero_pedido", { required: true })} />  {errors.numero_pedido && <p>Campo Obrigatório</p>}</td>
-                        <td><input type="date" id="datas" name="datas" size={8} required {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
-                        <td><input type="time" name="hora" size={5} required {...register("hora", { required: true })} /></td>
-                        <td><input type="text" name="nome_cliente" required {...register("nome_cliente", { required: true })} /></td>
-                        <td><input type="text" name="nome_pizza" required {...register("nome_pizza", { required: true })} /></td>
-                        <td><input type="text" name="bairro" required {...register("bairro", { required: true })} /></td>
-                        <td><input type="text" id="entregador" required name="entregador" size={8} {...register("entregador", { required: true })} /></td>
-                        <td>
-                          <select
-                            id="pagamento"
-                            name="pagamento"
-                            defaultValue=""
-                            required
-                            {...register("pagamento", { required: true })}
-                          >
-                            <option value="" disabled>Selecione</option>
-                              <option value="DINHEIRO">DINHEIRO</option>
-                              <option value="CARTAO">CARTAO</option>
-                              <option value="IFOOD">IFOOD</option>
-                          </select>
-                        </td>
-                        <td><input type="number" step="0.010" name="valor" required min={0} max={1000} {...register("valor", { required: true })} /></td>
-                      {/*   <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
+        <form onSubmit={handleSubmit(cashSave)}>
+          <div className="box-form">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nº Pedido</th>
+                  <th>Data</th>
+                  <th>Hora</th>
+                  <th>Cliente</th>
+                  <th>Pizza</th>
+                  <th>Bairro</th>
+                  <th>Entregador</th>
+                  <th>Pagamento</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" id="numero_pedido" name="numero_pedido" size={7}   {...register("numero_pedido", { required: true })} />  {errors.numero_pedido && <p>Campo Obrigatório</p>}</td>
+                  <td><input type="date" id="datas" name="datas" size={8} required {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
+                  <td><input type="time" name="hora" size={5} required {...register("hora", { required: true })} /></td>
+                  <td><input type="text" name="nome_cliente" required {...register("nome_cliente", { required: true })} /></td>
+                  <td><input type="text" name="nome_pizza" required {...register("nome_pizza", { required: true })} /></td>
+                  <td><input type="text" name="bairro" required {...register("bairro", { required: true })} /></td>
+                  <td><input type="text" id="entregador" required name="entregador" size={8} {...register("entregador", { required: true })} /></td>
+                  <td>
+                    <select
+                      id="pagamento"
+                      name="pagamento"
+                      defaultValue=""
+                      required
+                      {...register("pagamento", { required: true })}
+                    >
+                      <option value="" disabled>Selecione</option>
+                      <option value="DINHEIRO">DINHEIRO</option>
+                      <option value="CARTAO">CARTAO</option>
+                      <option value="IFOOD">IFOOD</option>
+                    </select>
+                  </td>
+                  <td><input type="number" step="0.010" name="valor" required min={0} max={1000} {...register("valor", { required: true })} /></td>
+                  {/*   <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td> */}
-                      </tr>
-                      {caixa.map((cx, index) => {
-                        return (
-                          <tr key={`cx${index}`}>
-                            <td><input type="text" value={cx.numero_pedido} disabled size={7} /></td>
-                            <td><input type="date" value={cx.datas} size={8} disabled style={{ "width": "137px" }} /></td>
-                            <td><input type="time" value={cx.hora} size={5} disabled /></td>
-                            <td><input type="text" value={cx.nome_cliente} disabled /></td>
-                            <td><input type="text" value={cx.nome_pizza} disabled /></td>
-                            <td><input type="text" value={cx.bairro} disabled /></td>
-                            <td><input type="text" value={cx.entregador} disabled size={8} /></td>
-                            <td>
-                              <select
-                                defaultValue={cx.pagamento}
-                                disabled
-                              >
-                                <option value={cx.pagamento} >{cx.pagamento}</option>
-                                <option value="DINHEIRO">DINHEIRO</option>
-                                <option value="CARTAO">CARTAO</option>
-                                <option value="IFOOD">IFOOD</option>
-                              </select>
-                            </td>
-                            <td><input type="number" step="0.010" value={cx.valor} disabled min={0} max={1000} /></td>
-                            <td><button type="button" className="button-remove" onClick={() => deletarRegistro(cx.codigo_pedido)}>Remover</button>
-                            </td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-              </table>
-              </div>
-              <input className="close_cash" type="submit" value="Salvar" />
-            </form>
-          </>
-          : ""}
+                </tr>
+                {caixa.map((cx, index) => {
+                  return (
+                    <tr key={`cx${index}`}>
+                      <td><input type="text" value={cx.numero_pedido} disabled size={7} /></td>
+                      <td><input type="date" value={cx.datas} size={8} disabled style={{ "width": "137px" }} /></td>
+                      <td><input type="time" value={cx.hora} size={5} disabled /></td>
+                      <td><input type="text" value={cx.nome_cliente} disabled /></td>
+                      <td><input type="text" value={cx.nome_pizza} disabled /></td>
+                      <td><input type="text" value={cx.bairro} disabled /></td>
+                      <td><input type="text" value={cx.entregador} disabled size={8} /></td>
+                      <td>
+                        <select
+                          defaultValue={cx.pagamento}
+                          disabled
+                        >
+                          <option value={cx.pagamento} >{cx.pagamento}</option>
+                          <option value="DINHEIRO">DINHEIRO</option>
+                          <option value="CARTAO">CARTAO</option>
+                          <option value="IFOOD">IFOOD</option>
+                        </select>
+                      </td>
+                      <td><input type="number" step="0.010" value={cx.valor} disabled min={0} max={1000} /></td>
+                      <td><button type="button" className="button-remove" onClick={() => deletarRegistro(cx.codigo_pedido)}>Remover</button>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+          <input className="close_cash" type="submit" value="Salvar" />
+        </form>
       </div>
     </div>
   )
