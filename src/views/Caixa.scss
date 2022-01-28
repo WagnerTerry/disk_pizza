@@ -15,9 +15,12 @@
       overflow-y: auto;
     }
 
-
-    .close_cash {
+    .box_options {
       margin-top: 16px;
+
+      strong {
+        margin-left: 10px;
+      }
     }
   }
 }

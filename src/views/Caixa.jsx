@@ -187,7 +187,10 @@ export default function Caixa() {
               </tbody>
             </table>
           </div>
-          <input className="close_cash" type="submit" value="Salvar" />
+          <div className="box_options">
+          <input type="submit" value="Salvar" />
+          <strong>Valor total 10</strong>
+          </div>
         </form>
       </div>
     </div>
