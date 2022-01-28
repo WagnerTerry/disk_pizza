@@ -131,12 +131,12 @@ export default function Caixa() {
                     <tbody>
                       <tr>
                         <td><input type="text" id="numero_pedido" name="numero_pedido" size={7}   {...register("numero_pedido", { required: true })} />  {errors.numero_pedido && <p>Campo Obrigatório</p>}</td>
-                        <td><input type="date" id="datas" name="datas" size={8}  {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
-                        <td><input type="time" name="hora" size={5} {...register("hora", { required: true })} /></td>
-                        <td><input type="text" name="nome_cliente" {...register("nome_cliente", { required: true })} /></td>
-                        <td><input type="text" name="nome_pizza" {...register("nome_pizza", { required: true })} /></td>
-                        <td><input type="text" name="bairro" {...register("bairro", { required: true })} /></td>
-                        <td><input type="text" id="entregador" name="entregador" size={8} {...register("entregador", { required: true })} /></td>
+                        <td><input type="date" id="datas" name="datas" size={8} required {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
+                        <td><input type="time" name="hora" size={5} required {...register("hora", { required: true })} /></td>
+                        <td><input type="text" name="nome_cliente" required {...register("nome_cliente", { required: true })} /></td>
+                        <td><input type="text" name="nome_pizza" required {...register("nome_pizza", { required: true })} /></td>
+                        <td><input type="text" name="bairro" required {...register("bairro", { required: true })} /></td>
+                        <td><input type="text" id="entregador" required name="entregador" size={8} {...register("entregador", { required: true })} /></td>
                         <td>
                           <select
                             id="pagamento"
@@ -151,7 +151,7 @@ export default function Caixa() {
                               <option value="IFOOD">IFOOD</option>
                           </select>
                         </td>
-                        <td><input type="number" step="0.010" name="valor" min={0} max={1000} {...register("valor", { required: true })} /></td>
+                        <td><input type="number" step="0.010" name="valor" required min={0} max={1000} {...register("valor", { required: true })} /></td>
                       {/*   <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
                         </td> */}
                       </tr>
