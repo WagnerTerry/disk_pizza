@@ -26,14 +26,21 @@ export default function Caixa() {
 
   const [caixa, setCaixa] = useState([])
   const [qtPedido, setQtPedido] = useState("")
+  const [valorTotal, setValorTotal] = useState(0)
 
   useEffect(() => {
     const showCashFlow = async () => {
       const { fluxo_caixa, quantidade_pedido } = await APIService.exibirCaixa()
       setCaixa(fluxo_caixa)
       setQtPedido(quantidade_pedido)
+
+      const valor = caixa.map((cx) => cx.valor)
+      const valor_total = valor.reduce((acumulador, elemento) =>  acumulador += elemento, 0)
+      setValorTotal(valor_total)
+      
     }
     showCashFlow()
+     
     // var date = new Date();
     // var day = date.getDate();
     // var month = date.getMonth() + 1;
@@ -45,7 +52,7 @@ export default function Caixa() {
     // var today = year + "-" + month + "-" + day;
 
     // document.getElementById("startdateId").value = today;
-  }, [])
+  }, [caixa])
 
   //const [formValues, setFormValues] = useState([{ numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
 
@@ -189,7 +196,7 @@ export default function Caixa() {
           </div>
           <div className="box_options">
           <input type="submit" value="Salvar" />
-          <strong>Valor total 10</strong>
+          <strong>Valor total : {valorTotal}</strong>
           </div>
         </form>
       </div>
