@@ -52,7 +52,7 @@ export default function Caixa() {
     // var today = year + "-" + month + "-" + day;
 
     // document.getElementById("startdateId").value = today;
-  }, [caixa])
+  }, [valorTotal])
 
   //const [formValues, setFormValues] = useState([{ numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
 
