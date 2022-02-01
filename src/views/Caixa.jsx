@@ -77,6 +77,7 @@ export default function Caixa() {
       await APIService.salvarCaixa(data)
       setCaixa(prevState => [...prevState, data])
       setQtPedido(prevState => prevState + 1)
+      setValorTotal(prevState => prevState + +data.valor)
       toast.success("Registro salvo com sucesso")
       reset()
       console.log("caixa", data)
@@ -87,11 +88,12 @@ export default function Caixa() {
     }
   }
 
-  async function deletarRegistro(id) {
+  async function deletarRegistro(data) {
     try {
-      await APIService.excluirRegistro(id)
-      setCaixa(caixa.filter(cx => cx.codigo_pedido !== id))
+      await APIService.excluirRegistro(data.codigo_pedido)
+      setCaixa(caixa.filter(cx => cx.codigo_pedido !== data.codigo_pedido))
       setQtPedido(prevState => prevState - 1)
+      setValorTotal(prevState => prevState - +data.valor)
       toast.success("Registro removido")
     } catch (e) {
       console.log("erro ao excluir registro", e)
@@ -174,7 +176,7 @@ export default function Caixa() {
                         </select>
                       </td>
                       <td><input type="number" step="0.010" value={cx.valor} disabled min={0} max={1000} /></td>
-                      <td><button type="button" className="button-remove" onClick={() => deletarRegistro(cx.codigo_pedido)}>Remover</button>
+                      <td><button type="button" className="button-remove" onClick={() => deletarRegistro(cx)}>Remover</button>
                       </td>
                     </tr>
                   )
