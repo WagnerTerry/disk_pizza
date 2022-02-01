@@ -35,7 +35,11 @@ export default function Caixa() {
       setQtPedido(quantidade_pedido)
 
       const valor = fluxo_caixa.map((cx) => cx.valor)
-      const valor_total = valor.reduce((acumulador, elemento) => acumulador += elemento, 0)
+      const valor_acumulado = valor.reduce((acumulador, elemento) => acumulador += elemento, 0)
+      const valor_total = (parseFloat(valor_acumulado.toFixed(2)).toLocaleString('pt-BR', {
+        currency: 'BRL',
+        minimumFractionDigits: 2
+      }));
       setValorTotal(valor_total)
 
     }
