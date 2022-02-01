@@ -70,10 +70,30 @@ export default function Caixa() {
 
   const criarPDF = () => {
     // Default export is a4 paper, portrait, using millimeters for units
-    const doc = new jsPDF();
 
-    doc.text("Hello world!", 10, 10);
-    doc.save("a4.pdf");
+    const lMargin = 15; //left margin in mm
+    const rMargin = 15; //right margin in mm
+    const pdfInMM = 210;  // width of A4 in mm
+
+    const doc = new jsPDF("p", "mm", "a4");
+
+    const valor_ifood = caixa.map((cx) => cx.pagamento === 'IFOOD' && cx.valor)
+    const valor_cartao = caixa.map((cx) => cx.pagamento === 'CARTAO' && cx.valor)
+    const valor_dinheiro = caixa.map((cx) => cx.pagamento === 'DINHEIRO' && cx.valor)
+
+    const text_ifood = `IFOOD ${valor_ifood.reduce((acc, elemento) => acc += elemento, 0)}`
+    const text_cartao = `CARTAO ${valor_cartao.reduce((acc, elemento) => acc += elemento, 0)}`
+    const text_dinheiro = `DINHEIRO ${valor_dinheiro.reduce((acc, elemento) => acc += elemento, 0)}`
+
+    const lines = doc.splitTextToSize(text_ifood, (pdfInMM - lMargin - rMargin));
+    doc.text(lMargin, 20, lines);
+    doc.text(lMargin, 30, text_cartao)
+    doc.text(lMargin, 40, text_dinheiro)
+    doc.text(lMargin, 50, `valor total : R$ ${valorTotal}`)
+
+    // doc.text(30, 10, "Hello");
+    // doc.text(50, 25, "World");
+    doc.save('Generated.pdf');
   }
 
   async function cashSave(data) {
