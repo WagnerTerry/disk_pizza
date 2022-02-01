@@ -34,27 +34,13 @@ export default function Caixa() {
       setCaixa(fluxo_caixa)
       setQtPedido(quantidade_pedido)
 
-      const valor = caixa.map((cx) => cx.valor)
-      const valor_total = valor.reduce((acumulador, elemento) =>  acumulador += elemento, 0)
+      const valor = fluxo_caixa.map((cx) => cx.valor)
+      const valor_total = valor.reduce((acumulador, elemento) => acumulador += elemento, 0)
       setValorTotal(valor_total)
-      
+
     }
     showCashFlow()
-     
-    // var date = new Date();
-    // var day = date.getDate();
-    // var month = date.getMonth() + 1;
-    // var year = date.getFullYear();
-
-    // if (month < 10) month = "0" + month;
-    // if (day < 10) day = "0" + day;
-
-    // var today = year + "-" + month + "-" + day;
-
-    // document.getElementById("startdateId").value = today;
   }, [valorTotal])
-
-  //const [formValues, setFormValues] = useState([{ numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
 
   /*  let handleChange = (i, e) => {
      let newFormValues = [...formValues];
@@ -81,7 +67,7 @@ export default function Caixa() {
     try {
       const pedido = data.numero_pedido
       const pedido_duplicado = caixa.filter((cx) => cx.numero_pedido === +pedido)
-      if(pedido_duplicado.length > 0){
+      if (pedido_duplicado.length > 0) {
         return toast.error("Pedido duplicado, os pedidos devem ser únicos")
       }
       await APIService.salvarCaixa(data)
@@ -161,8 +147,6 @@ export default function Caixa() {
                     </select>
                   </td>
                   <td><input type="number" step="0.010" name="valor" required min={0} max={1000} {...register("valor", { required: true })} /></td>
-                  {/*   <td><button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remover</button>
-                        </td> */}
                 </tr>
                 {caixa.map((cx, index) => {
                   return (
@@ -195,8 +179,8 @@ export default function Caixa() {
             </table>
           </div>
           <div className="box_options">
-          <input type="submit" value="Salvar" />
-          <strong>Valor total : {valorTotal}</strong>
+            <input type="submit" value="Salvar" />
+            <strong>Valor total : R$ {valorTotal}</strong>
           </div>
         </form>
       </div>
