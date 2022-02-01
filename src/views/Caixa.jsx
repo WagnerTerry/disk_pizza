@@ -4,6 +4,7 @@ import Nav from '../components/Nav'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { jsPDF } from "jspdf";
 
 import './Caixa.scss'
 import APIService from "../services/api";
@@ -66,6 +67,14 @@ export default function Caixa() {
   //   event.preventDefault();
   //   alert(JSON.stringify(formValues));
   // }
+
+  const criarPDF = () => {
+    // Default export is a4 paper, portrait, using millimeters for units
+    const doc = new jsPDF();
+
+    doc.text("Hello world!", 10, 10);
+    doc.save("a4.pdf");
+  }
 
   async function cashSave(data) {
     try {
@@ -186,7 +195,9 @@ export default function Caixa() {
           </div>
           <div className="box_options">
             <input type="submit" value="Salvar" />
+            <button onClick={criarPDF}>Relatório</button>
             <strong>Valor total : R$ {valorTotal}</strong>
+
           </div>
         </form>
       </div>

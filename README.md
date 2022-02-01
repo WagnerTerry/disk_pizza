@@ -4,6 +4,7 @@
 
 - yarn add axios
 - yarn add react-loading
+- yarn add jspdf
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
