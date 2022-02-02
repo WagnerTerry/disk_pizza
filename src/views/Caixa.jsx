@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "../components/button/Button";
+//import { Button } from "../components/button/Button";
 import Nav from '../components/Nav'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,6 +28,7 @@ export default function Caixa() {
   const [caixa, setCaixa] = useState([])
   const [qtPedido, setQtPedido] = useState("")
   const [valorTotal, setValorTotal] = useState(0)
+  const [data, setData] = useState("")
 
   useEffect(() => {
     const showCashFlow = async () => {
@@ -43,6 +44,15 @@ export default function Caixa() {
       }));
       setValorTotal(valor_total)
 
+      const data = new Date();
+      const dia = String(data.getDate()).padStart(2, '0');
+      const mes = String(data.getMonth() + 1).padStart(2, '0');
+      const ano = data.getFullYear();
+      const dataAtual = dia + '/' + mes + '/' + ano;
+      console.log(dataAtual);
+
+      setData(dataAtual)
+
     }
     showCashFlow()
   }, [valorTotal])
@@ -52,10 +62,6 @@ export default function Caixa() {
      newFormValues[i][e.target.name] = e.target.value;
      setFormValues(newFormValues);
    } */
-
-  let addFormFields = () => {
-    setCaixa([...caixa, { numero_pedido: "", datas: "", hora: "", nome_cliente: "", nome_pizza: "", bairro: "", entregador: "", pagamento: "", valor: "" }])
-  }
 
   /*  let removeFormFields = (i) => {
      let newFormValues = [...formValues];
@@ -135,12 +141,11 @@ export default function Caixa() {
       <div className="component-nav">
         <Nav />
       </div>
-      <h2>Caixa</h2>
+      <h2>Caixa {data}</h2>
+
       <h3>Número de pedidos: {qtPedido}</h3>
 
       <div className="cash-flow">
-        <Button onClick={() => addFormFields()} color="turquoise">Novo registro</Button>
-
         {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor */}
         <form onSubmit={handleSubmit(cashSave)}>
           <div className="box-form">
