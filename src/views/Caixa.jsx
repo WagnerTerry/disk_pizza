@@ -86,16 +86,20 @@ export default function Caixa() {
     const valor_ifood = caixa.map((cx) => cx.pagamento === 'IFOOD' && cx.valor)
     const valor_cartao = caixa.map((cx) => cx.pagamento === 'CARTAO' && cx.valor)
     const valor_dinheiro = caixa.map((cx) => cx.pagamento === 'DINHEIRO' && cx.valor)
+    const valor_pix = caixa.map((cx) => cx.pagamento === 'PIX' && cx.valor)
 
-    const text_ifood = `IFOOD ${valor_ifood.reduce((acc, elemento) => acc += elemento, 0)}`
-    const text_cartao = `CARTAO ${valor_cartao.reduce((acc, elemento) => acc += elemento, 0)}`
-    const text_dinheiro = `DINHEIRO ${valor_dinheiro.reduce((acc, elemento) => acc += elemento, 0)}`
+    const text_ifood = `IFOOD R$ ${valor_ifood.reduce((acc, elemento) => acc += elemento, 0)}`
+    const text_cartao = `CARTAO R$ ${valor_cartao.reduce((acc, elemento) => acc += elemento, 0)}`
+    const text_dinheiro = `DINHEIRO R$ ${valor_dinheiro.reduce((acc, elemento) => acc += elemento, 0)}`
+    const text_pix = `PIX R$ ${valor_pix.reduce((acc, elemento) => acc += elemento, 0)}`
 
     const lines = doc.splitTextToSize(text_ifood, (pdfInMM - lMargin - rMargin));
+    doc.text(85, 10, "Relatório de Pedidos");
     doc.text(lMargin, 20, lines);
     doc.text(lMargin, 30, text_cartao)
     doc.text(lMargin, 40, text_dinheiro)
-    doc.text(lMargin, 50, `valor total : R$ ${valorTotal}`)
+    doc.text(lMargin, 50, text_pix)
+    doc.text(lMargin, 60, `Valor Total : R$ ${valorTotal}`)
 
     // doc.text(30, 10, "Hello");
     // doc.text(50, 25, "World");
@@ -184,6 +188,7 @@ export default function Caixa() {
                       <option value="DINHEIRO">DINHEIRO</option>
                       <option value="CARTAO">CARTAO</option>
                       <option value="IFOOD">IFOOD</option>
+                      <option value="PIX">PIX</option>
                     </select>
                   </td>
                   <td><input type="number" step="0.010" name="valor" required min={0} max={1000} {...register("valor", { required: true })} /></td>
@@ -207,6 +212,7 @@ export default function Caixa() {
                           <option value="DINHEIRO">DINHEIRO</option>
                           <option value="CARTAO">CARTAO</option>
                           <option value="IFOOD">IFOOD</option>
+                          <option value="PIX">PIX</option>
                         </select>
                       </td>
                       <td><input type="number" step="0.010" value={cx.valor} disabled min={0} max={1000} /></td>
