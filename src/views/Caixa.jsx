@@ -147,7 +147,7 @@ export default function Caixa() {
       <div className="component-nav">
         <Nav />
       </div>
-      <h2>Caixa {data}</h2>
+      <h2>Caixa - {data}</h2>
 
       <h3>Número de pedidos: {qtPedido}</h3>
 
@@ -227,8 +227,8 @@ export default function Caixa() {
             </table>
           </div>
           <div className="box_options">
-            <input type="submit" value="Salvar" />
             <button onClick={criarPDF}>Relatório</button>
+            <input type="submit" value="Salvar" />
             <strong>Valor total : R$ {valorTotal}</strong>
 
           </div>
