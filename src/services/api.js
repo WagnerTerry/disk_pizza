@@ -79,4 +79,9 @@ export default class APIService {
     const result = await axios.delete(`${baseUrl}/caixa/${id}`);
     return result.data;
   };
+
+  static excluirTodosRegistros = async () => {
+    const result = await axios.delete(`${baseUrl}/caixa/deleteAll`);
+    return result.data;
+  };
 }

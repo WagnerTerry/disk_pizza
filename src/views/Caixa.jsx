@@ -142,6 +142,16 @@ export default function Caixa() {
     }
   }
 
+  async function deletaTodosRegistros() {
+    try {
+      await APIService.excluirTodosRegistros()
+      toast.success("Todos os registros foram removidos")
+    } catch (e) {
+      console.log("Ocorreu um erro ao remover todos os registros", e)
+      toast.error("Erro ao remover todos os registros")
+    }
+  }
+
   return (
     <div id="caixa">
       <div className="component-nav">
@@ -229,6 +239,7 @@ export default function Caixa() {
           <div className="box_options">
             <button onClick={criarPDF}>Relatório</button>
             <input type="submit" value="Salvar" />
+            <button onClick={deletaTodosRegistros}>Excluir tudo</button>
             <strong>Valor total : R$ {valorTotal}</strong>
 
           </div>
