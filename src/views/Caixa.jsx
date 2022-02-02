@@ -95,11 +95,13 @@ export default function Caixa() {
 
     const lines = doc.splitTextToSize(text_ifood, (pdfInMM - lMargin - rMargin));
     doc.text(85, 10, "Relatório de Pedidos");
-    doc.text(lMargin, 20, lines);
-    doc.text(lMargin, 30, text_cartao)
-    doc.text(lMargin, 40, text_dinheiro)
-    doc.text(lMargin, 50, text_pix)
-    doc.text(lMargin, 60, `Valor Total : R$ ${valorTotal}`)
+    doc.text(lMargin, 20, `Quantidade de pizzas : ${qtPedido}`);
+    doc.text(85, 30, "Formas de Pagamento");
+    doc.text(lMargin, 40, lines);
+    doc.text(lMargin, 50, text_cartao)
+    doc.text(lMargin, 60, text_dinheiro)
+    doc.text(lMargin, 70, text_pix)
+    doc.text(lMargin, 80, `Valor Total : R$ ${valorTotal}`)
 
     // doc.text(30, 10, "Hello");
     // doc.text(50, 25, "World");
