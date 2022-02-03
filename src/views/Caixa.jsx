@@ -107,23 +107,24 @@ export default function Caixa() {
     doc.save('Generated.pdf');
   }
 
-  async function cashSave(data) {
+  async function cashSave(dados) {
+    const dadosData = { ...dados, datas: data }
     try {
-      const pedido = data.numero_pedido
+      const pedido = dados.numero_pedido
       const pedido_duplicado = caixa.filter((cx) => cx.numero_pedido === +pedido)
       if (pedido_duplicado.length > 0) {
         return toast.error("Pedido duplicado, os pedidos devem ser únicos")
       }
-      await APIService.salvarCaixa(data)
-      setCaixa(prevState => [...prevState, data])
+      await APIService.salvarCaixa(dadosData)
+      setCaixa(prevState => [...prevState, dadosData])
       setQtPedido(prevState => prevState + 1)
-      setValorTotal(prevState => prevState + +data.valor)
+      setValorTotal(prevState => prevState + +dados.valor)
       toast.success("Registro salvo com sucesso")
       reset()
-      console.log("caixa", data)
+      console.log("caixa", dadosData)
 
     } catch (e) {
-      console.log("Ocorreu um erro ao registrar caixa", e)
+      console.log("Ocorreu um erro ao registrar caixa", dadosData)
       toast.error("Erro ao registrar caixa")
     }
   }
@@ -176,20 +177,21 @@ export default function Caixa() {
               <thead>
                 <tr>
                   <th>Nº Pedido</th>
-                  <th>Data</th>
+                  {/* <th>Data</th> */}
                   <th>Hora</th>
                   <th>Cliente</th>
                   <th>Pizza</th>
                   <th>Bairro</th>
                   <th>Entregador</th>
                   <th>Pagamento</th>
+                  <th>Observação</th>
                   <th>Valor</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><input type="text" id="numero_pedido" name="numero_pedido" size={7}   {...register("numero_pedido", { required: true })} />  {errors.numero_pedido && <p>Campo Obrigatório</p>}</td>
-                  <td><input type="date" id="datas" name="datas" size={8} required {...register("datas", { required: true })} style={{ "width": "137px" }} /></td>
+                  {/* <td><input type="date" id="datas" name="datas" size={8} value={data} required {...register("datas", { required: true })} style={{ "width": "137px" }} /></td> */}
                   <td><input type="time" name="hora" size={5} required {...register("hora", { required: true })} /></td>
                   <td><input type="text" name="nome_cliente" required {...register("nome_cliente", { required: true })} /></td>
                   <td><input type="text" name="nome_pizza" required {...register("nome_pizza", { required: true })} /></td>
@@ -210,13 +212,14 @@ export default function Caixa() {
                       <option value="PIX">PIX</option>
                     </select>
                   </td>
-                  <td><input type="number" step="0.010" name="valor" required min={0} max={1000} {...register("valor", { required: true })} /></td>
+                  <td><input type="text" id={"observacao"} name="observacao" required {...register("observacao", { required: false })} /></td>
+                  <td><input type="number" step="0.010" name="valor" required min={0} max={1000} style={{ "width": "75px" }} {...register("valor", { required: true })} /></td>
                 </tr>
                 {caixa.map((cx, index) => {
                   return (
                     <tr key={`cx${index}`}>
                       <td><input type="text" value={cx.numero_pedido} disabled size={7} /></td>
-                      <td><input type="date" value={cx.datas} size={8} disabled style={{ "width": "137px" }} /></td>
+                      {/* <td><input type="date" value={cx.datas} size={8} disabled style={{ "width": "137px" }} /></td> */}
                       <td><input type="time" value={cx.hora} size={5} disabled /></td>
                       <td><input type="text" value={cx.nome_cliente} disabled /></td>
                       <td><input type="text" value={cx.nome_pizza} disabled /></td>
@@ -234,7 +237,8 @@ export default function Caixa() {
                           <option value="PIX">PIX</option>
                         </select>
                       </td>
-                      <td><input type="number" step="0.010" value={cx.valor} disabled min={0} max={1000} /></td>
+                      <td><input type="text" value={cx.observacao} name="observacao" required {...register("observacao", { required: false })} /></td>
+                      <td><input type="number" step="0.010" value={cx.valor} disabled min={0} max={1000} style={{ "width": "75px" }} /></td>
                       <td><button type="button" className="button-remove" onClick={() => deletarRegistro(cx)}>Remover</button>
                       </td>
                     </tr>
