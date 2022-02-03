@@ -49,7 +49,6 @@ export default function Caixa() {
       const mes = String(data.getMonth() + 1).padStart(2, '0');
       const ano = data.getFullYear();
       const dataAtual = dia + '/' + mes + '/' + ano;
-      console.log(dataAtual);
 
       setData(dataAtual)
 
@@ -144,8 +143,16 @@ export default function Caixa() {
 
   async function deletaTodosRegistros() {
     try {
-      await APIService.excluirTodosRegistros()
-      toast.success("Todos os registros foram removidos")
+      if (window.confirm("Tem certeza que quer apagar todos os registros?")) {
+        await APIService.excluirTodosRegistros()
+        toast.success("Todos os registros foram removidos")
+        setTimeout(() => window.location.reload(), 1500)
+
+
+      } else {
+        return false
+      }
+
     } catch (e) {
       console.log("Ocorreu um erro ao remover todos os registros", e)
       toast.error("Erro ao remover todos os registros")
@@ -238,8 +245,8 @@ export default function Caixa() {
           </div>
           <div className="box_options">
             <button onClick={criarPDF}>Relatório</button>
-            <input type="submit" value="Salvar" />
             <button onClick={deletaTodosRegistros}>Excluir tudo</button>
+            <input type="submit" value="Salvar" />
             <strong>Valor total : R$ {valorTotal}</strong>
 
           </div>
