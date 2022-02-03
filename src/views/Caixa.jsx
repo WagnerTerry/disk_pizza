@@ -93,7 +93,7 @@ export default function Caixa() {
     const text_pix = `PIX R$ ${valor_pix.reduce((acc, elemento) => acc += elemento, 0)}`
 
     const lines = doc.splitTextToSize(text_ifood, (pdfInMM - lMargin - rMargin));
-    doc.text(85, 10, "Relatório de Pedidos");
+    doc.text(85, 10, `Relatório de Pedidos ${data}`);
     doc.text(lMargin, 20, `Quantidade de pizzas : ${qtPedido}`);
     doc.text(85, 30, "Formas de Pagamento");
     doc.text(lMargin, 40, lines);
@@ -104,7 +104,7 @@ export default function Caixa() {
 
     // doc.text(30, 10, "Hello");
     // doc.text(50, 25, "World");
-    doc.save('Generated.pdf');
+    doc.save('Relatorio_Pizza.pdf');
   }
 
   async function cashSave(dados) {
@@ -165,7 +165,7 @@ export default function Caixa() {
       <div className="component-nav">
         <Nav />
       </div>
-      <h2>Caixa - {data}</h2>
+      <h2>Caixa {data}</h2>
 
       <h3>Número de pedidos: {qtPedido}</h3>
 
@@ -212,7 +212,7 @@ export default function Caixa() {
                       <option value="PIX">PIX</option>
                     </select>
                   </td>
-                  <td><input type="text" id={"observacao"} name="observacao" required {...register("observacao", { required: false })} /></td>
+                  <td><input type="text" name="observacao" {...register("observacao", { required: true })} /></td>
                   <td><input type="number" step="0.010" name="valor" required min={0} max={1000} style={{ "width": "75px" }} {...register("valor", { required: true })} /></td>
                 </tr>
                 {caixa.map((cx, index) => {
@@ -237,7 +237,7 @@ export default function Caixa() {
                           <option value="PIX">PIX</option>
                         </select>
                       </td>
-                      <td><input type="text" value={cx.observacao} name="observacao" required {...register("observacao", { required: false })} /></td>
+                      <td><input type="text" value={cx.observacao || ""} disabled /></td>
                       <td><input type="number" step="0.010" value={cx.valor} disabled min={0} max={1000} style={{ "width": "75px" }} /></td>
                       <td><button type="button" className="button-remove" onClick={() => deletarRegistro(cx)}>Remover</button>
                       </td>
@@ -252,7 +252,6 @@ export default function Caixa() {
             <button onClick={deletaTodosRegistros}>Excluir tudo</button>
             <input type="submit" value="Salvar" />
             <strong>Valor total : R$ {valorTotal}</strong>
-
           </div>
         </form>
       </div>
