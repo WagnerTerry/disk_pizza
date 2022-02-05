@@ -46,3 +46,8 @@ $turquoise: #1abc9c;
   background-color: $yellow;
   color: white;
 }
+
+.pizza_list {
+  max-height: 305px;
+  overflow-y: auto;
+}

@@ -34,3 +34,8 @@ $turquoise: #1abc9c;
   background-color: $green;
   color: white;
 }
+
+.list_group {
+  max-height: 305px;
+  overflow-y: auto;
+}

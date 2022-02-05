@@ -83,7 +83,7 @@
     }
 
     .table-scroll {
-      min-height: 400px;
+      max-height: 400px;
       overflow-y: auto;
 
       .customers {

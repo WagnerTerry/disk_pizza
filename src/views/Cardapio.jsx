@@ -39,7 +39,7 @@ export default function Cardapio() {
           </div>
         ) : (
           <>
-            <h2>Pizzas</h2>
+            <div className="menu">Cardapio</div>
             {grupos.map((grupo, i) => {
               return (
                 <div key={i}>
