@@ -32,6 +32,7 @@ export default function Cardapio() {
       <div className="component-nav">
         <Nav />
       </div>
+      <div className="menu">Cardapio</div>
       <div className="cardapio-class">
         {loading ? (
           <div className="loading">
@@ -39,7 +40,6 @@ export default function Cardapio() {
           </div>
         ) : (
           <>
-            <div className="menu">Cardapio</div>
             {grupos.map((grupo, i) => {
               return (
                 <div key={i}>
