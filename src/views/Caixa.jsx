@@ -206,7 +206,7 @@ export default function Caixa() {
         {foundUsers && foundUsers.length > 0 ? (
           foundUsers.map((user) => (
             <li key={user.id} className="user">
-              <span className="user-name">{user.nome}</span>
+              <span className="user-name">Cliente: {user.nome}</span>
               <span className="user-bairro">Bairro: {user.bairro}</span>
               <span className="user-observacao">Obs: {user.observacoes}</span>
             </li>
