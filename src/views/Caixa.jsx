@@ -127,6 +127,7 @@ export default function Caixa() {
       setCaixa(prevState => [...prevState, dadosData])
       setQtPedido(prevState => prevState + 1)
       setValorTotal(prevState => prevState + +dados.valor)
+      setFoundUsers('')
       toast.success("Registro salvo com sucesso")
       reset()
       console.log("caixa", dadosData)
@@ -143,6 +144,7 @@ export default function Caixa() {
       setCaixa(caixa.filter(cx => cx.codigo_pedido !== data.codigo_pedido))
       setQtPedido(prevState => prevState - 1)
       setValorTotal(prevState => prevState - +data.valor)
+      setFoundUsers('')
       toast.success("Registro removido")
     } catch (e) {
       console.log("erro ao excluir registro", e)
