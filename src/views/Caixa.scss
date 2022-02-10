@@ -10,16 +10,19 @@
     //   flex-wrap: wrap;
     // }
 
-    .box-form {
-      max-height: 400px;
-      overflow-y: auto;
-    }
+    form {
+      margin-top: 8px;
+      .box-form {
+        max-height: 400px;
+        overflow-y: auto;
+      }
 
-    .box_options {
-      margin-top: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
+      .box_options {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
     }
   }
 }

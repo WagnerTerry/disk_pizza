@@ -184,14 +184,12 @@ export default function Caixa() {
       setFoundUsers(results);
 
     } else {
-      //setFoundUsers(clients);
+      setFoundUsers('');
       // If the text field is empty, show all users
     }
 
     setName(keyword);
   };
-
-
 
   return (
     <div id="caixa">
@@ -202,31 +200,13 @@ export default function Caixa() {
 
       <h3>Número de pedidos: {qtPedido}</h3>
 
-      {/* <input
-        type="search"
-        value={name}
-        onChange={filter}
-        className="input"
-        placeholder="Filter"
-      /> */}
-
-      {/* <div className="user-list">
-        {foundUsers && foundUsers.length > 0 ? (
-          foundUsers.map((user) => (
-            <li key={user.id} className="user">
-              <span className="user-name">{user.nome}</span>
-            </li>
-          ))
-        ) : (
-          <h1>No results found!</h1>
-        )}
-      </div> */}
-
       <div className="cash-flow">
         {foundUsers && foundUsers.length > 0 ? (
           foundUsers.map((user) => (
             <li key={user.id} className="user">
               <span className="user-name">{user.nome}</span>
+              <span className="user-bairro">Bairro: {user.bairro}</span>
+              <span className="user-observacao">Obs: {user.observacoes}</span>
             </li>
           ))
         ) : ""}
