@@ -25,12 +25,20 @@ export default function Caixa() {
     resolver: yupResolver(schema),
   });
 
+  const [clients, setClients] = useState([])
   const [caixa, setCaixa] = useState([])
   const [qtPedido, setQtPedido] = useState("")
   const [valorTotal, setValorTotal] = useState(0)
   const [data, setData] = useState("")
 
   useEffect(() => {
+
+    const showCustomers = async () => {
+      const { clientes } = await APIService.getClientes()
+      setClients(clientes)
+    }
+    showCustomers()
+
     const showCashFlow = async () => {
       const { fluxo_caixa, quantidade_pedido } = await APIService.exibirCaixa()
       setCaixa(fluxo_caixa)
@@ -160,6 +168,31 @@ export default function Caixa() {
     }
   }
 
+  const [, setName] = useState('');
+
+  // the search result
+  const [foundUsers, setFoundUsers] = useState(clients);
+
+  const filtroNome = (e) => {
+    const keyword = e.target.value;
+
+    if (keyword !== '') {
+      const results = clients.filter((user) => {
+        return user.nome.toLowerCase().startsWith(keyword.toLowerCase());
+        // Use the toLowerCase() method to make it case-insensitive
+      });
+      setFoundUsers(results);
+
+    } else {
+      //setFoundUsers(clients);
+      // If the text field is empty, show all users
+    }
+
+    setName(keyword);
+  };
+
+
+
   return (
     <div id="caixa">
       <div className="component-nav">
@@ -169,7 +202,34 @@ export default function Caixa() {
 
       <h3>Número de pedidos: {qtPedido}</h3>
 
+      {/* <input
+        type="search"
+        value={name}
+        onChange={filter}
+        className="input"
+        placeholder="Filter"
+      /> */}
+
+      {/* <div className="user-list">
+        {foundUsers && foundUsers.length > 0 ? (
+          foundUsers.map((user) => (
+            <li key={user.id} className="user">
+              <span className="user-name">{user.nome}</span>
+            </li>
+          ))
+        ) : (
+          <h1>No results found!</h1>
+        )}
+      </div> */}
+
       <div className="cash-flow">
+        {foundUsers && foundUsers.length > 0 ? (
+          foundUsers.map((user) => (
+            <li key={user.id} className="user">
+              <span className="user-name">{user.nome}</span>
+            </li>
+          ))
+        ) : ""}
         {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor */}
         <form onSubmit={handleSubmit(cashSave)}>
           <div className="box-form">
@@ -193,7 +253,7 @@ export default function Caixa() {
                   <td><input type="text" id="numero_pedido" name="numero_pedido" size={7}   {...register("numero_pedido", { required: true })} />  {errors.numero_pedido && <p>Campo Obrigatório</p>}</td>
                   {/* <td><input type="date" id="datas" name="datas" size={8} value={data} required {...register("datas", { required: true })} style={{ "width": "137px" }} /></td> */}
                   <td><input type="time" name="hora" size={5} required {...register("hora", { required: true })} /></td>
-                  <td><input type="text" name="nome_cliente" required {...register("nome_cliente", { required: true })} /></td>
+                  <td onChange={e => filtroNome(e)}><input type="text" name="nome_cliente" required {...register("nome_cliente", { required: true })} /> </td>
                   <td><input type="text" name="nome_pizza" required {...register("nome_pizza", { required: true })} /></td>
                   <td><input type="text" name="bairro" required {...register("bairro", { required: true })} /></td>
                   <td><input type="text" id="entregador" required name="entregador" size={8} {...register("entregador", { required: true })} /></td>
@@ -255,6 +315,6 @@ export default function Caixa() {
           </div>
         </form>
       </div>
-    </div>
+    </div >
   )
 }
