@@ -48,7 +48,7 @@ export default function Cardapio() {
                     return (
                       <div key={a}>
                         {pizza.nome_grupo === grupo.nome_grupo && (
-                          <h3>{pizza.nome_pizza}</h3>
+                          <h3>{pizza.ativo === 'sim' && pizza.nome_pizza}</h3>
                         )}
                       </div>
                     );
