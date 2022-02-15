@@ -30,6 +30,14 @@ export default function Caixa() {
   const [qtPedido, setQtPedido] = useState("")
   const [valorTotal, setValorTotal] = useState(0)
   const [data, setData] = useState("")
+  const [pizzas, setPizzas] = useState([])
+  const [group, setGroup] = useState([])
+  const [, setName] = useState('');
+  const [, setNamePizza] = useState('');
+
+  // the search result
+  const [foundUsers, setFoundUsers] = useState(clients);
+  const [foundPizzas, setFoundPizzas] = useState(pizzas);
 
   useEffect(() => {
 
@@ -38,6 +46,15 @@ export default function Caixa() {
       setClients(clientes)
     }
     showCustomers()
+
+    const showGroup = async () => {
+      const { pizzas } = await APIService.getPizzas()
+      const { grupos } = await APIService.getGrupos()
+      setPizzas(pizzas)
+      setGroup(grupos)
+
+    }
+    showGroup()
 
     const showCashFlow = async () => {
       const { fluxo_caixa, quantidade_pedido } = await APIService.exibirCaixa()
@@ -63,6 +80,40 @@ export default function Caixa() {
     }
     showCashFlow()
   }, [valorTotal])
+
+  const filtroNome = (e) => {
+    const keyword = e.target.value;
+
+    if (keyword !== '') {
+      const results = clients.filter((user) => {
+        return user.nome.toLowerCase().startsWith(keyword.toLowerCase());
+        // Use the toLowerCase() method to make it case-insensitive
+      });
+      setFoundUsers(results);
+
+    } else {
+      setFoundUsers('');
+      // If the text field is empty, show all users
+    }
+
+    setName(keyword);
+  };
+
+  const filtroPizza = (e) => {
+    const keyword = e.target.value;
+
+    if (keyword !== '') {
+      const results = pizzas.filter((pizza) => {
+        return pizza.nome_pizza.toLowerCase().startsWith(keyword.toLowerCase());
+      });
+      setFoundPizzas(results);
+
+    } else {
+      setFoundPizzas('');
+    }
+    setNamePizza(keyword);
+  };
+
 
   /*  let handleChange = (i, e) => {
      let newFormValues = [...formValues];
@@ -170,29 +221,6 @@ export default function Caixa() {
     }
   }
 
-  const [, setName] = useState('');
-
-  // the search result
-  const [foundUsers, setFoundUsers] = useState(clients);
-
-  const filtroNome = (e) => {
-    const keyword = e.target.value;
-
-    if (keyword !== '') {
-      const results = clients.filter((user) => {
-        return user.nome.toLowerCase().startsWith(keyword.toLowerCase());
-        // Use the toLowerCase() method to make it case-insensitive
-      });
-      setFoundUsers(results);
-
-    } else {
-      setFoundUsers('');
-      // If the text field is empty, show all users
-    }
-
-    setName(keyword);
-  };
-
   return (
     <div id="caixa">
       <div className="component-nav">
@@ -204,15 +232,32 @@ export default function Caixa() {
 
       <div className="cash-flow">
         {foundUsers && foundUsers.length > 0 ? (
-          foundUsers.map((user) => (
-            <li key={user.id} className="user">
+          foundUsers.map((user, index) => (
+            <li key={index} className="user">
               <span className="user-name">Cliente: {user.nome}</span>
               <span className="user-bairro">Bairro: {user.bairro}</span>
               <span className="user-observacao">Obs: {user.observacoes}</span>
             </li>
           ))
         ) : ""}
-        {/* Pedido, Data, Hora, Cliente, Bairro, Entregador, Situação, Valor */}
+        {foundPizzas && foundPizzas.length > 0 ? (
+          foundPizzas.map((pizza, i) => (
+            <div key={i}>
+              {group.map((gr, a) => gr.codigo_grupo === pizza.codigo_grupo && (
+                <li key={a}>
+                  <span>Pizza: {pizza.nome_pizza}</span>
+                  <span>Grupo: {gr.nome_grupo}</span>
+                  <span>Pequena: {gr.preco_pequena}</span>
+                  <span>Grande : {gr.preco_grande}</span>
+                  <span>Família : {gr.preco_familia}</span>
+                  <span>Gigante : {gr.preco_gigante}</span>
+                </li>
+              ))
+              }
+            </div>
+          ))
+        ) : ""}
+
         <form onSubmit={handleSubmit(cashSave)}>
           <div className="box-form">
             <table>
@@ -236,7 +281,7 @@ export default function Caixa() {
                   {/* <td><input type="date" id="datas" name="datas" size={8} value={data} required {...register("datas", { required: true })} style={{ "width": "137px" }} /></td> */}
                   <td><input type="time" name="hora" size={5} required {...register("hora", { required: true })} /></td>
                   <td onChange={e => filtroNome(e)}><input type="text" name="nome_cliente" required {...register("nome_cliente", { required: true })} /> </td>
-                  <td><input type="text" name="nome_pizza" required {...register("nome_pizza", { required: true })} /></td>
+                  <td onChange={e => filtroPizza(e)}><input type="text" name="nome_pizza" required {...register("nome_pizza", { required: true })} /></td>
                   <td><input type="text" name="bairro" required {...register("bairro", { required: true })} /></td>
                   <td><input type="text" id="entregador" required name="entregador" size={8} {...register("entregador", { required: true })} /></td>
                   <td>
