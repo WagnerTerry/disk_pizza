@@ -10,6 +10,18 @@
     //   flex-wrap: wrap;
     // }
 
+    li {
+      font-weight: bold;
+    }
+
+    .user_li {
+      color: #4169e1;
+    }
+
+    .pizza_li {
+      color: #896b49;
+    }
+
     form {
       margin-top: 8px;
       .box-form {

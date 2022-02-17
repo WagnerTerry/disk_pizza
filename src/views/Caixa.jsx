@@ -233,7 +233,7 @@ export default function Caixa() {
       <div className="cash-flow">
         {foundUsers && foundUsers.length > 0 ? (
           foundUsers.map((user, index) => (
-            <li key={index} className="user">
+            <li key={index} className="user_li">
               <span className="user-name">Cliente: {user.nome}</span>
               <span className="user-bairro">Bairro: {user.bairro}</span>
               <span className="user-observacao">Obs: {user.observacoes}</span>
@@ -244,7 +244,7 @@ export default function Caixa() {
           foundPizzas.map((pizza, i) => (
             <div key={i}>
               {group.map((gr, a) => gr.codigo_grupo === pizza.codigo_grupo && (
-                <li key={a}>
+                <li key={a} className="pizza_li">
                   <span>Pizza: {pizza.nome_pizza}</span>
                   <span>Grupo: {gr.nome_grupo}</span>
                   <span>Pequena: {gr.preco_pequena}</span>
