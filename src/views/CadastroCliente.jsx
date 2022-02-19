@@ -90,20 +90,41 @@ export default function CadastroCliente() {
   //   console.log("put")
   // }
 
+  async function updateClient(client) {
+    // event.preventDefault();
+    console.log("put", client)
+    try {
+      await APIService.atualizarCliente(client)
+      setClients(prevState => [...prevState, client])
+      toast.success("Cliente atualizado com sucesso");
+      console.log('cliente editado', client);
+      reset();
+    } catch (e) {
+      console.log("Ocorreu um erro ao editar cliente", e)
+      return toast.error("Erro ao editar cliente")
+    }
+  }
+
   async function deleteClient(id) {
     try {
       await APIService.excluirCliente(id)
       setClients(clients.filter(cliente => cliente.codigo_cliente !== id))
       toast.success("Cliente excluido com sucesso");
     } catch (e) {
-      console.log("erro ao excluir cliente", e)
+      console.log("Ocorreu um erro ao excluir cliente", e)
       return toast.error("Erro ao excluir cliente")
     }
   }
 
+  let handleChange = (e, i) => {
+    let newFormValues = [...clients];
+    newFormValues[i][e.target.name] = e.target.value;
+    setClients(newFormValues);
+  }
+
   return (
     <div id="cadastro-cliente">
-    <div className="component-nav">
+      <div className="component-nav">
         <Nav />
       </div>
       {/* <Nav name="Cadastrar Cliente" path="cadastrocliente" name2="Cadastrar Pizza" path2="cadastropizza" name3="Cadastrar Grupo" path3="cadastrogrupo" /> */}
@@ -250,7 +271,37 @@ export default function CadastroCliente() {
                           <td>{cliente.bairro}</td>
                           <td>{cliente.cidade}</td>
                           <td>
-                            {/* <button type="button" onClick={() => console.log("editar")}>Editar</button> */}
+                            <Modal className={"edit"} show={"Editar"} title={"Editar Clientes"}>
+                              <form id={"form-customer"} onSubmit={() => updateClient(cliente)}>
+                                <div className="form-fields">
+                                  <label htmlFor="nome">Nome: </label>
+                                  <input
+                                    type="text"
+                                    id="nome"
+                                    name="nome"
+                                    value={cliente.nome}
+                                    onChange={(e) => handleChange(e, index)}
+                                  //{...register("nome", { required: false })}
+                                  />
+                                  {/* {errors.nome && <p>Campo Obrigatório</p>} */}
+
+                                  <label htmlFor="telefone">Telefone: </label>
+                                  <input
+                                    type="number"
+                                    id="telefone"
+                                    name="telefone"
+                                    value={cliente.telefone}
+                                    onChange={(e) => handleChange(e, index)}
+                                  //{...register("telefone", { required: true })}
+                                  />
+                                </div>
+
+
+                                <input type="submit" value="Salvar" />
+                              </form>
+
+                            </Modal>
+                            {/* <button type="button" onClick={() => updateClient(cliente)}>Editar</button> */}
                             <button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
                         </tr>
                       </tbody>
