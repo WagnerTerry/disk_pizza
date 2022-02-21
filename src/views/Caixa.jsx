@@ -179,6 +179,7 @@ export default function Caixa() {
       setQtPedido(prevState => prevState + 1)
       setValorTotal(prevState => prevState + +dados.valor)
       setFoundUsers('')
+      setFoundPizzas('');
       toast.success("Registro salvo com sucesso")
       reset()
       console.log("caixa", dadosData)
