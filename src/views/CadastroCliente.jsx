@@ -220,7 +220,7 @@ export default function CadastroCliente() {
               <div>
                 <label htmlFor="observacoes">Observações: </label>
                 <textarea
-                  name="obs"
+                  name="observacoes"
                   cols="50"
                   rows="3"
                   {...register("observacoes")}
@@ -270,7 +270,7 @@ export default function CadastroCliente() {
                           <td>{cliente.logradouro}</td>
                           <td>{cliente.bairro}</td>
                           <td>{cliente.cidade}</td>
-                          <td>
+                          <td className="button-edit">
                             <Modal className={"edit"} show={"Editar"} title={"Editar Clientes"}>
                               <form id={"form-customer"} onSubmit={() => updateClient(cliente)}>
                                 <div className="form-fields">
@@ -283,7 +283,6 @@ export default function CadastroCliente() {
                                     onChange={(e) => handleChange(e, index)}
                                   //{...register("nome", { required: false })}
                                   />
-                                  {/* {errors.nome && <p>Campo Obrigatório</p>} */}
 
                                   <label htmlFor="telefone">Telefone: </label>
                                   <input
@@ -296,12 +295,65 @@ export default function CadastroCliente() {
                                   />
                                 </div>
 
+                                <div>
+                                  <label htmlFor="cep">Cep: </label>
+                                  <input
+                                    type="text"
+                                    id="cep"
+                                    name="cep"
+                                    maxLength="9"
+                                    value={cliente.cep}
+                                    onChange={(e) => handleChange(e, index)}
+                                    onBlur={onBlurCep}
+                                  />
+                                </div>
+                                <div>
+                                  <label htmlFor="logradouro">Logradouro: </label>
+                                  <input
+                                    type="text"
+                                    id="logradouro"
+                                    name="logradouro"
+                                    size="50"
+                                    value={cliente.logradouro}
+                                    onChange={(e) => handleChange(e, index)}
+                                  />
+                                </div>
+
+                                <div>
+                                  <label htmlFor="bairro">Bairro: </label>
+                                  <input
+                                    type="text"
+                                    id="bairro"
+                                    name="bairro"
+                                    size="40"
+                                    value={cliente.bairro}
+                                    onChange={(e) => handleChange(e, index)}
+                                  />
+                                  <label htmlFor="localidade">Cidade: </label>
+                                  <input
+                                    type="text"
+                                    id="localidade"
+                                    name="cidade"
+                                    size="40"
+                                    value={cliente.cidade}
+                                    onChange={(e) => handleChange(e, index)}
+                                  />
+                                </div>
+                                <div>
+                                  <label htmlFor="observacoes">Observações: </label>
+                                  <textarea
+                                    name="observacoes"
+                                    cols="50"
+                                    rows="3"
+                                    value={cliente.observacoes}
+                                    onChange={(e) => handleChange(e, index)}
+                                  ></textarea>
+                                </div>
 
                                 <input type="submit" value="Salvar" />
                               </form>
 
                             </Modal>
-                            {/* <button type="button" onClick={() => updateClient(cliente)}>Editar</button> */}
                             <button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
                         </tr>
                       </tbody>
