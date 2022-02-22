@@ -62,14 +62,18 @@ export default function Cardapio() {
               );
             })}
 
-            <strong>REFRIGERANTE GRÁTIS</strong>
-            {bebidas.map((bebida) => {
-              return (
-                <h3 key={bebida.codigo_bebida}>
-                  Tamanho : {bebida.tamanho} - {bebida.litro} litros
-                </h3>
-              );
-            })}
+            {bebidas.length > 0 && (
+              <>
+                <strong>REFRIGERANTE GRÁTIS</strong>
+                {bebidas.map((bebida) => {
+                  return (
+                    <h3 key={bebida.codigo_bebida}>
+                      Tamanho : {bebida.tamanho} - {bebida.litro} litros
+                    </h3>
+                  );
+                })}
+              </>
+            )}
           </>
         )}
       </div>
