@@ -45,6 +45,11 @@ export default class APIService {
     return result.data;
   };
 
+  static excluirBebidas = async (dados) => {
+    const result = await axios.post(`${baseUrl}/pizzas/bebidas`, dados);
+    return result.data;
+  };
+
   static getClientes = async () => {
     const result = await axios.get(`${baseUrl}/clientes`);
     return result.data;

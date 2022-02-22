@@ -12,6 +12,7 @@ import CadastroPizza from '../components/CadastroPizza'
 import CadastroGrupo from '../components/CadastroGrupo'
 import Nav from '../components/Nav'
 import Loading from "../components/loading/Loading";
+import CadastroBebida from "../components/CadastroBebida";
 
 export default function CadastroCliente() {
   const schema = yup.object().shape({
@@ -150,7 +151,7 @@ export default function CadastroCliente() {
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
         <div className={"menu-options"}>
-          <Modal className={'first'} show={"Cadastrar Cliente"} title={"Cadastro de Clientes"}>
+          <Modal className={'first'} show={"Cadastrar Cliente"} title={"Cadastro de clientes"}>
             <form id={"form-customer"} onSubmit={handleSubmit(save)}>
               <div className="form-fields">
                 <label htmlFor="nome">Nome: </label>
@@ -235,6 +236,9 @@ export default function CadastroCliente() {
           </Modal>
           <Modal className={'second'} show={"Cadastrar Grupo"} title={"Cadastro de grupos"}>
             <CadastroGrupo />
+          </Modal>
+          <Modal className={'second'} show={"Cadastrar Bebida"} title={"Cadastro de bebidas"}>
+            <CadastroBebida />
           </Modal>
         </div>
       </header >
