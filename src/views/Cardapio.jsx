@@ -68,7 +68,7 @@ export default function Cardapio() {
                 {bebidas.map((bebida) => {
                   return (
                     <h3 key={bebida.codigo_bebida}>
-                      Tamanho : {bebida.tamanho} - {bebida.litro} litros
+                      Tamanho : {bebida.tamanho} - {bebida.litro} {bebida.litro > 10 ? "ml" : "litros"}
                     </h3>
                   );
                 })}
