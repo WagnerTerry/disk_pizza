@@ -51,7 +51,7 @@ export default class APIService {
   };
 
   static excluirBebidas = async (id) => {
-    const result = await axios.delete(`${baseUrl}/pizzas/bebidas`, id);
+    const result = await axios.delete(`${baseUrl}/pizzas/bebidas/${id}`);
     return result.data;
   };
 

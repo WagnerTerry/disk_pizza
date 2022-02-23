@@ -237,7 +237,7 @@ export default function CadastroCliente() {
           <Modal className={'second'} show={"Cadastrar Grupo"} title={"Cadastro de grupos"}>
             <CadastroGrupo />
           </Modal>
-          <Modal className={'second'} show={"Cadastrar Bebida"} title={"Cadastro de bebidas"}>
+          <Modal className={'fourth'} show={"Cadastrar Bebida"} title={"Cadastro de bebidas"}>
             <CadastroBebida />
           </Modal>
         </div>
