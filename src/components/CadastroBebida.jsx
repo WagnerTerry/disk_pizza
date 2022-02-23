@@ -21,12 +21,12 @@ export default function CadastroBebida() {
         resolver: yupResolver(bebida_schema),
     });
 
-    const [bebidas, setBebidas] = useState([])
+    const [drinks, setDrinks] = useState([])
 
     useEffect(() => {
         const showDrinks = async () => {
             const { bebidas } = await APIService.getBebidas()
-            setBebidas(bebidas)
+            setDrinks(bebidas)
         }
         showDrinks()
     }, [])
@@ -34,7 +34,7 @@ export default function CadastroBebida() {
     async function saveDrink(data) {
         try {
             await APIService.cadastrarBebida(data)
-            setBebidas(prevState => [...prevState, data])
+            setDrinks(prevState => [...prevState, data])
             toast.success("Bebida cadastrada com sucesso")
             console.log("bebidas", data)
             reset()
@@ -48,7 +48,7 @@ export default function CadastroBebida() {
     async function deleteDrink(id) {
         try {
             await APIService.excluirBebidas(id)
-            setBebidas(bebidas.filter(bebida => bebida.codigo_bebida !== id))
+            setDrinks(drinks.filter(bebida => bebida.codigo_bebida !== id))
             toast.success("Bebida excluída com sucesso")
         } catch (e) {
             console.log("Ocorreu um erro ao excluir bebida", e)
@@ -74,9 +74,8 @@ export default function CadastroBebida() {
                         <label htmlFor="valor">Valor: </label>
                         <input
                             type="text"
-                            id="valor"
-                            name="valor"
-                            required
+                            step="0.010" name="valor" required min={0} max={1000}
+
                             {...register("valor", { required: true })}
                         />
                     </div>
@@ -91,13 +90,13 @@ export default function CadastroBebida() {
                         />
                     </div>
                     <div>
-                        <label htmlFor="litros">Litros(ml): </label>
+                        <label htmlFor="litro">Litros(ml): </label>
                         <input
                             type="number"
-                            id="litros"
-                            name="litros"
+                            id="litro"
+                            name="litro"
                             required
-                            {...register("litros", { required: true })}
+                            {...register("litro", { required: true })}
                         />
                     </div>
 
@@ -116,7 +115,7 @@ export default function CadastroBebida() {
                             <th>Excluir</th>
                         </tr>
                     </thead>
-                    {bebidas && bebidas.map((bebida, index) => {
+                    {drinks && drinks.map((bebida, index) => {
                         return (
                             <tbody key={index}>
                                 <tr>
