@@ -7,7 +7,6 @@ import Home from "./views/Home";
 import CadastroCliente from "./views/CadastroCliente";
 import Caixa from "./views/Caixa";
 import Cardapio from "./views/Cardapio";
-import CadastroPizza from "./views/CadastroPizza";
 
 //import Routes from "./routes";
 
@@ -22,7 +21,6 @@ function App() {
             <Route path="/cadastro" component={CadastroCliente} />
             <Route path="/caixa" component={Caixa} />
             <Route path="/cardapio" component={Cardapio} />
-            <Route path="/cadastropizza" component={CadastroPizza} />
           </Switch>
         </div>
       </Router>

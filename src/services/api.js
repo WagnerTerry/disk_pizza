@@ -45,8 +45,13 @@ export default class APIService {
     return result.data;
   };
 
-  static excluirBebidas = async (dados) => {
+  static cadastrarBebida = async (dados) => {
     const result = await axios.post(`${baseUrl}/pizzas/bebidas`, dados);
+    return result.data;
+  };
+
+  static excluirBebidas = async (id) => {
+    const result = await axios.delete(`${baseUrl}/pizzas/bebidas`, id);
     return result.data;
   };
 

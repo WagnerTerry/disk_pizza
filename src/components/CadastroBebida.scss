@@ -1,0 +1,53 @@
+//Colours
+$green: #2ecc71;
+$red: #e74c3c;
+$blue: #3498db;
+$yellow: #f1c40f;
+$purple: #8e44ad;
+$turquoise: #1abc9c;
+
+#bebidas {
+  text-align: center;
+  .form-bebida {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    div {
+      margin-bottom: 16px;
+    }
+  }
+}
+
+#table_bebida {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 16px;
+}
+
+#table_bebida td,
+#table_bebida th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#table_bebida tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#table_bebida tr:hover {
+  background-color: #ddd;
+}
+
+#table_bebida th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: $yellow;
+  color: white;
+}
+
+.bebida_list {
+  max-height: 305px;
+  overflow-y: auto;
+}
