@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Modal from '../components/modal/Modal'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { toast } from "react-toastify";
 import "./CadastroCliente.scss";
@@ -275,7 +277,7 @@ export default function CadastroCliente() {
                           <td>{cliente.bairro}</td>
                           <td>{cliente.cidade}</td>
                           <td className="button-edit">
-                            <Modal className={"edit"} show={"Editar"} title={"Editar Clientes"}>
+                            <Modal className={"edit"} show={<EditIcon fontSize="small" />} title={"Editar Clientes"}>
                               <form id={"form-customer"} onSubmit={() => updateClient(cliente)}>
                                 <div className="form-fields">
                                   <label htmlFor="nome">Nome: </label>
@@ -358,7 +360,7 @@ export default function CadastroCliente() {
                               </form>
 
                             </Modal>
-                            <button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}>Excluir</button></td>
+                            <button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}><DeleteIcon fontSize="small" /></button></td>
                         </tr>
                       </tbody>
                     )
