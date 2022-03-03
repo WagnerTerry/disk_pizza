@@ -63,10 +63,10 @@ export default function Caixa() {
 
       const valor = fluxo_caixa.map((cx) => cx.valor)
       const valor_acumulado = valor.reduce((acumulador, elemento) => acumulador += elemento, 0)
-      const valor_total = (parseFloat(valor_acumulado.toFixed(2)).toLocaleString('pt-BR', {
+      const valor_total = new Intl.NumberFormat('pt-br', {
         currency: 'BRL',
         minimumFractionDigits: 2
-      }));
+      }).format(valor_acumulado)
       setValorTotal(valor_total)
 
       const data = new Date();
