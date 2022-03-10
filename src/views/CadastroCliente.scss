@@ -103,7 +103,16 @@
         .button-edit {
           display: flex;
           justify-content: center;
+          align-items: center;
+          border-left: none;
+          border-bottom: none;
+          height: 100%;
         }
+
+        // .button-edit:first-child {
+        //   border-top: none;
+        //   background-color: aqua;
+        // }
 
         button:nth-child(2) {
           background-color: #fc4b27;

@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Modal from '../components/modal/Modal'
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import Modal from "../components/modal/Modal";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { toast } from "react-toastify";
 import "./CadastroCliente.scss";
 import APIService from "../services/api";
 
-import CadastroPizza from '../components/CadastroPizza'
-import CadastroGrupo from '../components/CadastroGrupo'
-import Nav from '../components/Nav'
+import CadastroPizza from "../components/CadastroPizza";
+import CadastroGrupo from "../components/CadastroGrupo";
+import Nav from "../components/Nav";
 import Loading from "../components/loading/Loading";
 import CadastroBebida from "../components/CadastroBebida";
 
@@ -21,17 +21,17 @@ export default function CadastroCliente() {
     nome: yup.string().min(1, "campo obrigatório").required(),
   });
 
-  const [clients, setClients] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [clients, setClients] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const showCustomers = async () => {
-      setLoading(oldState => !oldState)
-      const { clientes } = await APIService.getClientes()
-      setClients(clientes)
-    }
-    showCustomers()
-  }, [])
+      setLoading((oldState) => !oldState);
+      const { clientes } = await APIService.getClientes();
+      setClients(clientes);
+    };
+    showCustomers();
+  }, []);
 
   const {
     register,
@@ -45,13 +45,17 @@ export default function CadastroCliente() {
 
   async function save(data) {
     try {
-      const nome_maiusculo = data.nome.toUpperCase()
-      const nome_duplicado = clients.filter((cliente) => cliente.nome.toUpperCase() === nome_maiusculo)
+      const nome_maiusculo = data.nome.toUpperCase();
+      const nome_duplicado = clients.filter(
+        (cliente) => cliente.nome.toUpperCase() === nome_maiusculo
+      );
       if (nome_duplicado.length > 0) {
-        return toast.error("Já existe um cliente com esse nome, por favor coloque um sobrenome para diferenciar");
+        return toast.error(
+          "Já existe um cliente com esse nome, por favor coloque um sobrenome para diferenciar"
+        );
       }
       await APIService.cadastrarCliente(data);
-      setClients(prevState => [...prevState, data])
+      setClients((prevState) => [...prevState, data]);
       toast.success("Cliente cadastrado com sucesso");
       console.log(data);
       reset();
@@ -95,27 +99,27 @@ export default function CadastroCliente() {
 
   async function updateClient(client) {
     // event.preventDefault();
-    console.log("put", client)
+    console.log("put", client);
     try {
-      await APIService.atualizarCliente(client)
-      setClients(prevState => [...prevState, client])
+      await APIService.atualizarCliente(client);
+      setClients((prevState) => [...prevState, client]);
       toast.success("Cliente atualizado com sucesso");
-      console.log('cliente editado', client);
+      console.log("cliente editado", client);
       reset();
     } catch (e) {
-      console.log("Ocorreu um erro ao editar cliente", e)
-      return toast.error("Erro ao editar cliente")
+      console.log("Ocorreu um erro ao editar cliente", e);
+      return toast.error("Erro ao editar cliente");
     }
   }
 
   async function deleteClient(id) {
     try {
-      await APIService.excluirCliente(id)
-      setClients(clients.filter(cliente => cliente.codigo_cliente !== id))
+      await APIService.excluirCliente(id);
+      setClients(clients.filter((cliente) => cliente.codigo_cliente !== id));
       toast.success("Cliente excluido com sucesso");
     } catch (e) {
-      console.log("Ocorreu um erro ao excluir cliente", e)
-      return toast.error("Erro ao excluir cliente")
+      console.log("Ocorreu um erro ao excluir cliente", e);
+      return toast.error("Erro ao excluir cliente");
     }
   }
 
@@ -123,7 +127,7 @@ export default function CadastroCliente() {
     let newFormValues = [...clients];
     newFormValues[i][e.target.name] = e.target.value;
     setClients(newFormValues);
-  }
+  };
 
   return (
     <div id="cadastro-cliente">
@@ -153,7 +157,11 @@ export default function CadastroCliente() {
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
         <div className={"menu-options"}>
-          <Modal className={'first'} show={"Cadastrar Cliente"} title={"Cadastro de clientes"}>
+          <Modal
+            className={"first"}
+            show={"Cadastrar Cliente"}
+            title={"Cadastro de clientes"}
+          >
             <form id={"form-customer"} onSubmit={handleSubmit(save)}>
               <div className="form-fields">
                 <label htmlFor="nome">Nome: </label>
@@ -231,19 +239,30 @@ export default function CadastroCliente() {
               </div>
               <input type="submit" value="Salvar" />
             </form>
-
           </Modal>
-          <Modal className={'third'} show={"Cadastrar Pizza"} title={"Cadastro de pizza"}>
+          <Modal
+            className={"third"}
+            show={"Cadastrar Pizza"}
+            title={"Cadastro de pizza"}
+          >
             <CadastroPizza />
           </Modal>
-          <Modal className={'second'} show={"Cadastrar Grupo"} title={"Cadastro de grupos"}>
+          <Modal
+            className={"second"}
+            show={"Cadastrar Grupo"}
+            title={"Cadastro de grupos"}
+          >
             <CadastroGrupo />
           </Modal>
-          <Modal className={'fourth'} show={"Cadastrar Bebida"} title={"Cadastro de bebidas"}>
+          <Modal
+            className={"fourth"}
+            show={"Cadastrar Bebida"}
+            title={"Cadastro de bebidas"}
+          >
             <CadastroBebida />
           </Modal>
         </div>
-      </header >
+      </header>
 
       <main>
         {loading ? (
@@ -252,7 +271,7 @@ export default function CadastroCliente() {
           </div>
         ) : (
           <>
-            {clients && clients.length > 0 ?
+            {clients && clients.length > 0 ? (
               <div className="table-scroll">
                 <table className="customers">
                   <thead>
@@ -266,112 +285,133 @@ export default function CadastroCliente() {
                       <th>Ações</th>
                     </tr>
                   </thead>
-                  {clients && clients.map((cliente, index) => {
-                    return (
-                      <tbody key={index}>
-                        <tr>
-                          <td>{cliente.nome}</td>
-                          <td>{cliente.telefone}</td>
-                          <td>{cliente.cep}</td>
-                          <td>{cliente.logradouro}</td>
-                          <td>{cliente.bairro}</td>
-                          <td>{cliente.cidade}</td>
-                          <td className="button-edit">
-                            <Modal className={"edit"} show={<EditIcon fontSize="small" />} title={"Editar Clientes"}>
-                              <form id={"form-customer"} onSubmit={() => updateClient(cliente)}>
-                                <div className="form-fields">
-                                  <label htmlFor="nome">Nome: </label>
-                                  <input
-                                    type="text"
-                                    id="nome"
-                                    name="nome"
-                                    value={cliente.nome}
-                                    onChange={(e) => handleChange(e, index)}
-                                  //{...register("nome", { required: false })}
-                                  />
+                  {clients &&
+                    clients.map((cliente, index) => {
+                      return (
+                        <tbody key={index}>
+                          <tr>
+                            <td>{cliente.nome}</td>
+                            <td>{cliente.telefone}</td>
+                            <td>{cliente.cep}</td>
+                            <td>{cliente.logradouro}</td>
+                            <td>{cliente.bairro}</td>
+                            <td>{cliente.cidade}</td>
+                            <td className="button-edit">
+                              <Modal
+                                className={"edit"}
+                                show={<EditIcon fontSize="small" />}
+                                title={"Editar Clientes"}
+                              >
+                                <form
+                                  id={"form-customer"}
+                                  onSubmit={() => updateClient(cliente)}
+                                >
+                                  <div className="form-fields">
+                                    <label htmlFor="nome">Nome: </label>
+                                    <input
+                                      type="text"
+                                      id="nome"
+                                      name="nome"
+                                      value={cliente.nome}
+                                      onChange={(e) => handleChange(e, index)}
+                                      //{...register("nome", { required: false })}
+                                    />
 
-                                  <label htmlFor="telefone">Telefone: </label>
-                                  <input
-                                    type="number"
-                                    id="telefone"
-                                    name="telefone"
-                                    value={cliente.telefone}
-                                    onChange={(e) => handleChange(e, index)}
-                                  //{...register("telefone", { required: true })}
-                                  />
-                                </div>
+                                    <label htmlFor="telefone">Telefone: </label>
+                                    <input
+                                      type="number"
+                                      id="telefone"
+                                      name="telefone"
+                                      value={cliente.telefone}
+                                      onChange={(e) => handleChange(e, index)}
+                                      //{...register("telefone", { required: true })}
+                                    />
+                                  </div>
 
-                                <div>
-                                  <label htmlFor="cep">Cep: </label>
-                                  <input
-                                    type="text"
-                                    id="cep"
-                                    name="cep"
-                                    maxLength="9"
-                                    value={cliente.cep}
-                                    onChange={(e) => handleChange(e, index)}
-                                    onBlur={onBlurCep}
-                                  />
-                                </div>
-                                <div>
-                                  <label htmlFor="logradouro">Logradouro: </label>
-                                  <input
-                                    type="text"
-                                    id="logradouro"
-                                    name="logradouro"
-                                    size="50"
-                                    value={cliente.logradouro}
-                                    onChange={(e) => handleChange(e, index)}
-                                  />
-                                </div>
+                                  <div>
+                                    <label htmlFor="cep">Cep: </label>
+                                    <input
+                                      type="text"
+                                      id="cep"
+                                      name="cep"
+                                      maxLength="9"
+                                      value={cliente.cep}
+                                      onChange={(e) => handleChange(e, index)}
+                                      onBlur={onBlurCep}
+                                    />
+                                  </div>
+                                  <div>
+                                    <label htmlFor="logradouro">
+                                      Logradouro:{" "}
+                                    </label>
+                                    <input
+                                      type="text"
+                                      id="logradouro"
+                                      name="logradouro"
+                                      size="50"
+                                      value={cliente.logradouro}
+                                      onChange={(e) => handleChange(e, index)}
+                                    />
+                                  </div>
 
-                                <div>
-                                  <label htmlFor="bairro">Bairro: </label>
-                                  <input
-                                    type="text"
-                                    id="bairro"
-                                    name="bairro"
-                                    size="40"
-                                    value={cliente.bairro}
-                                    onChange={(e) => handleChange(e, index)}
-                                  />
-                                  <label htmlFor="localidade">Cidade: </label>
-                                  <input
-                                    type="text"
-                                    id="localidade"
-                                    name="cidade"
-                                    size="40"
-                                    value={cliente.cidade}
-                                    onChange={(e) => handleChange(e, index)}
-                                  />
-                                </div>
-                                <div>
-                                  <label htmlFor="observacoes">Observações: </label>
-                                  <textarea
-                                    name="observacoes"
-                                    cols="50"
-                                    rows="3"
-                                    value={cliente.observacoes}
-                                    onChange={(e) => handleChange(e, index)}
-                                  ></textarea>
-                                </div>
+                                  <div>
+                                    <label htmlFor="bairro">Bairro: </label>
+                                    <input
+                                      type="text"
+                                      id="bairro"
+                                      name="bairro"
+                                      size="40"
+                                      value={cliente.bairro}
+                                      onChange={(e) => handleChange(e, index)}
+                                    />
+                                    <label htmlFor="localidade">Cidade: </label>
+                                    <input
+                                      type="text"
+                                      id="localidade"
+                                      name="cidade"
+                                      size="40"
+                                      value={cliente.cidade}
+                                      onChange={(e) => handleChange(e, index)}
+                                    />
+                                  </div>
+                                  <div>
+                                    <label htmlFor="observacoes">
+                                      Observações:{" "}
+                                    </label>
+                                    <textarea
+                                      name="observacoes"
+                                      cols="50"
+                                      rows="3"
+                                      value={cliente.observacoes}
+                                      onChange={(e) => handleChange(e, index)}
+                                    ></textarea>
+                                  </div>
 
-                                <input type="submit" value="Salvar" />
-                              </form>
-
-                            </Modal>
-                            <button type="button" onClick={() => deleteClient(cliente.codigo_cliente)}><DeleteIcon fontSize="small" /></button></td>
-                        </tr>
-                      </tbody>
-                    )
-                  })}
+                                  <input type="submit" value="Salvar" />
+                                </form>
+                              </Modal>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  deleteClient(cliente.codigo_cliente)
+                                }
+                              >
+                                <DeleteIcon fontSize="small" />
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      );
+                    })}
                 </table>
               </div>
-              :
+            ) : (
               <>
-                <h3>Nenhum cliente cadastrado ou erro ao conectar com o banco.</h3>
+                <h3>
+                  Nenhum cliente cadastrado ou erro ao conectar com o banco.
+                </h3>
               </>
-            }
+            )}
           </>
         )}
       </main>
