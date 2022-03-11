@@ -88,9 +88,11 @@ export default function CadastroCliente() {
 
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((res) => res.json())
+      .catch((err) => err)
       .then((data) => {
         showData(data);
-      });
+      })
+      .catch((error) => error);
   }
 
   // async function editClient(dados) {
