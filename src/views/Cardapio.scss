@@ -6,13 +6,13 @@
   .menu {
     font-size: 28px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin: 8px 0;
     text-align: center;
   }
 
   .cardapio-class {
     padding: 0px 80px;
-    max-height: 565px;
+    max-height: 630px;
     overflow-y: auto;
 
     strong {
@@ -39,10 +39,6 @@
   #cardapio {
     .component-nav {
       display: none;
-    }
-
-    .menu {
-      margin: 8px 0;
     }
 
     .cardapio-class {
