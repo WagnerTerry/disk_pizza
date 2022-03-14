@@ -40,5 +40,22 @@
     .component-nav {
       display: none;
     }
+
+    .menu {
+      margin: 8px 0;
+    }
+
+    .cardapio-class {
+      padding: 0 40px;
+
+      strong {
+        font-size: 20px;
+        height: 32px;
+      }
+
+      h4 {
+        padding: 0 16px;
+      }
+    }
   }
 }
