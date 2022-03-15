@@ -292,12 +292,14 @@ export default function CadastroCliente() {
                       return (
                         <tbody key={index}>
                           <tr>
-                            <td>{cliente.nome}</td>
-                            <td>{cliente.telefone}</td>
-                            <td>{cliente.cep}</td>
-                            <td>{cliente.logradouro}</td>
-                            <td>{cliente.bairro}</td>
-                            <td>{cliente.cidade}</td>
+                            <td data-label="Nome">{cliente.nome}</td>
+                            <td data-label="Telefone">{cliente.telefone}</td>
+                            <td data-label="Cep">{cliente.cep}</td>
+                            <td data-label="Logradouro">
+                              {cliente.logradouro}
+                            </td>
+                            <td data-label="Bairro">{cliente.bairro}</td>
+                            <td data-label="Cidade">{cliente.cidade}</td>
                             <td className="button-edit">
                               <Modal
                                 className={"edit"}
