@@ -45,3 +45,16 @@
   max-height: 305px;
   overflow-y: auto;
 }
+
+@media (max-width: 400px) {
+  #bebidas {
+    .form-bebida {
+      display: block;
+      text-align: center;
+
+      div {
+        margin-bottom: 16px;
+      }
+    }
+  }
+}

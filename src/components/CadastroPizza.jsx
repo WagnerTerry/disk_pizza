@@ -126,7 +126,7 @@ export default function CadastroPizza() {
                     <td data-label="Ativo">{pizza.ativo}</td>
                     <td data-label="Nome_Pizza">{pizza.nome_pizza}</td>
                     <td data-label="Grupo">{pizza.nome_grupo}</td>
-                    <td data-label="Excluir">
+                    <td>
                       <button
                         type="button"
                         onClick={() => deletePizza(pizza.codigo_pizza)}
