@@ -239,7 +239,7 @@ export default function CadastroCliente() {
                   {...register("observacoes")}
                 ></textarea>
               </div>
-              <input type="submit" value="Salvar" />
+              <input type="submit" className="save-customer" value="Salvar" />
             </form>
           </Modal>
           <Modal

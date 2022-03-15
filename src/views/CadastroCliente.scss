@@ -258,4 +258,18 @@
       }
     }
   }
+
+  #form-customer {
+    margin-top: 0;
+    padding: 0 8px;
+
+    input {
+      margin-right: 0;
+      width: 100%;
+    }
+
+    .save-customer {
+      margin-top: 24px;
+    }
+  }
 }
