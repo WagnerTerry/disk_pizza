@@ -40,6 +40,12 @@
   }
 }
 
+@media (max-width: 530px) {
+  .box_options {
+    padding: 0 24px;
+  }
+}
+
 @media (max-width: 400px) {
   .component-nav {
     display: none;
