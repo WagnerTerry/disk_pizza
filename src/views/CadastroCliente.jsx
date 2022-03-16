@@ -274,142 +274,148 @@ export default function CadastroCliente() {
         ) : (
           <>
             {clients && clients.length > 0 ? (
-              <div className="table-scroll">
-                <h2>Lista de Clientes</h2>
-                <table className="customers">
-                  <thead>
-                    <tr>
-                      <th>Nome</th>
-                      <th>Telefone</th>
-                      <th>Cep</th>
-                      <th>Logradouro</th>
-                      <th>Bairro</th>
-                      <th>Cidade</th>
-                      <th>Ações</th>
-                    </tr>
-                  </thead>
-                  {clients &&
-                    clients.map((cliente, index) => {
-                      return (
-                        <tbody key={index}>
-                          <tr>
-                            <td data-label="Nome">{cliente.nome}</td>
-                            <td data-label="Telefone">{cliente.telefone}</td>
-                            <td data-label="Cep">{cliente.cep}</td>
-                            <td data-label="Logradouro">
-                              {cliente.logradouro}
-                            </td>
-                            <td data-label="Bairro">{cliente.bairro}</td>
-                            <td data-label="Cidade">{cliente.cidade}</td>
-                            <td className="button-edit">
-                              <Modal
-                                className={"edit"}
-                                show={<EditIcon fontSize="small" />}
-                                title={"Editar Clientes"}
-                              >
-                                <form
-                                  id={"form-customer"}
-                                  onSubmit={() => updateClient(cliente)}
+              <>
+                <strong>Lista de Clientes</strong>
+                <div className="table-scroll">
+                  <table className="customers">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Cep</th>
+                        <th>Logradouro</th>
+                        <th>Bairro</th>
+                        <th>Cidade</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    {clients &&
+                      clients.map((cliente, index) => {
+                        return (
+                          <tbody key={index}>
+                            <tr>
+                              <td data-label="Nome">{cliente.nome}</td>
+                              <td data-label="Telefone">{cliente.telefone}</td>
+                              <td data-label="Cep">{cliente.cep}</td>
+                              <td data-label="Logradouro">
+                                {cliente.logradouro}
+                              </td>
+                              <td data-label="Bairro">{cliente.bairro}</td>
+                              <td data-label="Cidade">{cliente.cidade}</td>
+                              <td className="button-edit">
+                                <Modal
+                                  className={"edit"}
+                                  show={<EditIcon fontSize="small" />}
+                                  title={"Editar Clientes"}
                                 >
-                                  <div className="form-fields">
-                                    <label htmlFor="nome">Nome: </label>
-                                    <input
-                                      type="text"
-                                      id="nome"
-                                      name="nome"
-                                      value={cliente.nome}
-                                      onChange={(e) => handleChange(e, index)}
-                                      //{...register("nome", { required: false })}
-                                    />
+                                  <form
+                                    id={"form-customer"}
+                                    onSubmit={() => updateClient(cliente)}
+                                  >
+                                    <div className="form-fields">
+                                      <label htmlFor="nome">Nome: </label>
+                                      <input
+                                        type="text"
+                                        id="nome"
+                                        name="nome"
+                                        value={cliente.nome}
+                                        onChange={(e) => handleChange(e, index)}
+                                        //{...register("nome", { required: false })}
+                                      />
 
-                                    <label htmlFor="telefone">Telefone: </label>
-                                    <input
-                                      type="number"
-                                      id="telefone"
-                                      name="telefone"
-                                      value={cliente.telefone}
-                                      onChange={(e) => handleChange(e, index)}
-                                      //{...register("telefone", { required: true })}
-                                    />
-                                  </div>
+                                      <label htmlFor="telefone">
+                                        Telefone:{" "}
+                                      </label>
+                                      <input
+                                        type="number"
+                                        id="telefone"
+                                        name="telefone"
+                                        value={cliente.telefone}
+                                        onChange={(e) => handleChange(e, index)}
+                                        //{...register("telefone", { required: true })}
+                                      />
+                                    </div>
 
-                                  <div>
-                                    <label htmlFor="cep">Cep: </label>
-                                    <input
-                                      type="text"
-                                      id="cep"
-                                      name="cep"
-                                      maxLength="9"
-                                      value={cliente.cep}
-                                      onChange={(e) => handleChange(e, index)}
-                                      onBlur={onBlurCep}
-                                    />
-                                  </div>
-                                  <div>
-                                    <label htmlFor="logradouro">
-                                      Logradouro:{" "}
-                                    </label>
-                                    <input
-                                      type="text"
-                                      id="logradouro"
-                                      name="logradouro"
-                                      size="50"
-                                      value={cliente.logradouro}
-                                      onChange={(e) => handleChange(e, index)}
-                                    />
-                                  </div>
+                                    <div>
+                                      <label htmlFor="cep">Cep: </label>
+                                      <input
+                                        type="text"
+                                        id="cep"
+                                        name="cep"
+                                        maxLength="9"
+                                        value={cliente.cep}
+                                        onChange={(e) => handleChange(e, index)}
+                                        onBlur={onBlurCep}
+                                      />
+                                    </div>
+                                    <div>
+                                      <label htmlFor="logradouro">
+                                        Logradouro:{" "}
+                                      </label>
+                                      <input
+                                        type="text"
+                                        id="logradouro"
+                                        name="logradouro"
+                                        size="50"
+                                        value={cliente.logradouro}
+                                        onChange={(e) => handleChange(e, index)}
+                                      />
+                                    </div>
 
-                                  <div>
-                                    <label htmlFor="bairro">Bairro: </label>
-                                    <input
-                                      type="text"
-                                      id="bairro"
-                                      name="bairro"
-                                      size="40"
-                                      value={cliente.bairro}
-                                      onChange={(e) => handleChange(e, index)}
-                                    />
-                                    <label htmlFor="localidade">Cidade: </label>
-                                    <input
-                                      type="text"
-                                      id="localidade"
-                                      name="cidade"
-                                      size="40"
-                                      value={cliente.cidade}
-                                      onChange={(e) => handleChange(e, index)}
-                                    />
-                                  </div>
-                                  <div>
-                                    <label htmlFor="observacoes">
-                                      Observações:{" "}
-                                    </label>
-                                    <textarea
-                                      name="observacoes"
-                                      cols="50"
-                                      rows="3"
-                                      value={cliente.observacoes}
-                                      onChange={(e) => handleChange(e, index)}
-                                    ></textarea>
-                                  </div>
+                                    <div>
+                                      <label htmlFor="bairro">Bairro: </label>
+                                      <input
+                                        type="text"
+                                        id="bairro"
+                                        name="bairro"
+                                        size="40"
+                                        value={cliente.bairro}
+                                        onChange={(e) => handleChange(e, index)}
+                                      />
+                                      <label htmlFor="localidade">
+                                        Cidade:{" "}
+                                      </label>
+                                      <input
+                                        type="text"
+                                        id="localidade"
+                                        name="cidade"
+                                        size="40"
+                                        value={cliente.cidade}
+                                        onChange={(e) => handleChange(e, index)}
+                                      />
+                                    </div>
+                                    <div>
+                                      <label htmlFor="observacoes">
+                                        Observações:{" "}
+                                      </label>
+                                      <textarea
+                                        name="observacoes"
+                                        cols="50"
+                                        rows="3"
+                                        value={cliente.observacoes}
+                                        onChange={(e) => handleChange(e, index)}
+                                      ></textarea>
+                                    </div>
 
-                                  <input type="submit" value="Salvar" />
-                                </form>
-                              </Modal>
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  deleteClient(cliente.codigo_cliente)
-                                }
-                              >
-                                <DeleteIcon fontSize="small" />
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      );
-                    })}
-                </table>
-              </div>
+                                    <input type="submit" value="Salvar" />
+                                  </form>
+                                </Modal>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    deleteClient(cliente.codigo_cliente)
+                                  }
+                                >
+                                  <DeleteIcon fontSize="small" />
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        );
+                      })}
+                  </table>
+                </div>
+              </>
             ) : (
               <>
                 <h3>

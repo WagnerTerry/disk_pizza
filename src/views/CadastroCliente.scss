@@ -84,6 +84,7 @@
     .table-scroll {
       max-height: 400px;
       overflow-y: auto;
+      margin-top: 8px;
 
       .customers {
         // overflow: auto;
@@ -194,85 +195,171 @@
   }
 }
 
-@media (max-width: 530px) {
+@media (max-width: 800px) {
   #cadastro-cliente {
-    .component-nav {
-      display: none;
+    table {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      table-layout: fixed;
     }
-    header {
-      flex-direction: column;
 
-      .cod-cliente {
-        margin-bottom: 10px;
-      }
+    table tr {
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      padding: 0.35em;
+    }
 
-      .menu-options {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        div:first-child {
-          margin-right: 0;
-        }
-      }
+    table th,
+    table td {
+      padding: 0.625em;
+      text-align: center;
+    }
+
+    table th {
+      font-size: 0.85em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
     main {
-      margin-top: 8px;
+      .table-scroll {
+        max-height: 315px;
+      }
+    }
 
-      .button-options {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-
-        button {
-          margin-top: 10px;
-          margin-bottom: 4px;
-        }
+    @media (max-width: 800px) {
+      table {
+        border: 0;
       }
 
-      div {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-items: initial;
-        justify-content: flex-start;
+      table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
       }
 
-      input {
-        height: 30px;
-        padding-left: 0;
-        margin: 0;
-        margin-right: 0;
+      table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: 0.625em;
       }
 
-      label {
-        margin-top: 15px;
-        margin-bottom: 5px;
+      table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: 0.8em;
+        text-align: right;
       }
 
-      textarea {
-        margin-top: 10px;
-        margin-bottom: 16px;
+      table td::before {
+        /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      table td:last-child {
+        border-bottom: 0;
       }
     }
   }
 
-  #form-customer {
-    margin-top: 0;
-    padding: 0 8px;
+  @media (max-width: 530px) {
+    #cadastro-cliente {
+      .component-nav {
+        display: none;
+      }
+      header {
+        flex-direction: column;
 
-    input {
-      margin-right: 0;
-      width: 100%;
+        .cod-cliente {
+          margin-bottom: 10px;
+        }
+
+        .menu-options {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          div:first-child {
+            margin-right: 0;
+          }
+        }
+      }
+
+      main {
+        margin-top: 8px;
+
+        .button-options {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+
+          button {
+            margin-top: 10px;
+            margin-bottom: 4px;
+          }
+        }
+
+        .table-scroll {
+          max-height: 305px;
+        }
+
+        div {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          align-items: initial;
+          justify-content: flex-start;
+        }
+
+        input {
+          height: 30px;
+          padding-left: 0;
+          margin: 0;
+          margin-right: 0;
+        }
+
+        label {
+          margin-top: 15px;
+          margin-bottom: 5px;
+        }
+
+        textarea {
+          margin-top: 10px;
+          margin-bottom: 16px;
+        }
+      }
     }
 
-    .save-customer {
-      margin-top: 24px;
-    }
+    #form-customer {
+      margin-top: 0;
+      padding: 0 8px;
 
-    button .button-edit:nth-child(1) {
-      margin-left: 16px;
+      input {
+        margin-right: 0;
+        width: 100%;
+      }
+
+      .save-customer {
+        margin-top: 24px;
+      }
+
+      button .button-edit:nth-child(1) {
+        margin-left: 16px;
+      }
     }
   }
 }
