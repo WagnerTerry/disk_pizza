@@ -275,6 +275,7 @@ export default function CadastroCliente() {
           <>
             {clients && clients.length > 0 ? (
               <div className="table-scroll">
+                <h2>Lista de Clientes</h2>
                 <table className="customers">
                   <thead>
                     <tr>

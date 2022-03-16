@@ -12,9 +12,13 @@ $turquoise: #1abc9c;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: 8px;
     div {
       margin-bottom: 16px;
     }
+  }
+  .no_pizzas {
+    margin-top: 40px;
   }
 }
 

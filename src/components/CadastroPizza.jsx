@@ -108,38 +108,42 @@ export default function CadastroPizza() {
         <input type="submit" value="Salvar" />
       </form>
 
-      <div className="pizza_list">
-        <table id="table_pizza">
-          <thead>
-            <tr>
-              <th scope="col">Ativo</th>
-              <th scope="col">Nome_Pizza</th>
-              <th scope="col">Grupo</th>
-              <th scope="col">Excluir</th>
-            </tr>
-          </thead>
-          {pizzas &&
-            pizzas.map((pizza, index) => {
-              return (
-                <tbody key={index}>
-                  <tr>
-                    <td data-label="Ativo">{pizza.ativo}</td>
-                    <td data-label="Nome_Pizza">{pizza.nome_pizza}</td>
-                    <td data-label="Grupo">{pizza.nome_grupo}</td>
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() => deletePizza(pizza.codigo_pizza)}
-                      >
-                        Excluir
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-        </table>
-      </div>
+      {pizzas && pizzas.length > 0 ? (
+        <div className="pizza_list">
+          <table id="table_pizza">
+            <thead>
+              <tr>
+                <th scope="col">Ativo</th>
+                <th scope="col">Nome_Pizza</th>
+                <th scope="col">Grupo</th>
+                <th scope="col">Excluir</th>
+              </tr>
+            </thead>
+            {pizzas &&
+              pizzas.map((pizza, index) => {
+                return (
+                  <tbody key={index}>
+                    <tr>
+                      <td data-label="Ativo">{pizza.ativo}</td>
+                      <td data-label="Nome_Pizza">{pizza.nome_pizza}</td>
+                      <td data-label="Grupo">{pizza.nome_grupo}</td>
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() => deletePizza(pizza.codigo_pizza)}
+                        >
+                          Excluir
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+          </table>
+        </div>
+      ) : (
+        <div className="no_pizzas">Não há pizzas cadastradas.</div>
+      )}
     </div>
   );
 }

@@ -59,7 +59,7 @@ export default function CadastroGrupo() {
   }
 
   return (
-    <div>
+    <div id={"group"}>
       <form onSubmit={handleSubmit(saveGroup)}>
         <div className="form-group">
           <div>
@@ -122,42 +122,46 @@ export default function CadastroGrupo() {
         </div>
       </form>
 
-      <div className="list_group">
-        <table id="groups">
-          <thead>
-            <tr>
-              <th>Nome_Grupo</th>
-              <th>Preço Pequena</th>
-              <th>Preço Grande</th>
-              <th>Preço Família</th>
-              <th>Preço Gigante</th>
-              <th>Excluir</th>
-            </tr>
-          </thead>
-          {group &&
-            group.map((grupo, index) => {
-              return (
-                <tbody key={index}>
-                  <tr>
-                    <td data-label="Nome_Grupo">{grupo.nome_grupo}</td>
-                    <td data-label="Preço_Pequena">{grupo.preco_pequena}</td>
-                    <td data-label="Preço_Grande">{grupo.preco_grande}</td>
-                    <td data-label="Preço_Gigante">{grupo.preco_gigante}</td>
-                    <td data-label="Preço_Familia">{grupo.preco_familia}</td>
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() => deleteGroup(grupo.codigo_grupo)}
-                      >
-                        Excluir
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-        </table>
-      </div>
+      {group && group.length > 0 ? (
+        <div className="list_group">
+          <table id="groups">
+            <thead>
+              <tr>
+                <th>Nome_Grupo</th>
+                <th>Preço Pequena</th>
+                <th>Preço Grande</th>
+                <th>Preço Família</th>
+                <th>Preço Gigante</th>
+                <th>Excluir</th>
+              </tr>
+            </thead>
+            {group &&
+              group.map((grupo, index) => {
+                return (
+                  <tbody key={index}>
+                    <tr>
+                      <td data-label="Nome_Grupo">{grupo.nome_grupo}</td>
+                      <td data-label="Preço_Pequena">{grupo.preco_pequena}</td>
+                      <td data-label="Preço_Grande">{grupo.preco_grande}</td>
+                      <td data-label="Preço_Gigante">{grupo.preco_gigante}</td>
+                      <td data-label="Preço_Familia">{grupo.preco_familia}</td>
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() => deleteGroup(grupo.codigo_grupo)}
+                        >
+                          Excluir
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+          </table>
+        </div>
+      ) : (
+        <div className="no_groups">Não há grupos cadastrados.</div>
+      )}
     </div>
   );
 }

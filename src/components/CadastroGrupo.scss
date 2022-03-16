@@ -6,6 +6,18 @@ $yellow: #f1c40f;
 $purple: #8e44ad;
 $turquoise: #1abc9c;
 
+#group {
+  .list_group {
+    max-height: 305px;
+    overflow-y: auto;
+  }
+
+  .no_groups {
+    margin-top: 40px;
+    text-align: center;
+  }
+}
+
 #groups {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -33,11 +45,6 @@ $turquoise: #1abc9c;
   text-align: left;
   background-color: $green;
   color: white;
-}
-
-.list_group {
-  max-height: 305px;
-  overflow-y: auto;
 }
 
 @media (max-width: 400px) {

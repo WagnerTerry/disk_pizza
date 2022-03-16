@@ -101,40 +101,44 @@ export default function CadastroBebida() {
         <input type="submit" value="Salvar" />
       </form>
 
-      <div className="bebida_list">
-        <table id="table_bebida">
-          <thead>
-            <tr>
-              <th>Sabor</th>
-              <th>Valor</th>
-              <th>Tamanho</th>
-              <th>Litros(ml)</th>
-              <th>Excluir</th>
-            </tr>
-          </thead>
-          {drinks &&
-            drinks.map((bebida, index) => {
-              return (
-                <tbody key={index}>
-                  <tr>
-                    <td data-label="Sabor">{bebida.sabor}</td>
-                    <td data-label="Valor">{bebida.valor}</td>
-                    <td data-label="Tamanho">{bebida.tamanho}</td>
-                    <td data-label="Litro">{bebida.litro}</td>
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() => deleteDrink(bebida.codigo_bebida)}
-                      >
-                        Excluir
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-        </table>
-      </div>
+      {drinks && drinks.length > 0 ? (
+        <div className="bebida_list">
+          <table id="table_bebida">
+            <thead>
+              <tr>
+                <th>Sabor</th>
+                <th>Valor</th>
+                <th>Tamanho</th>
+                <th>Litros(ml)</th>
+                <th>Excluir</th>
+              </tr>
+            </thead>
+            {drinks &&
+              drinks.map((bebida, index) => {
+                return (
+                  <tbody key={index}>
+                    <tr>
+                      <td data-label="Sabor">{bebida.sabor}</td>
+                      <td data-label="Valor">{bebida.valor}</td>
+                      <td data-label="Tamanho">{bebida.tamanho}</td>
+                      <td data-label="Litro">{bebida.litro}</td>
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() => deleteDrink(bebida.codigo_bebida)}
+                        >
+                          Excluir
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+          </table>
+        </div>
+      ) : (
+        <div className="no_drinks">Não há bebidas cadastradas.</div>
+      )}
     </div>
   );
 }
