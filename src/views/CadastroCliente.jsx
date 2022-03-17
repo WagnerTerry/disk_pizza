@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -13,8 +13,10 @@ import APIService from "../services/api";
 import CadastroPizza from "../components/CadastroPizza";
 import CadastroGrupo from "../components/CadastroGrupo";
 import Nav from "../components/Nav";
-import Loading from "../components/loading/Loading";
+//import Loading from "../components/loading/Loading";
 import CadastroBebida from "../components/CadastroBebida";
+
+const Loading = lazy(() => import("../components/loading/Loading"));
 
 export default function CadastroCliente() {
   const schema = yup.object().shape({
@@ -132,23 +134,24 @@ export default function CadastroCliente() {
   };
 
   return (
-    <div id="cadastro-cliente">
-      <div className="component-nav">
-        <Nav />
-      </div>
-      {/* <Nav name="Cadastrar Cliente" path="cadastrocliente" name2="Cadastrar Pizza" path2="cadastropizza" name3="Cadastrar Grupo" path3="cadastrogrupo" /> */}
+    <Suspense fallback={<h1>Load</h1>}>
+      <div id="cadastro-cliente">
+        <div className="component-nav">
+          <Nav />
+        </div>
+        {/* <Nav name="Cadastrar Cliente" path="cadastrocliente" name2="Cadastrar Pizza" path2="cadastropizza" name3="Cadastrar Grupo" path3="cadastrogrupo" /> */}
 
-      <div>
-        <h2>Cadastro de Clientes</h2>
-      </div>
+        <div>
+          <h2>Cadastro de Clientes</h2>
+        </div>
 
-      <header>
-        {/* <div className={"cod-cliente"}>
+        <header>
+          {/* <div className={"cod-cliente"}>
           <label htmlFor="cod-cliente">Código do Cliente: </label>
           <input type="text" id="cod-cliente" name="cod-cliente" size="5" />
         </div> */}
 
-        {/* ----------   exemplo de useForm    ------
+          {/* ----------   exemplo de useForm    ------
         handleSubmit "validará suas entradas antes de invocar" onSubmit "
         <form onSubmit={handleSubmit(onSubmit)}>
           registre sua entrada no gancho invocando a função "registrar"
@@ -158,274 +161,291 @@ export default function CadastroCliente() {
           <input {...register("exampleRequired", { required: true })} />
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
-        <div className={"menu-options"}>
-          <Modal
-            className={"first"}
-            show={"Cadastrar Cliente"}
-            title={"Cadastro de clientes"}
-          >
-            <form id={"form-customer"} onSubmit={handleSubmit(save)}>
-              <div className="form-fields">
-                <label htmlFor="nome">Nome: </label>
-                <input
-                  type="text"
-                  id="nome"
-                  name="nome"
-                  required
-                  {...register("nome", { required: true })}
-                />
-                {errors.nome && <p>Campo Obrigatório</p>}
+          <div className={"menu-options"}>
+            <Modal
+              className={"first"}
+              show={"Cadastrar Cliente"}
+              title={"Cadastro de clientes"}
+            >
+              <form id={"form-customer"} onSubmit={handleSubmit(save)}>
+                <div className="form-fields">
+                  <label htmlFor="nome">Nome: </label>
+                  <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    required
+                    {...register("nome", { required: true })}
+                  />
+                  {errors.nome && <p>Campo Obrigatório</p>}
 
-                <label htmlFor="telefone">Telefone: </label>
-                <input
-                  type="number"
-                  id="telefone"
-                  name="telefone"
-                  required
-                  {...register("telefone", { required: true })}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="cep">Cep: </label>
-                <input
-                  type="text"
-                  id="cep"
-                  name="cep"
-                  maxLength="9"
-                  {...register("cep")}
-                  onBlur={onBlurCep}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="logradouro">Logradouro: </label>
-                <input
-                  type="text"
-                  id="logradouro"
-                  name="logradouro"
-                  size="50"
-                  required
-                  {...register("logradouro")}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="bairro">Bairro: </label>
-                <input
-                  type="text"
-                  id="bairro"
-                  name="bairro"
-                  size="40"
-                  required
-                  {...register("bairro")}
-                />
-                <label htmlFor="localidade">Cidade: </label>
-                <input
-                  type="text"
-                  id="localidade"
-                  name="localidade"
-                  size="40"
-                  required
-                  {...register("cidade")}
-                />
-              </div>
-              <div>
-                <label htmlFor="observacoes">Observações: </label>
-                <textarea
-                  name="observacoes"
-                  cols="50"
-                  rows="3"
-                  {...register("observacoes")}
-                ></textarea>
-              </div>
-              <input type="submit" className="save-customer" value="Salvar" />
-            </form>
-          </Modal>
-          <Modal
-            className={"third"}
-            show={"Cadastrar Pizza"}
-            title={"Cadastro de pizza"}
-          >
-            <CadastroPizza />
-          </Modal>
-          <Modal
-            className={"second"}
-            show={"Cadastrar Grupo"}
-            title={"Cadastro de grupos"}
-          >
-            <CadastroGrupo />
-          </Modal>
-          <Modal
-            className={"fourth"}
-            show={"Cadastrar Bebida"}
-            title={"Cadastro de bebidas"}
-          >
-            <CadastroBebida />
-          </Modal>
-        </div>
-      </header>
-
-      <main>
-        {loading ? (
-          <div className="loading">
-            <Loading size={30}></Loading>
-          </div>
-        ) : (
-          <>
-            {clients && clients.length > 0 ? (
-              <>
-                <strong>Lista de Clientes</strong>
-                <div className="table-scroll">
-                  <table className="customers">
-                    <thead>
-                      <tr>
-                        <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>Cep</th>
-                        <th>Logradouro</th>
-                        <th>Bairro</th>
-                        <th>Cidade</th>
-                        <th>Ações</th>
-                      </tr>
-                    </thead>
-                    {clients &&
-                      clients.map((cliente, index) => {
-                        return (
-                          <tbody key={index}>
-                            <tr>
-                              <td data-label="Nome">{cliente.nome}</td>
-                              <td data-label="Telefone">{cliente.telefone}</td>
-                              <td data-label="Cep">{cliente.cep}</td>
-                              <td data-label="Logradouro">
-                                {cliente.logradouro}
-                              </td>
-                              <td data-label="Bairro">{cliente.bairro}</td>
-                              <td data-label="Cidade">{cliente.cidade}</td>
-                              <td className="button-edit">
-                                <Modal
-                                  className={"edit"}
-                                  show={<EditIcon fontSize="small" />}
-                                  title={"Editar Clientes"}
-                                >
-                                  <form
-                                    id={"form-customer"}
-                                    onSubmit={() => updateClient(cliente)}
-                                  >
-                                    <div className="form-fields">
-                                      <label htmlFor="nome">Nome: </label>
-                                      <input
-                                        type="text"
-                                        id="nome"
-                                        name="nome"
-                                        value={cliente.nome}
-                                        onChange={(e) => handleChange(e, index)}
-                                        //{...register("nome", { required: false })}
-                                      />
-
-                                      <label htmlFor="telefone">
-                                        Telefone:{" "}
-                                      </label>
-                                      <input
-                                        type="number"
-                                        id="telefone"
-                                        name="telefone"
-                                        value={cliente.telefone}
-                                        onChange={(e) => handleChange(e, index)}
-                                        //{...register("telefone", { required: true })}
-                                      />
-                                    </div>
-
-                                    <div>
-                                      <label htmlFor="cep">Cep: </label>
-                                      <input
-                                        type="text"
-                                        id="cep"
-                                        name="cep"
-                                        maxLength="9"
-                                        value={cliente.cep}
-                                        onChange={(e) => handleChange(e, index)}
-                                        onBlur={onBlurCep}
-                                      />
-                                    </div>
-                                    <div>
-                                      <label htmlFor="logradouro">
-                                        Logradouro:{" "}
-                                      </label>
-                                      <input
-                                        type="text"
-                                        id="logradouro"
-                                        name="logradouro"
-                                        size="50"
-                                        value={cliente.logradouro}
-                                        onChange={(e) => handleChange(e, index)}
-                                      />
-                                    </div>
-
-                                    <div>
-                                      <label htmlFor="bairro">Bairro: </label>
-                                      <input
-                                        type="text"
-                                        id="bairro"
-                                        name="bairro"
-                                        size="40"
-                                        value={cliente.bairro}
-                                        onChange={(e) => handleChange(e, index)}
-                                      />
-                                      <label htmlFor="localidade">
-                                        Cidade:{" "}
-                                      </label>
-                                      <input
-                                        type="text"
-                                        id="localidade"
-                                        name="cidade"
-                                        size="40"
-                                        value={cliente.cidade}
-                                        onChange={(e) => handleChange(e, index)}
-                                      />
-                                    </div>
-                                    <div>
-                                      <label htmlFor="observacoes">
-                                        Observações:{" "}
-                                      </label>
-                                      <textarea
-                                        name="observacoes"
-                                        cols="50"
-                                        rows="3"
-                                        value={cliente.observacoes}
-                                        onChange={(e) => handleChange(e, index)}
-                                      ></textarea>
-                                    </div>
-
-                                    <input type="submit" value="Salvar" />
-                                  </form>
-                                </Modal>
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    deleteClient(cliente.codigo_cliente)
-                                  }
-                                >
-                                  <DeleteIcon fontSize="small" />
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        );
-                      })}
-                  </table>
+                  <label htmlFor="telefone">Telefone: </label>
+                  <input
+                    type="number"
+                    id="telefone"
+                    name="telefone"
+                    required
+                    {...register("telefone", { required: true })}
+                  />
                 </div>
-              </>
-            ) : (
-              <>
-                <h3>
-                  Nenhum cliente cadastrado ou erro ao conectar com o banco.
-                </h3>
-              </>
-            )}
-          </>
-        )}
-      </main>
-    </div>
+
+                <div>
+                  <label htmlFor="cep">Cep: </label>
+                  <input
+                    type="text"
+                    id="cep"
+                    name="cep"
+                    maxLength="9"
+                    {...register("cep")}
+                    onBlur={onBlurCep}
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="logradouro">Logradouro: </label>
+                  <input
+                    type="text"
+                    id="logradouro"
+                    name="logradouro"
+                    size="50"
+                    required
+                    {...register("logradouro")}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="bairro">Bairro: </label>
+                  <input
+                    type="text"
+                    id="bairro"
+                    name="bairro"
+                    size="40"
+                    required
+                    {...register("bairro")}
+                  />
+                  <label htmlFor="localidade">Cidade: </label>
+                  <input
+                    type="text"
+                    id="localidade"
+                    name="localidade"
+                    size="40"
+                    required
+                    {...register("cidade")}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="observacoes">Observações: </label>
+                  <textarea
+                    name="observacoes"
+                    cols="50"
+                    rows="3"
+                    {...register("observacoes")}
+                  ></textarea>
+                </div>
+                <input type="submit" className="save-customer" value="Salvar" />
+              </form>
+            </Modal>
+            <Modal
+              className={"third"}
+              show={"Cadastrar Pizza"}
+              title={"Cadastro de pizza"}
+            >
+              <CadastroPizza />
+            </Modal>
+            <Modal
+              className={"second"}
+              show={"Cadastrar Grupo"}
+              title={"Cadastro de grupos"}
+            >
+              <CadastroGrupo />
+            </Modal>
+            <Modal
+              className={"fourth"}
+              show={"Cadastrar Bebida"}
+              title={"Cadastro de bebidas"}
+            >
+              <CadastroBebida />
+            </Modal>
+          </div>
+        </header>
+
+        <main>
+          {loading ? (
+            <div className="loading">
+              <Loading size={30}></Loading>
+            </div>
+          ) : (
+            <>
+              {clients && clients.length > 0 ? (
+                <>
+                  <strong>Lista de Clientes</strong>
+                  <div className="table-scroll">
+                    <table className="customers">
+                      <thead>
+                        <tr>
+                          <th>Nome</th>
+                          <th>Telefone</th>
+                          <th>Cep</th>
+                          <th>Logradouro</th>
+                          <th>Bairro</th>
+                          <th>Cidade</th>
+                          <th>Ações</th>
+                        </tr>
+                      </thead>
+                      {clients &&
+                        clients.map((cliente, index) => {
+                          return (
+                            <tbody key={index}>
+                              <tr>
+                                <td data-label="Nome">{cliente.nome}</td>
+                                <td data-label="Telefone">
+                                  {cliente.telefone}
+                                </td>
+                                <td data-label="Cep">{cliente.cep}</td>
+                                <td data-label="Logradouro">
+                                  {cliente.logradouro}
+                                </td>
+                                <td data-label="Bairro">{cliente.bairro}</td>
+                                <td data-label="Cidade">{cliente.cidade}</td>
+                                <td className="button-edit">
+                                  <Modal
+                                    className={"edit"}
+                                    show={<EditIcon fontSize="small" />}
+                                    title={"Editar Clientes"}
+                                  >
+                                    <form
+                                      id={"form-customer"}
+                                      onSubmit={() => updateClient(cliente)}
+                                    >
+                                      <div className="form-fields">
+                                        <label htmlFor="nome">Nome: </label>
+                                        <input
+                                          type="text"
+                                          id="nome"
+                                          name="nome"
+                                          value={cliente.nome}
+                                          onChange={(e) =>
+                                            handleChange(e, index)
+                                          }
+                                          //{...register("nome", { required: false })}
+                                        />
+
+                                        <label htmlFor="telefone">
+                                          Telefone:{" "}
+                                        </label>
+                                        <input
+                                          type="number"
+                                          id="telefone"
+                                          name="telefone"
+                                          value={cliente.telefone}
+                                          onChange={(e) =>
+                                            handleChange(e, index)
+                                          }
+                                          //{...register("telefone", { required: true })}
+                                        />
+                                      </div>
+
+                                      <div>
+                                        <label htmlFor="cep">Cep: </label>
+                                        <input
+                                          type="text"
+                                          id="cep"
+                                          name="cep"
+                                          maxLength="9"
+                                          value={cliente.cep}
+                                          onChange={(e) =>
+                                            handleChange(e, index)
+                                          }
+                                          onBlur={onBlurCep}
+                                        />
+                                      </div>
+                                      <div>
+                                        <label htmlFor="logradouro">
+                                          Logradouro:{" "}
+                                        </label>
+                                        <input
+                                          type="text"
+                                          id="logradouro"
+                                          name="logradouro"
+                                          size="50"
+                                          value={cliente.logradouro}
+                                          onChange={(e) =>
+                                            handleChange(e, index)
+                                          }
+                                        />
+                                      </div>
+
+                                      <div>
+                                        <label htmlFor="bairro">Bairro: </label>
+                                        <input
+                                          type="text"
+                                          id="bairro"
+                                          name="bairro"
+                                          size="40"
+                                          value={cliente.bairro}
+                                          onChange={(e) =>
+                                            handleChange(e, index)
+                                          }
+                                        />
+                                        <label htmlFor="localidade">
+                                          Cidade:{" "}
+                                        </label>
+                                        <input
+                                          type="text"
+                                          id="localidade"
+                                          name="cidade"
+                                          size="40"
+                                          value={cliente.cidade}
+                                          onChange={(e) =>
+                                            handleChange(e, index)
+                                          }
+                                        />
+                                      </div>
+                                      <div>
+                                        <label htmlFor="observacoes">
+                                          Observações:{" "}
+                                        </label>
+                                        <textarea
+                                          name="observacoes"
+                                          cols="50"
+                                          rows="3"
+                                          value={cliente.observacoes}
+                                          onChange={(e) =>
+                                            handleChange(e, index)
+                                          }
+                                        ></textarea>
+                                      </div>
+
+                                      <input type="submit" value="Salvar" />
+                                    </form>
+                                  </Modal>
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      deleteClient(cliente.codigo_cliente)
+                                    }
+                                  >
+                                    <DeleteIcon fontSize="small" />
+                                  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          );
+                        })}
+                    </table>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h3>
+                    Nenhum cliente cadastrado ou erro ao conectar com o banco.
+                  </h3>
+                </>
+              )}
+            </>
+          )}
+        </main>
+      </div>
+    </Suspense>
   );
 }
