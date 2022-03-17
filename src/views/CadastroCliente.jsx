@@ -13,8 +13,8 @@ import APIService from "../services/api";
 import CadastroPizza from "../components/CadastroPizza";
 import CadastroGrupo from "../components/CadastroGrupo";
 import Nav from "../components/Nav";
-//import Loading from "../components/loading/Loading";
 import CadastroBebida from "../components/CadastroBebida";
+//import Loading from "../components/loading/Loading";
 
 const Loading = lazy(() => import("../components/loading/Loading"));
 
@@ -134,7 +134,7 @@ export default function CadastroCliente() {
   };
 
   return (
-    <Suspense fallback={<h1>Load</h1>}>
+    <Suspense fallback={<h3>Loading...</h3>}>
       <div id="cadastro-cliente">
         <div className="component-nav">
           <Nav />
