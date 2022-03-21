@@ -20,6 +20,10 @@ $turquoise: #1abc9c;
   .no_pizzas {
     margin-top: 40px;
   }
+
+  h4 {
+    margin-bottom: 8px;
+  }
 }
 
 #table_pizza {
@@ -131,9 +135,6 @@ $turquoise: #1abc9c;
 
       select {
         height: 24px;
-      }
-      .pizza_list {
-        margin-top: 24px;
       }
     }
   }

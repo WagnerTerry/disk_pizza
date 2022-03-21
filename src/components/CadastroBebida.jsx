@@ -101,6 +101,8 @@ export default function CadastroBebida() {
         <input type="submit" value="Salvar" />
       </form>
 
+      <h4>Lista de Bebidas</h4>
+
       {drinks && drinks.length > 0 ? (
         <div className="bebida_list">
           <table id="table_bebida">

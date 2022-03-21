@@ -122,6 +122,8 @@ export default function CadastroGrupo() {
         </div>
       </form>
 
+      <h4>Lista de Grupos</h4>
+
       {group && group.length > 0 ? (
         <div className="list_group">
           <table id="groups">
