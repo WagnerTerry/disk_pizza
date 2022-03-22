@@ -73,10 +73,17 @@ span {
   margin-left: 16px;
 }
 
-@media (max-width: 400px) {
-  .navbar {
-    height: unset;
-    width: auto;
-    padding-top: 8px;
+@media (max-width: 600px) {
+  .aside {
+    display: block;
+    .navbar {
+      height: unset;
+      width: auto;
+      padding-top: 8px;
+    }
+
+    #component_nav {
+      display: none;
+    }
   }
 }
