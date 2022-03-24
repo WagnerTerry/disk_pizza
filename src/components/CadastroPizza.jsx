@@ -108,7 +108,7 @@ export default function CadastroPizza() {
         <input type="submit" value="Salvar" />
       </form>
 
-      <h4>Lista de Pizzas</h4>
+      {pizzas && pizzas.length > 0 && <h4>Lista de Pizzas</h4>}
 
       {pizzas && pizzas.length > 0 ? (
         <div className="pizza_list">
