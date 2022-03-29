@@ -25,14 +25,17 @@ export default function CadastroCliente() {
 
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const showCustomers = async () => {
-      setLoading((oldState) => !oldState);
       const { clientes } = await APIService.getClientes();
       setClients(clientes);
+      setLoading((oldState) => !oldState);
     };
     showCustomers();
+
+    setTimeout(() => setIsLoading(false), 4000);
   }, []);
 
   const {
@@ -96,10 +99,6 @@ export default function CadastroCliente() {
       })
       .catch((error) => error);
   }
-
-  // async function editClient(dados) {
-  //   console.log("put")
-  // }
 
   async function updateClient(client) {
     // event.preventDefault();
@@ -272,11 +271,16 @@ export default function CadastroCliente() {
         <main>
           {loading ? (
             <div className="loading">
-              <Loading size={30}></Loading>
+              {isLoading ? (
+                <Loading size={30}></Loading>
+              ) : (
+                <h3>Não há cliente cadastrado ou erro ao conectar ao banco</h3>
+              )}
             </div>
           ) : (
             <>
-              {clients && clients.length > 0 ? (
+              {console.log("nao deve", loading)}
+              {clients && clients.length > 0 && (
                 <>
                   <strong>Lista de Clientes</strong>
                   <div className="table-scroll">
@@ -434,12 +438,6 @@ export default function CadastroCliente() {
                         })}
                     </table>
                   </div>
-                </>
-              ) : (
-                <>
-                  <h3>
-                    Nenhum cliente cadastrado ou erro ao conectar com o banco.
-                  </h3>
                 </>
               )}
             </>
