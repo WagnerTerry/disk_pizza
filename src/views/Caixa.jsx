@@ -81,6 +81,14 @@ export default function Caixa() {
     showCashFlow();
   }, [valorTotal]);
 
+  // Outra forma de trazer a data atual
+  const dataAtual = new Date();
+  const dataFormatada = dataAtual.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
   const filtroNome = (e) => {
     const keyword = e.target.value;
 
@@ -238,7 +246,7 @@ export default function Caixa() {
       <div className="component-nav">
         <Nav />
       </div>
-      <h2>Caixa {data}</h2>
+      <h2>Caixa {dataFormatada}</h2>
 
       <h3>Número de pedidos: {qtPedido}</h3>
 
