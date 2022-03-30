@@ -279,7 +279,6 @@ export default function CadastroCliente() {
             </div>
           ) : (
             <>
-              {console.log("nao deve", loading)}
               {clients && clients.length > 0 && (
                 <>
                   <strong>Lista de Clientes</strong>

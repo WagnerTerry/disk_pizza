@@ -41,6 +41,10 @@
   main {
     padding: 0 50px;
 
+    .loading {
+      margin-top: 24px;
+    }
+
     .button-options {
       button {
         margin-right: 20px;
@@ -330,8 +334,8 @@
           display: flex;
           flex-direction: column;
           flex-wrap: nowrap;
-          align-items: initial;
-          justify-content: flex-start;
+          align-items: center;
+          justify-content: space-between;
         }
 
         input {
