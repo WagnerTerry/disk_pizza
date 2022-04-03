@@ -5,6 +5,7 @@ import * as yup from "yup";
 import Modal from "../components/modal/Modal";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LocalPizzaIcon from "@mui/icons-material/LocalPizza";
 
 import { toast } from "react-toastify";
 import "./CadastroCliente.scss";
@@ -17,6 +18,7 @@ import CadastroBebida from "../components/CadastroBebida";
 //import Loading from "../components/loading/Loading";
 
 const Loading = lazy(() => import("../components/loading/Loading"));
+let larguraPagina = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
 export default function CadastroCliente() {
   const schema = yup.object().shape({
@@ -160,11 +162,12 @@ export default function CadastroCliente() {
           <input {...register("exampleRequired", { required: true })} />
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
-          <div className={"menu-options"}>
+
+          <div className={larguraPagina > 400 ? "menu-options":  "teste"}>
             <Modal
-              className={"first"}
-              show={"Cadastrar Cliente"}
-              title={"Cadastro de clientes"}
+              className={larguraPagina > 400  ? "first" : "outro"}
+              show={larguraPagina > 400 ? "Cadastrar Cliente" : <LocalPizzaIcon fontSize="small"/>}
+              title={larguraPagina > 400 ? "Cadastro de clientes" : ""}
             >
               <form id={"form-customer"} onSubmit={handleSubmit(save)}>
                 <div className="form-fields">

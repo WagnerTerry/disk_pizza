@@ -1,6 +1,7 @@
 @import "src/variables";
 
 #modal {
+
   // Basic Button Style
   button {
     box-sizing: border-box;
@@ -56,6 +57,7 @@
     align-items: center;
   }
 }
+
 .modal-header {
   display: flex;
   align-items: center;
@@ -82,4 +84,17 @@
   display: flex;
   justify-content: center;
   margin-top: 16px;
+}
+
+@media (max-width: 530px) {
+  #modal {
+    button {
+      width: 25%;
+      font-size: 10px;
+    }
+
+    .third {
+      background-color: brown;
+    }
+  }
 }
