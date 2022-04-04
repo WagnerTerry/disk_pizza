@@ -178,10 +178,10 @@ export default function CadastroCliente() {
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
 
-          <div className={pageWidth > 500 ? "menu-options" : "menu-mobile"}>
+          <div className={pageWidth > 530 ? "menu-options" : "menu-mobile"}>
             <Modal
               className={"first"}
-              show={pageWidth > 500 ? "Cadastrar Cliente" : <PeopleIcon fontSize="small" />}
+              show={pageWidth > 530 ? "Cadastrar Cliente" : <PeopleIcon fontSize="small" />}
               title={"Cadastro de clientes"}
             >
               <form id={"form-customer"} onSubmit={handleSubmit(save)}>
@@ -264,21 +264,21 @@ export default function CadastroCliente() {
             </Modal>
             <Modal
               className={"third"}
-              show={pageWidth > 500 ? "Cadastrar Pizza" : <LocalPizzaIcon fontSize="small" />}
+              show={pageWidth > 530 ? "Cadastrar Pizza" : <LocalPizzaIcon fontSize="small" />}
               title={"Cadastro de pizza"}
             >
               <CadastroPizza />
             </Modal>
             <Modal
               className={"second"}
-              show={pageWidth > 500 ? "Cadastrar Grupo" : <GroupWorkIcon fontSize="small" />}
+              show={pageWidth > 530 ? "Cadastrar Grupo" : <GroupWorkIcon fontSize="small" />}
               title={"Cadastro de grupos"}
             >
               <CadastroGrupo />
             </Modal>
             <Modal
               className={"fourth"}
-              show={pageWidth > 500 ? "Cadastrar Bebida" : <LocalBarIcon fontSize="small" />}
+              show={pageWidth > 530 ? "Cadastrar Bebida" : <LocalBarIcon fontSize="small" />}
               title={"Cadastro de bebidas"}
             >
               <CadastroBebida />
