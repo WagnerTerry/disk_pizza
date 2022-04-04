@@ -17,6 +17,7 @@
   form {
     background-color: green;
   }
+
   header {
     display: flex;
     justify-content: center;
@@ -32,6 +33,7 @@
       text-decoration: underline;
       font-family: auto;
       cursor: pointer;
+
       div:first-child {
         margin-right: 16px;
       }
@@ -294,6 +296,7 @@
       .component-nav {
         display: none;
       }
+
       header {
         flex-direction: column;
 
@@ -305,9 +308,18 @@
           display: flex;
           justify-content: center;
           align-items: center;
+
           div:first-child {
             margin-right: 0;
           }
+        }
+
+        button {
+          border-radius: 20px;
+        }
+
+        .menu-mobile {
+          display: flex;
         }
       }
 

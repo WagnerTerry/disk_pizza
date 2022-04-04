@@ -6,6 +6,9 @@ import Modal from "../components/modal/Modal";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LocalPizzaIcon from "@mui/icons-material/LocalPizza";
+import PeopleIcon from '@mui/icons-material/People';
+import GroupWorkIcon from '@mui/icons-material/GroupWork';
+import LocalBarIcon from '@mui/icons-material/LocalBar';
 
 import { toast } from "react-toastify";
 import "./CadastroCliente.scss";
@@ -18,7 +21,6 @@ import CadastroBebida from "../components/CadastroBebida";
 //import Loading from "../components/loading/Loading";
 
 const Loading = lazy(() => import("../components/loading/Loading"));
-let larguraPagina = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
 export default function CadastroCliente() {
   const schema = yup.object().shape({
@@ -28,6 +30,7 @@ export default function CadastroCliente() {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [pageWidth, setPageWidth] = useState(1200);
 
   useEffect(() => {
     const showCustomers = async () => {
@@ -35,9 +38,19 @@ export default function CadastroCliente() {
       setClients(clientes);
       setLoading((oldState) => !oldState);
     };
-    showCustomers();
 
+    function larguraPagina() {
+      window.addEventListener("resize", function () {
+        let _pageWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        setTimeout(function () {
+        }, 500)
+        setPageWidth(_pageWidth)
+      })
+    }
+
+    showCustomers();
     setTimeout(() => setIsLoading(false), 4000);
+    larguraPagina();
   }, []);
 
   const {
@@ -134,6 +147,8 @@ export default function CadastroCliente() {
     setClients(newFormValues);
   };
 
+
+
   return (
     <Suspense fallback={<h3>Loading...</h3>}>
       <div id="cadastro-cliente">
@@ -143,7 +158,7 @@ export default function CadastroCliente() {
         {/* <Nav name="Cadastrar Cliente" path="cadastrocliente" name2="Cadastrar Pizza" path2="cadastropizza" name3="Cadastrar Grupo" path3="cadastrogrupo" /> */}
 
         <div>
-          <h2>Cadastro de Clientes</h2>
+          <h2>Cadastro</h2>
         </div>
 
         <header>
@@ -163,11 +178,11 @@ export default function CadastroCliente() {
           erros retornarão quando a validação de campo falhar
           {errors.exampleRequired && <p>Campo Obrigatório</p>} */}
 
-          <div className={larguraPagina > 400 ? "menu-options":  "teste"}>
+          <div className={pageWidth > 500 ? "menu-options" : "menu-mobile"}>
             <Modal
-              className={larguraPagina > 400  ? "first" : "outro"}
-              show={larguraPagina > 400 ? "Cadastrar Cliente" : <LocalPizzaIcon fontSize="small"/>}
-              title={larguraPagina > 400 ? "Cadastro de clientes" : ""}
+              className={"first"}
+              show={pageWidth > 500 ? "Cadastrar Cliente" : <PeopleIcon fontSize="small" />}
+              title={"Cadastro de clientes"}
             >
               <form id={"form-customer"} onSubmit={handleSubmit(save)}>
                 <div className="form-fields">
@@ -249,21 +264,21 @@ export default function CadastroCliente() {
             </Modal>
             <Modal
               className={"third"}
-              show={"Cadastrar Pizza"}
+              show={pageWidth > 500 ? "Cadastrar Pizza" : <LocalPizzaIcon fontSize="small" />}
               title={"Cadastro de pizza"}
             >
               <CadastroPizza />
             </Modal>
             <Modal
               className={"second"}
-              show={"Cadastrar Grupo"}
+              show={pageWidth > 500 ? "Cadastrar Grupo" : <GroupWorkIcon fontSize="small" />}
               title={"Cadastro de grupos"}
             >
               <CadastroGrupo />
             </Modal>
             <Modal
               className={"fourth"}
-              show={"Cadastrar Bebida"}
+              show={pageWidth > 500 ? "Cadastrar Bebida" : <LocalBarIcon fontSize="small" />}
               title={"Cadastro de bebidas"}
             >
               <CadastroBebida />
@@ -333,7 +348,7 @@ export default function CadastroCliente() {
                                           onChange={(e) =>
                                             handleChange(e, index)
                                           }
-                                          //{...register("nome", { required: false })}
+                                        //{...register("nome", { required: false })}
                                         />
 
                                         <label htmlFor="telefone">
@@ -347,7 +362,7 @@ export default function CadastroCliente() {
                                           onChange={(e) =>
                                             handleChange(e, index)
                                           }
-                                          //{...register("telefone", { required: true })}
+                                        //{...register("telefone", { required: true })}
                                         />
                                       </div>
 
