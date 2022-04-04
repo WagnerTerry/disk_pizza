@@ -30,7 +30,7 @@ export default function CadastroCliente() {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [pageWidth, setPageWidth] = useState(1200);
+  const [pageWidth, setPageWidth] = useState(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
 
   useEffect(() => {
     const showCustomers = async () => {
