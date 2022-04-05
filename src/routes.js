@@ -1,7 +1,7 @@
 import React from "react";
 
 import Home from "../src/views/Home";
-import CadastroCliente from "../src/views/CadastroCliente";
+import Cadastro from "../src/views/Cadastro";
 import Caixa from "../src/views/Caixa";
 import Cardapio from "../src/views/Cardapio";
 import Nav from "../src//views/Nav";
@@ -14,7 +14,7 @@ export default function Routes() {
         <Nav />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/cadastro" component={CadastroCliente} />
+          <Route path="/cadastro" component={Cadastro} />
           <Route path="/caixa" component={Caixa} />
           <Route path="/cardapio" component={Cardapio} />
         </Switch>

@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./views/Home";
-import CadastroCliente from "./views/CadastroCliente";
+import Cadastro from "./views/Cadastro";
 import Caixa from "./views/Caixa";
 import Cardapio from "./views/Cardapio";
 
@@ -18,7 +18,7 @@ function App() {
           <NavBar />
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/cadastro" component={CadastroCliente} />
+            <Route path="/cadastro" component={Cadastro} />
             <Route path="/caixa" component={Caixa} />
             <Route path="/cardapio" component={Cardapio} />
           </Switch>

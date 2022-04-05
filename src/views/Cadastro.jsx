@@ -11,18 +11,19 @@ import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 
 import { toast } from "react-toastify";
-import "./CadastroCliente.scss";
+import "./Cadastro.scss";
 import APIService from "../services/api";
 
 import CadastroPizza from "../components/CadastroPizza";
 import CadastroGrupo from "../components/CadastroGrupo";
+import CadastroCliente from "../components/CadastroCliente";
 import Nav from "../components/Nav";
 import CadastroBebida from "../components/CadastroBebida";
 //import Loading from "../components/loading/Loading";
 
 const Loading = lazy(() => import("../components/loading/Loading"));
 
-export default function CadastroCliente() {
+export default function Cadastro() {
   const schema = yup.object().shape({
     nome: yup.string().min(1, "campo obrigatório").required(),
   });
@@ -37,6 +38,7 @@ export default function CadastroCliente() {
       const { clientes } = await APIService.getClientes();
       setClients(clientes);
       setLoading((oldState) => !oldState);
+      //console.log("aa")
     };
 
     function larguraPagina() {
@@ -54,36 +56,10 @@ export default function CadastroCliente() {
   }, []);
 
   const {
-    register,
-    handleSubmit,
     reset,
-    // watch,
-    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  async function save(data) {
-    try {
-      const nome_maiusculo = data.nome.toUpperCase();
-      const nome_duplicado = clients.filter(
-        (cliente) => cliente.nome.toUpperCase() === nome_maiusculo
-      );
-      if (nome_duplicado.length > 0) {
-        return toast.error(
-          "Já existe um cliente com esse nome, por favor coloque um sobrenome para diferenciar"
-        );
-      }
-      await APIService.cadastrarCliente(data);
-      setClients((prevState) => [...prevState, data]);
-      toast.success("Cliente cadastrado com sucesso");
-      console.log(data);
-      reset();
-    } catch (e) {
-      console.log("Ocorreu um erro ao salvar cliente", e);
-      return toast.error("Erro ao salvar cliente");
-    }
-  }
 
   const showData = (result) => {
     for (const campo in result) {
@@ -117,7 +93,6 @@ export default function CadastroCliente() {
 
   async function updateClient(client) {
     // event.preventDefault();
-    console.log("put", client);
     try {
       await APIService.atualizarCliente(client);
       setClients((prevState) => [...prevState, client]);
@@ -146,8 +121,6 @@ export default function CadastroCliente() {
     newFormValues[i][e.target.name] = e.target.value;
     setClients(newFormValues);
   };
-
-
 
   return (
     <Suspense fallback={<h3>Loading...</h3>}>
@@ -184,83 +157,7 @@ export default function CadastroCliente() {
               show={pageWidth > 530 ? "Cadastrar Cliente" : <PeopleIcon fontSize="small" />}
               title={"Cadastro de clientes"}
             >
-              <form id={"form-customer"} onSubmit={handleSubmit(save)}>
-                <div className="form-fields">
-                  <label htmlFor="nome">Nome: </label>
-                  <input
-                    type="text"
-                    id="nome"
-                    name="nome"
-                    required
-                    {...register("nome", { required: true })}
-                  />
-                  {errors.nome && <p>Campo Obrigatório</p>}
-
-                  <label htmlFor="telefone">Telefone: </label>
-                  <input
-                    type="number"
-                    id="telefone"
-                    name="telefone"
-                    required
-                    {...register("telefone", { required: true })}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="cep">Cep: </label>
-                  <input
-                    type="text"
-                    id="cep"
-                    name="cep"
-                    maxLength="9"
-                    {...register("cep")}
-                    onBlur={onBlurCep}
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="logradouro">Logradouro: </label>
-                  <input
-                    type="text"
-                    id="logradouro"
-                    name="logradouro"
-                    size="50"
-                    required
-                    {...register("logradouro")}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="bairro">Bairro: </label>
-                  <input
-                    type="text"
-                    id="bairro"
-                    name="bairro"
-                    size="40"
-                    required
-                    {...register("bairro")}
-                  />
-                  <label htmlFor="localidade">Cidade: </label>
-                  <input
-                    type="text"
-                    id="localidade"
-                    name="localidade"
-                    size="40"
-                    required
-                    {...register("cidade")}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="observacoes">Observações: </label>
-                  <textarea
-                    name="observacoes"
-                    cols="50"
-                    rows="3"
-                    {...register("observacoes")}
-                  ></textarea>
-                </div>
-                <input type="submit" className="save-customer" value="Salvar" />
-              </form>
+              <CadastroCliente dispatch={setClients} />
             </Modal>
             <Modal
               className={"third"}
