@@ -38,7 +38,6 @@ export default function Cadastro() {
       const { clientes } = await APIService.getClientes();
       setClients(clientes);
       setLoading((oldState) => !oldState);
-      //console.log("aa")
     };
 
     function larguraPagina() {
@@ -124,7 +123,7 @@ export default function Cadastro() {
 
   return (
     <Suspense fallback={<h3>Loading...</h3>}>
-      <div id="cadastro-cliente">
+      <div id="cadastro">
         <div className="component-nav">
           <Nav />
         </div>
