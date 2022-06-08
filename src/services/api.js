@@ -77,7 +77,6 @@ export default class APIService {
       observacoes: dados.observacoes
     }
     const result = await axios.put(`${baseUrl}/clientes`, payload);
-    console.log("resul", result.data)
     return result.data;
   };
 

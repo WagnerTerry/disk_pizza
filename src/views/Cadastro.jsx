@@ -9,6 +9,7 @@ import LocalPizzaIcon from "@mui/icons-material/LocalPizza";
 import PeopleIcon from '@mui/icons-material/People';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
+import { useHistory } from 'react-router-dom'
 
 import { toast } from "react-toastify";
 import "./Cadastro.scss";
@@ -27,6 +28,8 @@ export default function Cadastro() {
   const register_schema = yup.object().shape({
     nome: yup.string().min(1, "campo obrigatório").required(),
   });
+
+  const history = useHistory()
 
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,7 +58,7 @@ export default function Cadastro() {
   }, []);
 
   const {
-    reset, handleSubmit, register
+    handleSubmit, register
   } = useForm({
     resolver: yupResolver(register_schema),
   });
@@ -92,12 +95,11 @@ export default function Cadastro() {
 
   async function updateClient(client) {
     try {
-      console.log("id", client.codigo_cliente)
       await APIService.atualizarCliente(client);
       setClients((prevState) => [...prevState, client]);
       toast.success("Cliente atualizado com sucesso");
       console.log("cliente editado", client);
-      reset();
+      history.push("/caixa")
     } catch (e) {
       console.log("Ocorreu um erro ao editar cliente", e);
       return toast.error("Erro ao editar cliente");
