@@ -24,7 +24,7 @@ import CadastroBebida from "../components/CadastroBebida";
 const Loading = lazy(() => import("../components/loading/Loading"));
 
 export default function Cadastro() {
-  const schema = yup.object().shape({
+  const register_schema = yup.object().shape({
     nome: yup.string().min(1, "campo obrigatório").required(),
   });
 
@@ -55,9 +55,9 @@ export default function Cadastro() {
   }, []);
 
   const {
-    reset,
+    reset, handleSubmit, register
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(register_schema),
   });
 
   const showData = (result) => {
@@ -91,8 +91,8 @@ export default function Cadastro() {
   }
 
   async function updateClient(client) {
-    // event.preventDefault();
     try {
+      console.log("id", client.codigo_cliente)
       await APIService.atualizarCliente(client);
       setClients((prevState) => [...prevState, client]);
       toast.success("Cliente atualizado com sucesso");
@@ -232,7 +232,7 @@ export default function Cadastro() {
                                   >
                                     <form
                                       id={"form-customer"}
-                                      onSubmit={() => updateClient(cliente)}
+                                      onSubmit={handleSubmit(updateClient)}
                                     >
                                       <div className="form-fields">
                                         <label htmlFor="nome">Nome: </label>
@@ -240,11 +240,11 @@ export default function Cadastro() {
                                           type="text"
                                           id="nome"
                                           name="nome"
-                                          value={cliente.nome}
+                                          defaultValue={cliente.nome}
                                           onChange={(e) =>
                                             handleChange(e, index)
                                           }
-                                        //{...register("nome", { required: false })}
+                                          {...register("nome")}
                                         />
 
                                         <label htmlFor="telefone">
@@ -254,11 +254,11 @@ export default function Cadastro() {
                                           type="number"
                                           id="telefone"
                                           name="telefone"
-                                          value={cliente.telefone}
+                                          defaultValue={cliente.telefone}
                                           onChange={(e) =>
                                             handleChange(e, index)
                                           }
-                                        //{...register("telefone", { required: true })}
+                                          {...register("telefone")}
                                         />
                                       </div>
 
@@ -269,11 +269,12 @@ export default function Cadastro() {
                                           id="cep"
                                           name="cep"
                                           maxLength="9"
-                                          value={cliente.cep}
+                                          defaultValue={cliente.cep}
                                           onChange={(e) =>
                                             handleChange(e, index)
                                           }
                                           onBlur={onBlurCep}
+                                          {...register("cep")}
                                         />
                                       </div>
                                       <div>
@@ -285,13 +286,13 @@ export default function Cadastro() {
                                           id="logradouro"
                                           name="logradouro"
                                           size="50"
-                                          value={cliente.logradouro}
+                                          defaultValue={cliente.logradouro}
                                           onChange={(e) =>
                                             handleChange(e, index)
                                           }
+                                          {...register("logradouro")}
                                         />
                                       </div>
-
                                       <div>
                                         <label htmlFor="bairro">Bairro: </label>
                                         <input
@@ -299,10 +300,11 @@ export default function Cadastro() {
                                           id="bairro"
                                           name="bairro"
                                           size="40"
-                                          value={cliente.bairro}
+                                          defaultValue={cliente.bairro}
                                           onChange={(e) =>
                                             handleChange(e, index)
                                           }
+                                          {...register("bairro")}
                                         />
                                         <label htmlFor="localidade">
                                           Cidade:{" "}
@@ -312,10 +314,11 @@ export default function Cadastro() {
                                           id="localidade"
                                           name="cidade"
                                           size="40"
-                                          value={cliente.cidade}
+                                          defaultValue={cliente.cidade}
                                           onChange={(e) =>
                                             handleChange(e, index)
                                           }
+                                          {...register("cidade")}
                                         />
                                       </div>
                                       <div>
@@ -326,12 +329,24 @@ export default function Cadastro() {
                                           name="observacoes"
                                           cols="50"
                                           rows="3"
-                                          value={cliente.observacoes}
+                                          defaultValue={cliente.observacoes}
                                           onChange={(e) =>
                                             handleChange(e, index)
                                           }
+                                          {...register("observacoes")}
                                         ></textarea>
                                       </div>
+
+                                      <input
+                                        type="text"
+                                        id="codigo_cliente"
+                                        name="codigo_cliente"
+                                        defaultValue={cliente.codigo_cliente}
+                                        onChange={(e) =>
+                                          handleChange(e, index)
+                                        }
+                                        {...register("codigo_cliente")}
+                                      />
 
                                       <input type="submit" value="Salvar" />
                                     </form>

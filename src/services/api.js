@@ -66,7 +66,18 @@ export default class APIService {
   };
 
   static atualizarCliente = async (dados) => {
-    const result = await axios.put(`${baseUrl}/clientes`, dados);
+    const payload = {
+      codigo_cliente: dados.codigo_cliente,
+      nome: dados.nome,
+      telefone: dados.telefone,
+      cep: dados.cep,
+      logradouro: dados.logradouro,
+      bairro: dados.bairro,
+      cidade: dados.cidade,
+      observacoes: dados.observacoes
+    }
+    const result = await axios.put(`${baseUrl}/clientes`, payload);
+    console.log("resul", result.data)
     return result.data;
   };
 
