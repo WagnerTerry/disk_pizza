@@ -1,6 +1,9 @@
 # Disk Pizza
 - Sistema de uma pizzaria.
 
+## Projeto
+- https://new-disk-pizza.vercel.app/
+
 ## Capa do Projeto
 ![capa-disk-pizza](https://github.com/WagnerTerry/new_disk_pizza/blob/master/src/assets/disk-pizza.png)
 
