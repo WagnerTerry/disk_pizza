@@ -14,6 +14,6 @@
 [Apresentação disk_pizza](https://www.youtube.com/watch?v=T36dTWW_TfY&t=42s&ab_channel=WagnerGon%C3%A7alves)
 
 ### Executando o projeto
-precisa estar rodando
-backend: npm start
-frontend: npm start
+precisa estar rodando: 
+- backend: npm start
+- frontend: npm start
