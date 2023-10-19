@@ -1,5 +1,5 @@
 # Disk Pizza
-- Sistema de para pizzaria.
+- Sistema de uma pizzaria.
 
 ## Capa do Projeto
 ![capa-disk-pizza](https://github.com/WagnerTerry/moto-pecas/blob/main/src/assets/capa-moto-pecas.png)
